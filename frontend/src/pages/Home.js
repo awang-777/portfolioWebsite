@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const HomeContainer = styled.div`
@@ -56,7 +57,7 @@ const HeroSubtitle = styled.p`
   }
 `;
 
-const CTAButton = styled.a`
+const CTAButton = styled(Link)`
   display: inline-block;
   padding: 1rem 2rem;
   background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
@@ -86,7 +87,7 @@ const Home = () => {
           <HeroSubtitle>
             Creating boundary-pushing digital art that challenges perception and engages the senses
           </HeroSubtitle>
-          <CTAButton href="/projects">Explore Projects</CTAButton>
+          <CTAButton to="/projects">Explore Projects</CTAButton>
         </HeroContent>
       </HeroSection>
     </HomeContainer>
