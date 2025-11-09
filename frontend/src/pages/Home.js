@@ -4,6 +4,10 @@ import styled from 'styled-components';
 const HomeContainer = styled.div`
   padding-top: 80px; /* Account for fixed header */
   min-height: 100vh;
+  
+  @media (max-width: 768px) {
+    padding-top: 70px;
+  }
 `;
 
 const HeroSection = styled.section`
@@ -18,6 +22,10 @@ const HeroSection = styled.section`
 const HeroContent = styled.div`
   max-width: 800px;
   padding: 0 2rem;
+  
+  @media (max-width: 768px) {
+    padding: 0 1rem;
+  }
 `;
 
 const HeroTitle = styled.h1`
@@ -27,12 +35,25 @@ const HeroTitle = styled.h1`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 2rem;
+  }
 `;
 
 const HeroSubtitle = styled.p`
   font-size: 1.25rem;
   color: #ccc;
   margin-bottom: 2rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
 `;
 
 const CTAButton = styled.a`
@@ -48,6 +69,11 @@ const CTAButton = styled.a`
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
   }
 `;
 
