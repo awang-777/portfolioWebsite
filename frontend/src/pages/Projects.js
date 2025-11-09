@@ -39,6 +39,7 @@ const Projects = () => {
       <ProjectGallery>
         <ProjectCard>
           <iframe 
+            title= "Particle System"
             src= "https://openprocessing.org/sketch/2757664/embed/" 
             width="100%" 
             height="400"
