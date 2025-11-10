@@ -88,10 +88,12 @@ const IframeWrapper = styled.div`
     background-color: #000;
     display: block;
     pointer-events: none;
+    position: relative;
   }
 
   @media (max-width: 768px) {
     height: 300px;
+    min-height: 300px;
     width: 100%;
     max-width: 100vw;
     margin: 0 auto;
@@ -107,13 +109,17 @@ const IframeWrapper = styled.div`
     
     video {
       width: 100%;
-      height: 100%;
+      height: 300px;
       min-height: 300px;
+      max-height: 300px;
       object-fit: contain;
       border-radius: 8px;
       background-color: #000;
       display: block;
+      visibility: visible;
+      opacity: 1;
       pointer-events: none;
+      position: relative;
     }
   }
 `;
