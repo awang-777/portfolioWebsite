@@ -27,7 +27,7 @@ const SocialLinks = styled.div`
 `;
 
 const SocialLink = styled.a`
-  color: #4ecdc4;
+  color: #ffffff;
   font-size: 1.5rem;
   transition: color 0.3s ease;
   display: inline-flex;
@@ -35,7 +35,7 @@ const SocialLink = styled.a`
   justify-content: center;
   
   &:hover {
-    color: #ff6b6b;
+    color: #ffffff;
   }
 `;
 
@@ -52,7 +52,7 @@ const GitHubIcon = styled.svg`
 `;
 
 const Copyright = styled.p`
-  color: #666;
+  color: #ffffff;
   font-size: 0.9rem;
 `;
 

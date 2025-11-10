@@ -14,7 +14,7 @@ const projects = [
     },
     longDescription: [
       'Spacetime is a real-time visualization created in TouchDesigner that explores the concept of gravitational time dilation. Particles orbit a central mass, with their velocity linked to their distance from the gravity well.',
-      'The central implosion and explosion sequences mimic a supernova event, highlighting how spacetime is stretched and compressed around massive celestial bodies. I focused on the particle system shaders, procedural animation, and the lighting composition.',
+      'The central implosion and explosion sequences mimic a supernova event, highlighting how spacetime is stretched and compressed around massive celestial bodies. I focused on instancing, scripting, and lighting.',
     ],
     technologies: ['TouchDesigner', 'GLSL', 'Generative Art', 'Real-time Graphics'],
     responsibilities: [
@@ -33,13 +33,12 @@ const projects = [
       title: 'Particle System',
     },
     longDescription: [
-      'This particle system is an experiment in emergent behavior using p5.js on the OpenProcessing platform. Particles are influenced by cursor position and velocity, creating organic swirls and turbulence.',
-      'I prototyped multiple force fields and easing functions to find a balance between stability and playful motion. The sketch is optimized to run smoothly in the browser while supporting full-screen interaction.',
+      'This particle system is an experiment in emergent behavior using p5.js on the OpenProcessing platform. Particles create organic swirls and turbulence.',
+      'I prototyped multiple force fields and easing functions to find a balance between stability and playful motion. The sketch is optimized to run smoothly in the browser. Please click the link below to view the full project in OpenProcessing.',
     ],
     technologies: ['p5.js', 'JavaScript', 'Creative Coding'],
     responsibilities: [
       'Authored the particle physics update loop and rendering pipeline',
-      'Crafted interactive controls that translate cursor movement into force vectors',
       'Optimized the sketch for browser performance and responsiveness',
     ],
     links: [
@@ -48,6 +47,27 @@ const projects = [
         url: 'https://openprocessing.org/sketch/2757664',
       },
     ],
+  },
+  {
+    id: 'ghost',
+    title: 'Ghost',
+    path: '/projects/ghost',
+    mediaType: 'youtube',
+    mediaSrc: 'https://www.youtube.com/embed/8iQ2p28hxC4',
+    previewMediaSrc: '/ghost.mp4',
+    mediaProps: {
+      title: 'Ghost',
+      autoPlay: true,
+      loop: true,
+      muted: true,
+      playsInline: true,
+      preload: 'metadata',
+    },
+    longDescription: [
+      'Description coming soon...',
+    ],
+    technologies: [],
+    responsibilities: [],
   },
 ];
 

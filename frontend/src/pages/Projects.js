@@ -68,7 +68,7 @@ const IframeWrapper = styled.div`
   box-sizing: border-box;
   max-width: 100%;
   background-color: #000;
-  
+
   iframe {
     width: 100%;
     height: 500px;
@@ -89,7 +89,7 @@ const IframeWrapper = styled.div`
     display: block;
     pointer-events: none;
   }
-  
+
   @media (max-width: 768px) {
     height: 300px;
     width: 100%;
@@ -164,6 +164,19 @@ const Projects = () => {
           {...project.mediaProps}
         >
           <source src={project.mediaSrc} type="video/mp4" />
+        </video>
+      );
+    }
+
+    if (project.mediaType === 'youtube' && project.previewMediaSrc) {
+      return (
+        <video
+          data-project-id={project.id}
+          onLoadedData={handleVideoReady}
+          onCanPlay={handleVideoReady}
+          {...project.mediaProps}
+        >
+          <source src={project.previewMediaSrc} type="video/mp4" />
         </video>
       );
     }

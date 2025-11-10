@@ -15,6 +15,7 @@ const HomeContainer = styled.div`
 const HeroSection = styled.section`
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -22,7 +23,10 @@ const HeroSection = styled.section`
 `;
 
 const HeroContent = styled.div`
-  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 0 2rem;
   
   @media (max-width: 768px) {
@@ -30,39 +34,28 @@ const HeroContent = styled.div`
   }
 `;
 
-const HeroTitle = styled.h1`
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+const BearImage = styled.img`
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  margin-bottom: 2rem;
+  opacity: 1;
+  filter: none;
   
   @media (max-width: 768px) {
-    font-size: 2.5rem;
+    max-width: 90%;
   }
   
   @media (max-width: 480px) {
-    font-size: 2rem;
-  }
-`;
-
-const HeroSubtitle = styled.p`
-  font-size: 1.25rem;
-  color: #ccc;
-  margin-bottom: 2rem;
-  
-  @media (max-width: 768px) {
-    font-size: 1rem;
-    padding: 0 1rem;
+    max-width: 95%;
   }
 `;
 
 const CTAButton = styled(Link)`
   display: inline-block;
   padding: 1rem 2rem;
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-  color: white;
+  background: #ffffff;
+  color: black;
   text-decoration: none;
   border-radius: 0.5rem;
   font-weight: 600;
@@ -70,7 +63,7 @@ const CTAButton = styled(Link)`
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
   }
   
   @media (max-width: 768px) {
@@ -84,11 +77,8 @@ const Home = () => {
     <HomeContainer>
       <HeroSection>
         <HeroContent>
-          <HeroTitle>Immersive Art Experiences</HeroTitle>
-          <HeroSubtitle>
-            Creating digital art that challenges perception and engages the senses
-          </HeroSubtitle>
-          <CTAButton to="/projects">Explore Projects</CTAButton>
+          <BearImage src="/bear.jpeg" alt="Bear" />
+          <CTAButton to="/projects">Explore</CTAButton>
         </HeroContent>
       </HeroSection>
     </HomeContainer>

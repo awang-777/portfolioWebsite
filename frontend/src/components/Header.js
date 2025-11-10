@@ -30,12 +30,8 @@ const Nav = styled.nav`
 const Logo = styled(Link)`
   font-size: 1.5rem;
   font-weight: 700;
-  color: #4ecdc4;
+  color: #ffffff;
   text-decoration: none;
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
   
   @media (max-width: 768px) {
     font-size: 1.25rem;
@@ -70,7 +66,7 @@ const NavLink = styled(Link)`
   transition: color 0.3s ease;
   
   &:hover {
-    color: #4ecdc4;
+    color: #ffffff;
   }
   
   @media (max-width: 768px) {

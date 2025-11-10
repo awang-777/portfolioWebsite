@@ -42,12 +42,12 @@ const BackLink = styled(Link)`
   margin-bottom: 2rem;
   font-weight: 600;
   text-decoration: none;
-  color: #0077ff;
+  color: #ffffff;
   transition: color 0.2s ease;
 
   &:hover,
   &:focus-visible {
-    color: #005fcc;
+    color: #ffffff;
   }
 `;
 
@@ -68,6 +68,7 @@ const MediaWrapper = styled.div`
 
   iframe {
     min-height: 540px;
+    aspect-ratio: 16 / 9;
   }
 
   iframe[data-project-id='particle-system'] {
@@ -75,6 +76,10 @@ const MediaWrapper = styled.div`
     height: 660px;
     transform: scale(1.02);
     transform-origin: top center;
+  }
+
+  iframe[data-project-id='ghost'] {
+    height: 540px;
   }
 
   video {
@@ -140,8 +145,8 @@ const TagList = styled.div`
 
 const Tag = styled.span`
   background: #000;
-  border: 1px solid rgba(0, 119, 255, 0.4);
-  color: #005fcc;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
   border-radius: 999px;
   padding: 0.4rem 0.9rem;
   font-size: 0.85rem;
@@ -195,6 +200,19 @@ const ProjectDetail = () => {
           {...project.mediaProps}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
+        />
+      );
+    }
+
+    if (project.mediaType === 'youtube') {
+      return (
+        <iframe
+          title={project.title}
+          src={project.mediaSrc}
+          data-project-id={project.id}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          frameBorder="0"
         />
       );
     }
