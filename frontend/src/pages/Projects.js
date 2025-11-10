@@ -104,6 +104,17 @@ const IframeWrapper = styled.div`
       transform: scale(1);
       transform-origin: top left;
     }
+    
+    video {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      object-fit: contain;
+      border-radius: 8px;
+      background-color: #000;
+      display: block;
+      pointer-events: none;
+    }
   }
 `;
 
