@@ -133,6 +133,16 @@ const ParticleImageWrapper = styled.div`
 `;
 
 const Projects = () => {
+  const handleVideoReady = (e) => {
+    // Ensure video plays as soon as it's ready
+    const video = e.target;
+    if (video.paused) {
+      video.play().catch(() => {
+        // Ignore autoplay errors (browser may block autoplay)
+      });
+    }
+  };
+
   const renderMedia = (project) => {
     if (project.mediaType === 'iframe') {
       return (
@@ -147,7 +157,12 @@ const Projects = () => {
 
     if (project.mediaType === 'video') {
       return (
-        <video data-project-id={project.id} {...project.mediaProps}>
+        <video
+          data-project-id={project.id}
+          onLoadedData={handleVideoReady}
+          onCanPlay={handleVideoReady}
+          {...project.mediaProps}
+        >
           <source src={project.mediaSrc} type="video/mp4" />
         </video>
       );

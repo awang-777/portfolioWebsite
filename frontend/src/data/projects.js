@@ -10,7 +10,7 @@ const projects = [
       loop: true,
       muted: true,
       playsInline: true,
-      preload: 'auto',
+      preload: 'metadata',
     },
     longDescription: [
       'Spacetime is a real-time visualization created in TouchDesigner that explores the concept of gravitational time dilation. Particles orbit a central mass, with their velocity linked to their distance from the gravity well.',
