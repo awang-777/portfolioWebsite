@@ -92,8 +92,8 @@ const IframeWrapper = styled.div`
   }
 
   @media (max-width: 768px) {
-    height: 300px;
-    min-height: 300px;
+    height: 300px !important;
+    min-height: 300px !important;
     width: 100%;
     max-width: 100vw;
     margin: 0 auto;
@@ -107,19 +107,21 @@ const IframeWrapper = styled.div`
       transform-origin: top left;
     }
     
-    video {
-      width: 100%;
-      height: 300px;
-      min-height: 300px;
-      max-height: 300px;
-      object-fit: contain;
+    & video,
+    video[data-project-id],
+    video[data-project-id='ghost'] {
+      width: 100% !important;
+      height: 300px !important;
+      min-height: 300px !important;
+      max-height: 300px !important;
+      object-fit: contain !important;
       border-radius: 8px;
       background-color: #000;
-      display: block;
-      visibility: visible;
-      opacity: 1;
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
       pointer-events: none;
-      position: relative;
+      position: relative !important;
     }
   }
 `;
