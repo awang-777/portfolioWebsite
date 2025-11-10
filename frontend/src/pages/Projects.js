@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import projects from '../data/projects';
 
 const PageContainer = styled.div`
   padding-top: 100px;
@@ -8,21 +10,11 @@ const PageContainer = styled.div`
   max-width: 100vw;
   overflow-x: hidden;
   box-sizing: border-box;
+  background: #000;
   
   @media (max-width: 768px) {
     padding-top: 80px;
     overflow-x: hidden;
-  }
-`;
-
-const PageTitle = styled.h1`
-  text-align: center;
-  margin-bottom: 3rem;
-  
-  @media (max-width: 768px) {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    padding: 0 1rem;
   }
 `;
 
@@ -46,26 +38,25 @@ const ProjectGallery = styled.div`
   }
 `;
 
-const ProjectCard = styled.div`
-  border: 1px solid #ddd;
+const ProjectCard = styled(Link)`
   border-radius: 8px;
   padding: 1.5rem;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  box-shadow: none;
   box-sizing: border-box;
   width: 100%;
   max-width: 100%;
   overflow: hidden;
-  
-  @media (max-width: 768px) {
-    padding: 1rem;
-    margin: 0;
-  }
-`;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.2s ease;
 
-const ProjectTitle = styled.h3`
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-4px);
+  }
 `;
 
 const IframeWrapper = styled.div`
@@ -76,15 +67,27 @@ const IframeWrapper = styled.div`
   position: relative;
   box-sizing: border-box;
   max-width: 100%;
+  background-color: #000;
   
   iframe {
     width: 100%;
     height: 500px;
     border: none;
     margin-top: -60px;
-    pointer-events: auto;
+    pointer-events: none;
     display: block;
     max-width: 100%;
+  }
+  
+  video {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    object-fit: contain;
+    border-radius: 8px;
+    background-color: #000;
+    display: block;
+    pointer-events: none;
   }
   
   @media (max-width: 768px) {
@@ -104,47 +107,69 @@ const IframeWrapper = styled.div`
   }
 `;
 
+const ParticleImageWrapper = styled.div`
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #000;
+  padding-top: 56.56%;
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    padding-top: 56.56%;
+  }
+`;
+
 const Projects = () => {
+  const renderMedia = (project) => {
+    if (project.mediaType === 'iframe') {
+      return (
+        <iframe
+          title={project.title}
+          src={project.mediaSrc}
+          data-project-id={project.id}
+          {...project.mediaProps}
+        />
+      );
+    }
+
+    if (project.mediaType === 'video') {
+      return (
+        <video data-project-id={project.id} {...project.mediaProps}>
+          <source src={project.mediaSrc} type="video/mp4" />
+        </video>
+      );
+    }
+
+    return null;
+  };
+
   return (
     <PageContainer>
-      <PageTitle>Projects</PageTitle>
       <ProjectGallery>
-      <ProjectCard>
-          <IframeWrapper>
-            <video 
-              style={{ 
-                width: '100%', 
-                height: '100%',
-                minHeight: '400px',
-                objectFit: 'contain',
-                borderRadius: '8px',
-                backgroundColor: '#000',
-                display: 'block'
-              }}
-              controls
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-            >
-              <source src="/spacetime.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </IframeWrapper>
-          <ProjectTitle>Spacetime</ProjectTitle>
-          <p>Made in TouchDesigner.<br/>A visualization of time dialtion where particles closer to the mass move slower in rotation. The implosion/explosion represent a supernova.</p>
-        </ProjectCard>
-        <ProjectCard>
-          <IframeWrapper>
-            <iframe 
-              title="Particle System"
-              src="https://openprocessing.org/sketch/2757664/embed/" 
-            ></iframe>
-          </IframeWrapper>
-          <ProjectTitle>Particle System</ProjectTitle>
-          <p>An interactive particle visualization created with Open Processing.</p>
-        </ProjectCard>
+        {projects.map((project) => (
+          <ProjectCard key={project.id} to={project.path}>
+            {project.id === 'particle-system' ? (
+              <ParticleImageWrapper>
+                <img src="/particle_system.jpg" alt={project.title} />
+              </ParticleImageWrapper>
+            ) : (
+              <IframeWrapper>{renderMedia(project)}</IframeWrapper>
+            )}
+          </ProjectCard>
+        ))}
       </ProjectGallery>
     </PageContainer>
   );

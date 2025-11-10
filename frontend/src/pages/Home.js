@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const HomeContainer = styled.div`
   padding-top: 80px; /* Account for fixed header */
   min-height: 100vh;
+  background: #000;
   
   @media (max-width: 768px) {
     padding-top: 70px;
@@ -17,7 +18,7 @@ const HeroSection = styled.section`
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+  background: #000000;
 `;
 
 const HeroContent = styled.div`
@@ -85,7 +86,7 @@ const Home = () => {
         <HeroContent>
           <HeroTitle>Immersive Art Experiences</HeroTitle>
           <HeroSubtitle>
-            Creating boundary-pushing digital art that challenges perception and engages the senses
+            Creating digital art that challenges perception and engages the senses
           </HeroSubtitle>
           <CTAButton to="/projects">Explore Projects</CTAButton>
         </HeroContent>

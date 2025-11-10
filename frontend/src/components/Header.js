@@ -8,7 +8,7 @@ const HeaderContainer = styled.header`
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(10, 10, 10, 0.9);
+  background: #000;
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding: 1rem 0;
@@ -52,7 +52,7 @@ const NavLinks = styled.ul`
     top: 70px;
     left: 0;
     right: 0;
-    background: rgba(10, 10, 10, 0.98);
+    background: #000;
     backdrop-filter: blur(10px);
     flex-direction: column;
     padding: 2rem;
@@ -105,7 +105,7 @@ const MenuOverlay = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: #000;
     z-index: 999;
   }
 `;
