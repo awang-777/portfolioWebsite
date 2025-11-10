@@ -110,8 +110,11 @@ const IframeWrapper = styled.div`
     & video,
     video[data-project-id],
     video[data-project-id='ghost'] {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
       width: 100% !important;
-      height: 300px !important;
+      height: 100% !important;
       min-height: 300px !important;
       max-height: 300px !important;
       object-fit: contain !important;
@@ -121,7 +124,7 @@ const IframeWrapper = styled.div`
       visibility: visible !important;
       opacity: 1 !important;
       pointer-events: none;
-      position: relative !important;
+      z-index: 1 !important;
     }
   }
 `;
@@ -194,6 +197,17 @@ const Projects = () => {
           onLoadedData={handleVideoReady}
           onCanPlay={handleVideoReady}
           {...project.mediaProps}
+          width="100%"
+          height="100%"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'contain',
+            display: 'block',
+            visibility: 'visible',
+            opacity: 1,
+            position: 'relative',
+          }}
         >
           <source src={project.previewMediaSrc} type="video/mp4" />
         </video>
