@@ -114,7 +114,7 @@ const About = () => {
         <ContentWrapper>
           <ContentLayout>
             <ImageWrapper>
-              <ProfileImage src="/Amanda.gif" alt="Amanda" />
+              <ProfileImage src="/amanda.jpg" alt="Amanda" />
             </ImageWrapper>
             <TextContent>
               <Section>
