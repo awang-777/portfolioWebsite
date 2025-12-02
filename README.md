@@ -1,14 +1,13 @@
 # Amanda Wang - Immersive Art Portfolio
 
-A modern portfolio website showcasing immersive art projects, built with React frontend and Flask backend.
+A portfolio website showcasing my immersive art projects.
+Built with React frontend and Flask backend.
 
 ## Features
 
-- **Modern Design**: Clean, responsive design with smooth animations
-- **Project Gallery**: Showcase immersive art projects with media support
-- **Contact Form**: Integrated contact form with email notifications
-- **File Uploads**: Support for images, videos, and interactive media
-- **SEO Optimized**: Meta tags and structured data for better search visibility
+- Design: Clean, responsive design with smooth animations
+- Project Gallery: Showcase immersive art projects with media support
+- File Uploads: Support for images, videos, and interactive media
 
 ## Tech Stack
 
