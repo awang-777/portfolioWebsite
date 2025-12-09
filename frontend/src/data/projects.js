@@ -3,6 +3,7 @@ const projects = [
     id: 'spacetime',
     title: 'Spacetime',
     path: '/projects/spacetime',
+    category: 'Generative Visuals',
     mediaType: 'video',
     mediaSrc: '/spacetime.mp4',
     mediaProps: {
@@ -27,6 +28,7 @@ const projects = [
     id: 'particle-system',
     title: 'Particle System',
     path: '/projects/particle-system',
+    category: 'Sketch Archive',
     mediaType: 'iframe',
     mediaSrc: 'https://openprocessing.org/sketch/2757664/embed/',
     mediaProps: {
@@ -52,6 +54,7 @@ const projects = [
     id: 'ghost',
     title: 'Ghost',
     path: '/projects/ghost',
+    category: 'Sketch Archive',
     mediaType: 'youtube',
     mediaSrc: 'https://www.youtube.com/embed/8iQ2p28hxC4',
     previewMediaSrc: '/ghost.mp4',
