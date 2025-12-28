@@ -4,18 +4,12 @@ import styled from 'styled-components';
 import projects from '../data/projects';
 
 const PageContainer = styled.div`
-  padding-top: 100px;
   min-height: 100vh;
   width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
   box-sizing: border-box;
   background: #000;
-  
-  @media (max-width: 768px) {
-    padding-top: 80px;
-    overflow-x: hidden;
-  }
 `;
 
 const ProjectGallery = styled.div`
@@ -29,12 +23,8 @@ const ProjectGallery = styled.div`
   max-width: 1400px;
   
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
     padding: 0 1rem;
     gap: 1.5rem;
-    width: 100%;
-    max-width: 100vw;
-    overflow-x: hidden;
   }
 `;
 
@@ -94,22 +84,14 @@ const IframeWrapper = styled.div`
   @media (max-width: 768px) {
     height: 300px !important;
     min-height: 300px !important;
-    width: 100%;
-    max-width: 100vw;
-    margin: 0 auto;
     
     iframe {
-      width: 100%;
-      max-width: 100%;
       height: 400px;
       margin-top: -50px;
-      transform: scale(1);
-      transform-origin: top left;
     }
     
     & video,
-    video[data-project-id],
-    video[data-project-id='ghost'] {
+    video[data-project-id] {
       position: absolute !important;
       top: 0 !important;
       left: 0 !important;
@@ -149,9 +131,6 @@ const ParticleImageWrapper = styled.div`
     pointer-events: none;
   }
 
-  @media (max-width: 768px) {
-    padding-top: 56.56%;
-  }
 `;
 
 const Projects = () => {
@@ -197,17 +176,6 @@ const Projects = () => {
           onLoadedData={handleVideoReady}
           onCanPlay={handleVideoReady}
           {...project.mediaProps}
-          width="100%"
-          height="100%"
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain',
-            display: 'block',
-            visibility: 'visible',
-            opacity: 1,
-            position: 'relative',
-          }}
         >
           <source src={project.previewMediaSrc} type="video/mp4" />
         </video>

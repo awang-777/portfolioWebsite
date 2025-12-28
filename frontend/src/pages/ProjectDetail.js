@@ -4,13 +4,8 @@ import styled from 'styled-components';
 import { getProjectById } from '../data/projects';
 
 const PageContainer = styled.div`
-  padding-top: 100px;
   min-height: 100vh;
   background: #000;
-  
-  @media (max-width: 768px) {
-    padding-top: 80px;
-  }
 `;
 
 const PageTitle = styled.h1`

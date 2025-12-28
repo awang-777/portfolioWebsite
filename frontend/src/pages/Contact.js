@@ -2,12 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const PageContainer = styled.div`
-  padding-top: 100px;
   min-height: 100vh;
-  
-  @media (max-width: 768px) {
-    padding-top: 80px;
-  }
 `;
 
 const PageTitle = styled.h1`
