@@ -241,10 +241,18 @@ const ProjectDetail = () => {
     );
   }
 
+  // Determine back link based on whether project has a category
+  const backLinkPath = project.category 
+    ? `/projects/category/${encodeURIComponent(project.category)}`
+    : '/projects';
+  const backLinkText = project.category
+    ? `&lt; Back to ${project.category}`
+    : '&lt; Back to projects';
+
   return (
     <PageContainer>
       <ContentWrapper>
-        <BackLink to="/projects">&lt; Back to projects</BackLink>
+        <BackLink to={backLinkPath}>{backLinkText}</BackLink>
         <PageTitle>{project.title}</PageTitle>
         <MediaWrapper>{renderMedia()}</MediaWrapper>
         <TagList>

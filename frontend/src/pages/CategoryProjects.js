@@ -267,7 +267,7 @@ const CategoryProjects = () => {
 
   return (
     <PageContainer>
-      <BackLink to="/projects">&lt; Back to Projects</BackLink>
+      <BackLink to="/">&lt; Back to Home</BackLink>
       <CategoryTitle>{decodedCategory}</CategoryTitle>
       {categoryProjects.length > 0 ? (
         <ProjectGallery>

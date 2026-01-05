@@ -190,10 +190,13 @@ const Projects = () => {
     return null;
   };
 
+  // Filter out projects that have a category (they belong to category pages)
+  const uncategorizedProjects = projects.filter(project => !project.category);
+
   return (
     <PageContainer>
       <ProjectGallery>
-        {projects.map((project) => (
+        {uncategorizedProjects.map((project) => (
           <ProjectCard key={project.id} to={project.path}>
             {project.id === 'particle-system' ? (
               <ParticleImageWrapper>
