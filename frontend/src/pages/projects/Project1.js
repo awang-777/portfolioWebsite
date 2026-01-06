@@ -1,3 +1,5 @@
+// Project 1: SpaceTime
+
 import React from 'react';
 
 function Project1() {
@@ -12,7 +14,7 @@ function Project1() {
       alignItems: 'center'
     }}>
       <video
-        src="/Videos/spaceTime.mp4"
+        src="https://q8gn8lidy3ewsjwd.public.blob.vercel-storage.com/spaceTime.mp4"
         autoPlay
         loop
         muted

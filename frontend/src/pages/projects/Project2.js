@@ -14,7 +14,7 @@ function Project2() {
       alignItems: 'center'
     }}>
         <video
-        src="/Videos/NL.mp4"
+        src="https://q8gn8lidy3ewsjwd.public.blob.vercel-storage.com/NL.mp4"
         autoPlay
         loop
         style={{
