@@ -1,62 +1,27 @@
-import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import Menu from './components/Menu';
-import Footer from './components/Footer';
+// ADD MORE ROUTES HERE AS NEEDED
+
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+//import Loading from './pages/Loading';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
-import CategoryProjects from './pages/CategoryProjects';
-import ProjectDetail from './pages/ProjectDetail';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Loading from './pages/Loading';
+import Project1 from './pages/projects/Project1';
+import Project2 from './pages/projects/Project2';
+import Project3 from './pages/projects/Project3';
+import Project4 from './pages/projects/Project4';
 
 function App() {
-  const [loadingComplete, setLoadingComplete] = useState(false);
-
-  const handleLoadingComplete = () => {
-    setLoadingComplete(true);
-  };
-
   return (
-    <div className="App">
-      <AnimatePresence mode="wait">
-        {!loadingComplete ? (
-          <motion.div
-            key="loading"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Loading onComplete={handleLoadingComplete} />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="main"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Menu />
-            <motion.main
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/projects/category/:category" element={<CategoryProjects />} />
-                <Route path="/projects/:id" element={<ProjectDetail />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-              </Routes>
-            </motion.main>
-            <Footer />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/projects/project1" element={<Project1 />} />
+        <Route path="/projects/project2" element={<Project2 />} />
+        <Route path="/projects/project3" element={<Project3 />} />
+        <Route path="/projects/project4" element={<Project4 />} />
+      </Routes>
+    </Router>
   );
 }
 
