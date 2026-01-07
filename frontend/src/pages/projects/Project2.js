@@ -7,9 +7,14 @@ import * as THREE from 'three';
 function Project2() {
   const navigate = useNavigate();
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [fadeIn, setFadeIn] = useState(false);
   const mountRef = useRef(null);
   const animationFrameRef = useRef(null);
   const transitionStartTimeRef = useRef(null);
+
+  useEffect(() => {
+    setFadeIn(true);
+  }, []);
 
   // Initialize Three.js scene for transition
   useEffect(() => {
@@ -181,7 +186,9 @@ function Project2() {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            marginTop: '-60px'
+            marginTop: '-60px',
+            opacity: fadeIn ? 1 : 0,
+            transition: 'opacity 1s ease-in'
           }}
         />
         <p style={{ 
@@ -192,7 +199,9 @@ function Project2() {
           top: 'calc(47% - 360px)',
           left: 'calc(50% - 450px)',
           margin: 0,
-          textAlign: 'left'
+          textAlign: 'left',
+          opacity: fadeIn ? 1 : 0,
+          transition: 'opacity 3s ease-in'
         }}>
           Northern Lights
         </p>
@@ -206,7 +215,9 @@ function Project2() {
           transform: 'translateX(-50%)',
           margin: 0,
           textAlign: 'center',
-          lineHeight: '1.5'
+          lineHeight: '1.5',
+          opacity: fadeIn ? 1 : 0,
+          transition: 'opacity 3s ease-in'
         }}>
           One day I woke up to the news of missing a rare chance to see the northern lights in Maryland. 
           <br />
@@ -222,7 +233,9 @@ function Project2() {
           transform: 'translateX(-50%)',
           margin: 0,
           textAlign: 'center',
-          whiteSpace: 'nowrap'
+          whiteSpace: 'nowrap',
+          opacity: fadeIn ? 1 : 0,
+          transition: 'opacity 3s ease-in'
         }}>
           Made in Touchdesigner with media pipe plugin for gestural interaction.
         </p>
