@@ -67,6 +67,12 @@ function Home() {
     const edgeLine = new THREE.LineSegments(edges, edgeMaterial);
     scene.add(edgeLine);
 
+    // EDGE LINES
+    const edges2 = new THREE.EdgesGeometry(geometry);
+    const edgeMaterial2 = new THREE.LineBasicMaterial({ color: 'gray' });
+    const edgeLine2 = new THREE.LineSegments(edges2, edgeMaterial2);
+    scene.add(edgeLine2);
+
     const originalColor = new THREE.Color(0xfafafa);
     
     // initialize colors
