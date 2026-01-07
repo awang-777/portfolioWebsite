@@ -55,10 +55,10 @@ function About() {
           Welcome :)
         </div>
         <div style={{ marginBottom: '20px' }}>
-          I'm a creative technoloigst who finds enjoyment in expressing myself through art.
+          I'm a <span style={{ color: '#5A7D9A' }}>creative technologist</span> who finds enjoyment in expressing myself through art.
         </div>
         <div style={{ marginBottom: '20px' }}>
-          My interests include generative visuals, interactive installations, and projection mapping.
+          My interests include <span style={{ color: '#5A7D9A' }}>generative visuals</span>, <span style={{ color: '#5A7D9A' }}>interactive installations</span>, and <span style={{ color: '#5A7D9A' }}>projection mapping</span>.
         </div>
         <div style={{ 
           marginTop: '30px',

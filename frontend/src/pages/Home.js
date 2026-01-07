@@ -370,7 +370,6 @@ function Home() {
 
     renderer.setAnimationLoop(animate);
 
-    // event listeners
     window.addEventListener('mousemove', onMouseMove);
     renderer.domElement.addEventListener('click', onMouseClick);
     
@@ -603,7 +602,7 @@ function Home() {
           left: '88%', 
           transform: 'translate(-50%, -50%)',
           color: hoverColor,
-          fontSize: '16px',
+          fontSize: '18px',
           fontFamily: 'Courier New, monospace',
           zIndex: 10,
           pointerEvents: 'none',
