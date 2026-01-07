@@ -99,6 +99,32 @@ function About() {
         </div>
       )}
       
+      {/* Page Indicator */}
+      <div style={{
+        position: 'absolute',
+        right: '30px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        zIndex: 10,
+        pointerEvents: 'none'
+      }}>
+        {[0, 1, 2, 3].map((index) => (
+          <div
+            key={index}
+            style={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              backgroundColor: index === 0 ? '#666666' : '#cccccc',
+              transition: 'background-color 0.3s ease'
+            }}
+          />
+        ))}
+      </div>
+
       <style>{`
         @keyframes bounce {
           0%, 20%, 50%, 80%, 100% {

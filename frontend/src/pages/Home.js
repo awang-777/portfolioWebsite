@@ -336,7 +336,7 @@ function Home() {
         // fade in text
         setTextOpacity(zoomProgress);
         
-        // when zoom completes, resume normal rotation
+        // when zoom completes from project page, resume normal rotation
         if (zoomProgress >= 1) {
           isReturning = false;
           camera.position.z = 5;
@@ -627,6 +627,34 @@ function Home() {
         transition: 'opacity 0.5s ease-in, color 0.3s ease-out'
       }}>
         Creative Technologist
+      </div>
+
+      {/* Page Indicator */}
+      <div style={{
+        position: 'absolute',
+        right: '30px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        zIndex: 10,
+        pointerEvents: 'none',
+        opacity: textOpacity * fadeInOpacity,
+        //transition: 'opacity 0.5s ease-in'
+      }}>
+        {[0, 1, 2, 3].map((index) => (
+          <div
+            key={index}
+            style={{
+              width: '8px',
+              height: '8px',
+              borderRadius: '50%',
+              backgroundColor: index === 1 ? '#666666' : '#cccccc',
+              //transition: 'background-color 0.3s ease'
+            }}
+          />
+        ))}
       </div>
     </div>
   );
