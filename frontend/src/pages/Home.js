@@ -511,16 +511,19 @@ function Home() {
             position: 'absolute',
             top: '50px',
             right: '0',
-            backgroundColor: 'rgba(0, 0, 0, 0.9)',
-            border: '1px solid #333333',
+            //backgroundColor: 'rgba(0, 0, 0, 0.9)',
+            //border: '1px solid #333333',
             padding: '10px 0',
             minWidth: '150px',
             fontFamily: 'Courier New, monospace'
           }}>
             <div 
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => {
+                setIsMenuOpen(false);
+                navigate('/');
+              }}
               style={{
-                color: 'white',
+                color: 'black',
                 padding: '12px 20px',
                 cursor: 'pointer',
                 fontSize: '16px',
@@ -537,7 +540,7 @@ function Home() {
                 navigate('/projects');
               }}
               style={{
-                color: 'white',
+                color: 'black',
                 padding: '12px 20px',
                 cursor: 'pointer',
                 fontSize: '16px',
@@ -551,7 +554,7 @@ function Home() {
             <div 
               onClick={() => setIsMenuOpen(false)}
               style={{
-                color: 'white',
+                color: 'black',
                 padding: '12px 20px',
                 cursor: 'pointer',
                 fontSize: '16px',
@@ -565,7 +568,7 @@ function Home() {
             <div 
               onClick={() => setIsMenuOpen(false)}
               style={{
-                color: 'white',
+                color: 'black',
                 padding: '12px 20px',
                 cursor: 'pointer',
                 fontSize: '16px',
