@@ -41,8 +41,10 @@ function Home() {
 
     // scene setup
     const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xffffff);
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setClearColor(0xffffff);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     mount.appendChild(renderer.domElement);
@@ -52,7 +54,7 @@ function Home() {
     const geometry = new THREE.IcosahedronGeometry(radius);
     geometry.toNonIndexed();
 
-    const originalColor = new THREE.Color(0xffffff);
+    const originalColor = new THREE.Color(0xfafafa);
     
     // initialize colors
     const positionCount = geometry.attributes.position.count;
@@ -65,15 +67,18 @@ function Home() {
 
     geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
-    const material = new THREE.MeshPhongMaterial({ color: "white", vertexColors: true });
+    const material = new THREE.MeshPhongMaterial({ color: "#fafafa", vertexColors: true });
     const shape = new THREE.Mesh(geometry, material);
     scene.add(shape);
 
     // lighting
-    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    scene.add(new THREE.AmbientLight(0xffffff, 1.0));
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
     directionalLight.position.set(5, 5, 1);
     scene.add(directionalLight);
+    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.0);
+    directionalLight2.position.set(-5, -5, 1);
+    scene.add(directionalLight2);
 
     camera.position.z = 5;
 
@@ -352,7 +357,7 @@ function Home() {
   }, [navigate, location.pathname]);
 
   return (
-    <div style={{ width: '100%', height: '100vh', backgroundColor: '#000000', position: 'relative' }}>
+    <div style={{ width: '100%', height: '100vh', backgroundColor: 'white', position: 'relative' }}>
       <div 
         ref={mountRef} 
         style={{ width: '100%', height: '100%' }}
@@ -385,19 +390,19 @@ function Home() {
           <div style={{
             width: '30px',
             height: '3px',
-            backgroundColor: 'white',
+            backgroundColor: '#333333',
             transition: 'all 0.3s ease'
           }} />
           <div style={{
             width: '30px',
             height: '3px',
-            backgroundColor: 'white',
+            backgroundColor: '#333333',
             transition: 'all 0.3s ease'
           }} />
           <div style={{
             width: '30px',
             height: '3px',
-            backgroundColor: 'white',
+            backgroundColor: '#333333',
             transition: 'all 0.3s ease'
           }} />
         </div>
@@ -409,7 +414,7 @@ function Home() {
             top: '50px',
             right: '0',
             backgroundColor: 'rgba(0, 0, 0, 0.9)',
-            border: '1px solid white',
+            border: '1px solid #333333',
             padding: '10px 0',
             minWidth: '150px',
             fontFamily: 'Courier New, monospace'
@@ -482,7 +487,7 @@ function Home() {
         top: '6%', 
         left: '12%', 
         transform: 'translate(-50%, -50%)',
-        color: 'white',
+        color: '#333333',
         fontSize: '16px',
         fontFamily: 'Courier New, monospace',
         zIndex: 10,
@@ -497,7 +502,7 @@ function Home() {
         top: '94%', 
         left: '88%', 
         transform: 'translate(-50%, -50%)',
-        color: 'white',
+        color: '#333333',
         fontSize: '16px',
         fontFamily: 'Courier New, monospace',
         zIndex: 10,
