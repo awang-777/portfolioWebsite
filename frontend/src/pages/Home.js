@@ -291,6 +291,9 @@ function Home() {
         };
         transitionTargetRoute = PROJECT_ROUTES[projectIndex];
         
+        // hide edgeLine2 during transition
+        edgeLine2.visible = false;
+        
         // store camera start position for zoom
         transitionStartCameraZ = camera.position.z;
       }
@@ -341,6 +344,7 @@ function Home() {
           isTransitioning = false;
           transitionTargetRoute = null;
           setTextOpacity(1); // reset opacity
+          edgeLine2.visible = true; // show edgeLine2 again
         }
       } else {
         shape.rotation.x += 0.0005;

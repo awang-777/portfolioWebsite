@@ -134,6 +134,7 @@ function Project2() {
     transitionStartTimeRef.current = Date.now();
   };
 
+
   return (
     <div style={{ 
       width: '100%', 
@@ -159,21 +160,22 @@ function Project2() {
           onClick={handleTransition}
           style={{
             position: 'absolute',
-            bottom: '30px',
+            top: '30px',
             left: '30px',
             backgroundColor: 'transparent',
             border: 'none',
-            color: '#F5F5DC',
-            fontSize: '32px',
+            color: '#999999',
+            fontSize: '16px',
             cursor: 'pointer',
-            padding: '10px',
+            padding: '0',
+            margin: '0',
             fontFamily: 'Courier New, monospace',
             transition: 'opacity 0.3s ease'
           }}
           onMouseEnter={(e) => e.target.style.opacity = '0.7'}
           onMouseLeave={(e) => e.target.style.opacity = '1'}
         >
-          ←
+          back to home
         </button>
         <video
           src="https://q8gn8lidy3ewsjwd.public.blob.vercel-storage.com/NL.mp4"
@@ -203,7 +205,7 @@ function Project2() {
           opacity: fadeIn ? 1 : 0,
           transition: 'opacity 3s ease-in'
         }}>
-          Northern Lights
+          02 Northern Lights
         </p>
         <p style={{ 
           color: '#999999',
@@ -239,6 +241,31 @@ function Project2() {
         }}>
           Made in Touchdesigner with media pipe plugin for gestural interaction.
         </p>
+        {/* Page Indicator */}
+        <div style={{
+          position: 'absolute',
+          bottom: '30px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          flexDirection: 'row',
+          gap: '20px',
+          zIndex: 10
+        }}>
+          {[0, 1, 2, 3].map((index) => (
+            <div
+              key={index}
+              onClick={() => navigate(`/projects/project${index + 1}`)}
+              style={{
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                backgroundColor: index === 1 ? '#666666' : '#cccccc',
+                cursor: 'pointer',
+              }}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

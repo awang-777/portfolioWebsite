@@ -1,3 +1,5 @@
+// Project 3:
+
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
@@ -121,6 +123,7 @@ function Project3() {
     transitionStartTimeRef.current = Date.now();
   };
 
+
   return (
     <div style={{ 
       width: '100%', 
@@ -146,22 +149,48 @@ function Project3() {
           onClick={handleTransition}
           style={{
             position: 'absolute',
-            bottom: '30px',
+            top: '30px',
             left: '30px',
             backgroundColor: 'transparent',
             border: 'none',
-            color: '#333333',
-            fontSize: '32px',
+            color: '#999999',
+            fontSize: '16px',
             cursor: 'pointer',
-            padding: '10px',
+            padding: '0',
+            margin: '0',
             fontFamily: 'Courier New, monospace',
             transition: 'opacity 0.3s ease'
           }}
           onMouseEnter={(e) => e.target.style.opacity = '0.7'}
           onMouseLeave={(e) => e.target.style.opacity = '1'}
         >
-          ←
+          back to home
         </button>
+        {/* Page Indicator */}
+        <div style={{
+          position: 'absolute',
+          bottom: '30px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          flexDirection: 'row',
+          gap: '20px',
+          zIndex: 10
+        }}>
+          {[0, 1, 2, 3].map((index) => (
+            <div
+              key={index}
+              onClick={() => navigate(`/projects/project${index + 1}`)}
+              style={{
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                backgroundColor: index === 2 ? '#666666' : '#cccccc',
+                cursor: 'pointer',
+              }}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
