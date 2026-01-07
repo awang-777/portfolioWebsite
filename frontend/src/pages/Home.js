@@ -26,7 +26,6 @@ function Home() {
   const menuRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const prevLocationRef = useRef(null);
 
   // closes menu when clicking outside
   useEffect(() => {
@@ -61,6 +60,12 @@ function Home() {
     const radius = 2.8;
     const geometry = new THREE.IcosahedronGeometry(radius);
     geometry.toNonIndexed();
+
+    // EDGE LINES
+    const edges = new THREE.EdgesGeometry(geometry);
+    const edgeMaterial = new THREE.LineBasicMaterial({ color: 'gray' });
+    const edgeLine = new THREE.LineSegments(edges, edgeMaterial);
+    scene.add(edgeLine);
 
     const originalColor = new THREE.Color(0xfafafa);
     
@@ -119,11 +124,6 @@ function Home() {
     // zoom state
     let transitionStartCameraZ = 5;
     let transitionTargetCameraZ = 0.1;
-    
-    // return transition state
-    let isReturning = false;
-    let returnStartTime = 0;
-    const RETURN_ZOOM_DURATION = 5000; // 5 seconds
 
     // helper: Calculate mouse coordinates
     function getMouseCoords(event) {
@@ -297,11 +297,17 @@ function Home() {
           shape.rotation.x = transitionStartRotation.x + (transitionTargetRotation.x - transitionStartRotation.x) * easedRotationProgress;
           shape.rotation.y = transitionStartRotation.y + (transitionTargetRotation.y - transitionStartRotation.y) * easedRotationProgress;
           shape.rotation.z = transitionStartRotation.z + (transitionTargetRotation.z - transitionStartRotation.z) * easedRotationProgress;
+          edgeLine.rotation.x = shape.rotation.x;
+          edgeLine.rotation.y = shape.rotation.y;
+          edgeLine.rotation.z = shape.rotation.z;
         } else {
           // rotation complete, set to target
           shape.rotation.x = transitionTargetRotation.x;
           shape.rotation.y = transitionTargetRotation.y;
           shape.rotation.z = transitionTargetRotation.z;
+          edgeLine.rotation.x = shape.rotation.x;
+          edgeLine.rotation.y = shape.rotation.y;
+          edgeLine.rotation.z = shape.rotation.z;
           
           // zoom phase (second second)
           const zoomElapsed = elapsed - ROTATION_PHASE_DURATION;
@@ -324,27 +330,11 @@ function Home() {
           transitionTargetRoute = null;
           setTextOpacity(1); // reset opacity
         }
-      } else if (isReturning) {
-        // return transition: zoom out from 0.1 to 5 over 5 seconds
-        const elapsed = Date.now() - returnStartTime;
-        const zoomProgress = Math.min(elapsed / RETURN_ZOOM_DURATION, 1);
-        const easedZoomProgress = 1 - Math.pow(1 - zoomProgress, 3); // Ease out cubic
-        
-        // interpolate camera zoom from 0.1 to 5
-        camera.position.z = 0.1 + (5 - 0.1) * easedZoomProgress;
-        
-        // fade in text
-        setTextOpacity(zoomProgress);
-        
-        // when zoom completes from project page, resume normal rotation
-        if (zoomProgress >= 1) {
-          isReturning = false;
-          camera.position.z = 5;
-          setTextOpacity(1);
-        }
       } else {
         shape.rotation.x += 0.0005;
         shape.rotation.y += 0.0005;
+        edgeLine.rotation.x += 0.0005;
+        edgeLine.rotation.y += 0.0005;
       }
 
       const time = Date.now() * 0.001;
@@ -373,17 +363,6 @@ function Home() {
     window.addEventListener('mousemove', onMouseMove);
     renderer.domElement.addEventListener('click', onMouseClick);
     
-    // handle return transition from project pages
-    function handleReturnTransition() {
-      if (!isTransitioning && !isReturning && location.pathname === '/home') {
-        isReturning = true;
-        returnStartTime = Date.now();
-        camera.position.z = 0.1; // start from close-up
-        setTextOpacity(0); // start with text hidden
-      }
-    }
-    window.addEventListener('returnTransition', handleReturnTransition);
-
     // handle window resize
     function handleResize() {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -396,7 +375,6 @@ function Home() {
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('returnTransition', handleReturnTransition);
       renderer.domElement.removeEventListener('click', onMouseClick);
       renderer.setAnimationLoop(null);
       if (mount && renderer.domElement) {
@@ -408,26 +386,6 @@ function Home() {
       if (fadeBackTimer) clearTimeout(fadeBackTimer);
     };
   }, [navigate, location.pathname]);
-
-  // detect return from project page and trigger return transition
-  useEffect(() => {
-    const prevPath = prevLocationRef.current;
-    const currentPath = location.pathname;
-    
-    // check if we're returning from a project page to home
-    if (prevPath !== null) {
-      const wasOnProjectPage = PROJECT_ROUTES.includes(prevPath);
-      const isOnHomePage = currentPath === '/home';
-      
-      if (wasOnProjectPage && isOnHomePage) {
-        // signal return transition via custom event
-        window.dispatchEvent(new CustomEvent('returnTransition'));
-      }
-    }
-    
-    // update previous location
-    prevLocationRef.current = currentPath;
-  }, [location.pathname]);
 
   // fade-in animation when navigating to home page
   useEffect(() => {
