@@ -189,6 +189,7 @@ function Project2() {
             left: '50%',
             transform: 'translate(-50%, -50%)',
             marginTop: '-60px',
+            borderRadius: '12px',
             opacity: fadeIn ? 1 : 0,
             transition: 'opacity 1s ease-in'
           }}

@@ -28,6 +28,8 @@ function Home() {
   const [fadeInOpacity, setFadeInOpacity] = useState(0);
   const [hoverColor, setHoverColor] = useState('#333333');
   const [hoveredProjectText, setHoveredProjectText] = useState(null);
+  const [showProject1Image, setShowProject1Image] = useState(false);
+  const [showProject2Image, setShowProject2Image] = useState(false);
   const mountRef = useRef(null);
   const menuRef = useRef(null);
   const navigate = useNavigate();
@@ -219,6 +221,11 @@ function Home() {
           const route = PROJECT_ROUTES[projectIndex];
           setHoverColor(PROJECT_TEXT_COLORS[route]);
           setHoveredProjectText(PROJECT_TITLES[route]);
+          
+          // Show blue.png when hovering over Project1
+          setShowProject1Image(route === '/projects/project1');
+          // Show NorthernLights.png when hovering over Project2
+          setShowProject2Image(route === '/projects/project2');
         }
 
         renderer.domElement.style.cursor = 'pointer';
@@ -228,6 +235,8 @@ function Home() {
           hoveredFaceIndex = null;
           setHoverColor('#333333');
           setHoveredProjectText(null);
+          setShowProject1Image(false);
+          setShowProject2Image(false);
           fadeBackTimer = setTimeout(() => {
             isFadingBack = true;
             fadeStartTime = Date.now();
@@ -279,6 +288,8 @@ function Home() {
         setTextOpacity(1);
         setHoverColor('#333333');
         setHoveredProjectText(null);
+        setShowProject1Image(false);
+        setShowProject2Image(false);
         transitionStartRotation = {
           x: shape.rotation.x,
           y: shape.rotation.y,
@@ -604,6 +615,46 @@ function Home() {
       }}>
         Creative Technologist
       </div>
+
+      {/* Project1 Image - bottom right corner */}
+      {showProject1Image && (
+        <img
+          src="/photos/blue.png"
+          alt="Project 1"
+          style={{
+            position: 'absolute',
+            bottom: '140px',
+            right: '80px',
+            width: '250px',
+            height: 'auto',
+            zIndex: 10,
+            pointerEvents: 'none',
+            opacity: textOpacity * fadeInOpacity,
+            transition: 'opacity 0.3s ease-in',
+            borderRadius: '12px'
+          }}
+        />
+      )}
+
+      {/* Project2 Image - bottom right corner */}
+      {showProject2Image && (
+        <img
+          src="/photos/NorthernLights.png"
+          alt="Project 2"
+          style={{
+            position: 'absolute',
+            bottom: '140px',
+            right: '80px',
+            width: '250px',
+            height: 'auto',
+            zIndex: 10,
+            pointerEvents: 'none',
+            opacity: textOpacity * fadeInOpacity,
+            transition: 'opacity 0.3s ease-in',
+            borderRadius: '12px'
+          }}
+        />
+      )}
 
       {/* Page Indicator */}
       <div style={{
