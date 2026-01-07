@@ -98,7 +98,7 @@ function Project2() {
         }
 
         if (elapsed >= TOTAL_DURATION) {
-          navigate('/');
+          navigate('/home');
         }
       }
 

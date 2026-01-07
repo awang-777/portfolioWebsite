@@ -100,7 +100,7 @@ function Project1() {
 
         // Navigate when transition completes
         if (elapsed >= TOTAL_DURATION) {
-          navigate('/');
+          navigate('/home');
         }
       }
 

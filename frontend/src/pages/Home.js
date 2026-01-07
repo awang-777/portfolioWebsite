@@ -9,12 +9,19 @@ const PROJECT_COLORS = {
   '/projects/project3': '#d4a5a5',
   '/projects/project4': '#9db5a0',
 };
+const PROJECT_TITLES = {
+  '/projects/project1': '01 SpaceTime',
+  '/projects/project2': '02 Northern Lights',
+  '/projects/project3': '03',
+  '/projects/project4': '04',
+};
 
 function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [textOpacity, setTextOpacity] = useState(1);
   const [fadeInOpacity, setFadeInOpacity] = useState(0);
   const [hoverColor, setHoverColor] = useState('#333333');
+  const [hoveredProjectText, setHoveredProjectText] = useState(null);
   const mountRef = useRef(null);
   const menuRef = useRef(null);
   const navigate = useNavigate();
@@ -42,7 +49,6 @@ function Home() {
     const mount = mountRef.current;
     if (!mount) return;
 
-    // scene setup
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xffffff);
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -52,7 +58,6 @@ function Home() {
     renderer.setPixelRatio(window.devicePixelRatio);
     mount.appendChild(renderer.domElement);
 
-    // geometry
     const radius = 2.8;
     const geometry = new THREE.IcosahedronGeometry(radius);
     geometry.toNonIndexed();
@@ -197,6 +202,11 @@ function Home() {
           const hoverColorObj = getHoverColorForFace(faceIndex, true);
           setFaceColor(faceIndex, hoverColorObj);
           setHoverColor('#' + hoverColorObj.getHexString());
+          
+          // Set project text
+          const projectIndex = faceToProjectMap.get(faceIndex) ?? (faceIndex % PROJECT_ROUTES.length);
+          const route = PROJECT_ROUTES[projectIndex];
+          setHoveredProjectText(PROJECT_TITLES[route]);
         }
 
         renderer.domElement.style.cursor = 'pointer';
@@ -205,6 +215,7 @@ function Home() {
           fadingFaceIndex = hoveredFaceIndex;
           hoveredFaceIndex = null;
           setHoverColor('#333333');
+          setHoveredProjectText(null);
           fadeBackTimer = setTimeout(() => {
             isFadingBack = true;
             fadeStartTime = Date.now();
@@ -255,6 +266,7 @@ function Home() {
         transitionStartTime = Date.now();
         setTextOpacity(1);
         setHoverColor('#333333');
+        setHoveredProjectText(null);
         transitionStartRotation = {
           x: shape.rotation.x,
           y: shape.rotation.y,
@@ -364,7 +376,7 @@ function Home() {
     
     // handle return transition from project pages
     function handleReturnTransition() {
-      if (!isTransitioning && !isReturning && location.pathname === '/') {
+      if (!isTransitioning && !isReturning && location.pathname === '/home') {
         isReturning = true;
         returnStartTime = Date.now();
         camera.position.z = 0.1; // start from close-up
@@ -406,7 +418,7 @@ function Home() {
     // check if we're returning from a project page to home
     if (prevPath !== null) {
       const wasOnProjectPage = PROJECT_ROUTES.includes(prevPath);
-      const isOnHomePage = currentPath === '/';
+      const isOnHomePage = currentPath === '/home';
       
       if (wasOnProjectPage && isOnHomePage) {
         // signal return transition via custom event
@@ -420,13 +432,28 @@ function Home() {
 
   // fade-in animation when navigating to home page
   useEffect(() => {
-    if (location.pathname === '/') {
+    if (location.pathname === '/home') {
       setFadeInOpacity(0);
       setTimeout(() => {
         setFadeInOpacity(1);
       }, 50);
     }
   }, [location.pathname]);
+
+  // navigate to about on scroll up
+  useEffect(() => {
+    function handleWheel(event) {
+      if (event.deltaY < 0) {
+        navigate('/');
+      }
+    }
+
+    window.addEventListener('wheel', handleWheel);
+    
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, [navigate]);
 
   return (
     <div style={{ width: '100%', height: '100vh', backgroundColor: 'white', position: 'relative' }}>
@@ -569,6 +596,23 @@ function Home() {
       }}>
         Amanda Wang
       </div>
+      {hoveredProjectText && (
+        <div style={{ 
+          position: 'absolute', 
+          top: 'calc(94% - 30px)', 
+          left: '88%', 
+          transform: 'translate(-50%, -50%)',
+          color: hoverColor,
+          fontSize: '16px',
+          fontFamily: 'Courier New, monospace',
+          zIndex: 10,
+          pointerEvents: 'none',
+          opacity: textOpacity * fadeInOpacity,
+          transition: 'opacity 0.5s ease-in, color 0.3s ease-out'
+        }}>
+          {hoveredProjectText}
+        </div>
+      )}
       <div style={{ 
         position: 'absolute', 
         top: '94%', 
