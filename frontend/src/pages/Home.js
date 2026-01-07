@@ -13,10 +13,12 @@ const PROJECT_COLORS = {
 function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [textOpacity, setTextOpacity] = useState(1);
+  const [hoverColor, setHoverColor] = useState('#333333');
   const mountRef = useRef(null);
   const menuRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const prevLocationRef = useRef(null);
 
   // closes menu when clicking outside
   useEffect(() => {
@@ -111,6 +113,11 @@ function Home() {
     // zoom state
     let transitionStartCameraZ = 5;
     let transitionTargetCameraZ = 0.1;
+    
+    // return transition state
+    let isReturning = false;
+    let returnStartTime = 0;
+    const RETURN_ZOOM_DURATION = 5000; // 5 seconds
 
     // helper: Calculate mouse coordinates
     function getMouseCoords(event) {
@@ -186,7 +193,9 @@ function Home() {
             restoreFaceColor(hoveredFaceIndex);
           }
           hoveredFaceIndex = faceIndex;
-          setFaceColor(faceIndex, getHoverColorForFace(faceIndex, true));
+          const hoverColorObj = getHoverColorForFace(faceIndex, true);
+          setFaceColor(faceIndex, hoverColorObj);
+          setHoverColor('#' + hoverColorObj.getHexString());
         }
 
         renderer.domElement.style.cursor = 'pointer';
@@ -194,6 +203,7 @@ function Home() {
         if (hoveredFaceIndex !== null) {
           fadingFaceIndex = hoveredFaceIndex;
           hoveredFaceIndex = null;
+          setHoverColor('#333333');
           fadeBackTimer = setTimeout(() => {
             isFadingBack = true;
             fadeStartTime = Date.now();
@@ -242,7 +252,8 @@ function Home() {
         // start transition
         isTransitioning = true;
         transitionStartTime = Date.now();
-        setTextOpacity(1); 
+        setTextOpacity(1);
+        setHoverColor('#333333');
         transitionStartRotation = {
           x: shape.rotation.x,
           y: shape.rotation.y,
@@ -300,6 +311,24 @@ function Home() {
           transitionTargetRoute = null;
           setTextOpacity(1); // reset opacity
         }
+      } else if (isReturning) {
+        // return transition: zoom out from 0.1 to 5 over 5 seconds
+        const elapsed = Date.now() - returnStartTime;
+        const zoomProgress = Math.min(elapsed / RETURN_ZOOM_DURATION, 1);
+        const easedZoomProgress = 1 - Math.pow(1 - zoomProgress, 3); // Ease out cubic
+        
+        // interpolate camera zoom from 0.1 to 5
+        camera.position.z = 0.1 + (5 - 0.1) * easedZoomProgress;
+        
+        // fade in text
+        setTextOpacity(zoomProgress);
+        
+        // when zoom completes, resume normal rotation
+        if (zoomProgress >= 1) {
+          isReturning = false;
+          camera.position.z = 5;
+          setTextOpacity(1);
+        }
       } else {
         shape.rotation.x += 0.0005;
         shape.rotation.y += 0.0005;
@@ -331,6 +360,17 @@ function Home() {
     // event listeners
     window.addEventListener('mousemove', onMouseMove);
     renderer.domElement.addEventListener('click', onMouseClick);
+    
+    // handle return transition from project pages
+    function handleReturnTransition() {
+      if (!isTransitioning && !isReturning && location.pathname === '/') {
+        isReturning = true;
+        returnStartTime = Date.now();
+        camera.position.z = 0.1; // start from close-up
+        setTextOpacity(0); // start with text hidden
+      }
+    }
+    window.addEventListener('returnTransition', handleReturnTransition);
 
     // handle window resize
     function handleResize() {
@@ -344,6 +384,7 @@ function Home() {
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('returnTransition', handleReturnTransition);
       renderer.domElement.removeEventListener('click', onMouseClick);
       renderer.setAnimationLoop(null);
       if (mount && renderer.domElement) {
@@ -355,6 +396,26 @@ function Home() {
       if (fadeBackTimer) clearTimeout(fadeBackTimer);
     };
   }, [navigate, location.pathname]);
+
+  // detect return from project page and trigger return transition
+  useEffect(() => {
+    const prevPath = prevLocationRef.current;
+    const currentPath = location.pathname;
+    
+    // check if we're returning from a project page to home
+    if (prevPath !== null) {
+      const wasOnProjectPage = PROJECT_ROUTES.includes(prevPath);
+      const isOnHomePage = currentPath === '/';
+      
+      if (wasOnProjectPage && isOnHomePage) {
+        // signal return transition via custom event
+        window.dispatchEvent(new CustomEvent('returnTransition'));
+      }
+    }
+    
+    // update previous location
+    prevLocationRef.current = currentPath;
+  }, [location.pathname]);
 
   return (
     <div style={{ width: '100%', height: '100vh', backgroundColor: 'white', position: 'relative' }}>
@@ -390,19 +451,19 @@ function Home() {
           <div style={{
             width: '30px',
             height: '3px',
-            backgroundColor: '#333333',
+            backgroundColor: hoverColor,
             transition: 'all 0.3s ease'
           }} />
           <div style={{
             width: '30px',
             height: '3px',
-            backgroundColor: '#333333',
+            backgroundColor: hoverColor,
             transition: 'all 0.3s ease'
           }} />
           <div style={{
             width: '30px',
             height: '3px',
-            backgroundColor: '#333333',
+            backgroundColor: hoverColor,
             transition: 'all 0.3s ease'
           }} />
         </div>
@@ -487,13 +548,13 @@ function Home() {
         top: '6%', 
         left: '12%', 
         transform: 'translate(-50%, -50%)',
-        color: '#333333',
+        color: hoverColor,
         fontSize: '16px',
         fontFamily: 'Courier New, monospace',
         zIndex: 10,
         pointerEvents: 'none',
         opacity: textOpacity,
-        transition: 'opacity 0.1s ease-out'
+        transition: 'opacity 0.1s ease-out, color 0.3s ease-out'
       }}>
         Amanda Wang
       </div>
@@ -502,13 +563,13 @@ function Home() {
         top: '94%', 
         left: '88%', 
         transform: 'translate(-50%, -50%)',
-        color: '#333333',
+        color: hoverColor,
         fontSize: '16px',
         fontFamily: 'Courier New, monospace',
         zIndex: 10,
         pointerEvents: 'none',
         opacity: textOpacity,
-        transition: 'opacity 0.1s ease-out'
+        transition: 'opacity 0.1s ease-out, color 0.3s ease-out'
       }}>
         Creative Technologist
       </div>
