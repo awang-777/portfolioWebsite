@@ -13,6 +13,7 @@ const PROJECT_COLORS = {
 function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [textOpacity, setTextOpacity] = useState(1);
+  const [fadeInOpacity, setFadeInOpacity] = useState(0);
   const [hoverColor, setHoverColor] = useState('#333333');
   const mountRef = useRef(null);
   const menuRef = useRef(null);
@@ -417,6 +418,16 @@ function Home() {
     prevLocationRef.current = currentPath;
   }, [location.pathname]);
 
+  // fade-in animation when navigating to home page
+  useEffect(() => {
+    if (location.pathname === '/') {
+      setFadeInOpacity(0);
+      setTimeout(() => {
+        setFadeInOpacity(1);
+      }, 50);
+    }
+  }, [location.pathname]);
+
   return (
     <div style={{ width: '100%', height: '100vh', backgroundColor: 'white', position: 'relative' }}>
       <div 
@@ -433,8 +444,8 @@ function Home() {
           right: '30px',
           zIndex: 20,
           cursor: 'pointer',
-          opacity: textOpacity,
-          transition: 'opacity 0.1s ease-out'
+          opacity: textOpacity * fadeInOpacity,
+          transition: 'opacity 0.5s ease-in'
         }}
       >
         {/* Hamburger Icon */}
@@ -553,8 +564,8 @@ function Home() {
         fontFamily: 'Courier New, monospace',
         zIndex: 10,
         pointerEvents: 'none',
-        opacity: textOpacity,
-        transition: 'opacity 0.1s ease-out, color 0.3s ease-out'
+        opacity: textOpacity * fadeInOpacity,
+        transition: 'opacity 0.5s ease-in, color 0.3s ease-out'
       }}>
         Amanda Wang
       </div>
@@ -568,8 +579,8 @@ function Home() {
         fontFamily: 'Courier New, monospace',
         zIndex: 10,
         pointerEvents: 'none',
-        opacity: textOpacity,
-        transition: 'opacity 0.1s ease-out, color 0.3s ease-out'
+        opacity: textOpacity * fadeInOpacity,
+        transition: 'opacity 0.5s ease-in, color 0.3s ease-out'
       }}>
         Creative Technologist
       </div>
