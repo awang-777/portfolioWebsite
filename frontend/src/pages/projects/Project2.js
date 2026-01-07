@@ -138,7 +138,7 @@ function Project2() {
     <div style={{ 
       width: '100%', 
       minHeight: '100vh', 
-      backgroundColor: '#1a0f1f',
+      backgroundColor: '#e0dce4',
       position: 'relative',
       display: 'flex',
       justifyContent: 'center',
@@ -192,7 +192,7 @@ function Project2() {
           }}
         />
         <p style={{ 
-          color: '#F5F5DC',
+          color: '#999999',
           fontSize: '22px',
           fontFamily: 'Courier New, monospace',
           position: 'absolute',
@@ -206,7 +206,7 @@ function Project2() {
           Northern Lights
         </p>
         <p style={{ 
-          color: '#F5F5DC',
+          color: '#999999',
           fontSize: '16px',
           fontFamily: 'Courier New, monospace',
           position: 'absolute',
@@ -224,7 +224,7 @@ function Project2() {
           I decided to bring it to life myself. 
         </p>
         <p style={{ 
-          color: '#F5F5DC',
+          color: '#999999',
           fontSize: '16px',
           fontFamily: 'Courier New, monospace',
           position: 'absolute',

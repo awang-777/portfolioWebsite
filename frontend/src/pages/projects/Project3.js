@@ -125,7 +125,7 @@ function Project3() {
     <div style={{ 
       width: '100%', 
       minHeight: '100vh', 
-      backgroundColor: '#d4a5a5',
+      backgroundColor: '#f0e8e8',
       position: 'relative',
       display: 'flex',
       justifyContent: 'center',

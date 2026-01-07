@@ -142,7 +142,7 @@ function Project1() {
     <div style={{ 
       width: '100%', 
       minHeight: '100vh', 
-      backgroundColor: '#1a2535',
+      backgroundColor: '#d8e0ea',
       position: 'relative',
       display: 'flex',
       justifyContent: 'center',
@@ -197,7 +197,7 @@ function Project1() {
           }}
         />
         <p style={{ 
-          color: '#F5F5DC',
+          color: '#999999',
           fontSize: '22px',
           fontFamily: 'Courier New, monospace',
           position: 'absolute',
@@ -211,7 +211,7 @@ function Project1() {
           SpaceTime
         </p>
         <p style={{ 
-          color: '#F5F5DC',
+          color: '#999999',
           fontSize: '16px',
           fontFamily: 'Courier New, monospace',
           position: 'absolute',
@@ -227,7 +227,7 @@ function Project1() {
           A representation of time dialtion. Particles closer to mass moves slower in rotation.
         </p>
         <p style={{ 
-          color: '#F5F5DC',
+          color: '#999999',
           fontSize: '16px',
           fontFamily: 'Courier New, monospace',
           position: 'absolute',

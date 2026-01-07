@@ -4,10 +4,16 @@ import * as THREE from 'three';
 
 const PROJECT_ROUTES = ['/projects/project1', '/projects/project2', '/projects/project3', '/projects/project4'];
 const PROJECT_COLORS = {
-  '/projects/project1': '#1a2535',
-  '/projects/project2': '#6b5a75', 
-  '/projects/project3': '#d4a5a5',
-  '/projects/project4': '#9db5a0',
+  '/projects/project1': '#d8e0ea',
+  '/projects/project2': '#e0dce4', 
+  '/projects/project3': '#f0e8e8',
+  '/projects/project4': '#e8edea',
+};
+const PROJECT_TEXT_COLORS = {
+  '/projects/project1': '#6b7a8a',
+  '/projects/project2': '#7a6b85', 
+  '/projects/project3': '#8a7a7a',
+  '/projects/project4': '#7a8a7f',
 };
 const PROJECT_TITLES = {
   '/projects/project1': '01 SpaceTime',
@@ -207,11 +213,11 @@ function Home() {
           hoveredFaceIndex = faceIndex;
           const hoverColorObj = getHoverColorForFace(faceIndex, true);
           setFaceColor(faceIndex, hoverColorObj);
-          setHoverColor('#' + hoverColorObj.getHexString());
           
-          // Set project text
+          // Set project text and use darker color for text/hamburger
           const projectIndex = faceToProjectMap.get(faceIndex) ?? (faceIndex % PROJECT_ROUTES.length);
           const route = PROJECT_ROUTES[projectIndex];
+          setHoverColor(PROJECT_TEXT_COLORS[route]);
           setHoveredProjectText(PROJECT_TITLES[route]);
         }
 

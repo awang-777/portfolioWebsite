@@ -131,7 +131,7 @@ function Project4() {
     <div style={{ 
       width: '100%', 
       minHeight: '100vh', 
-      backgroundColor: '#9db5a0',
+      backgroundColor: '#e8edea',
       position: 'relative',
       display: 'flex',
       justifyContent: 'center',
