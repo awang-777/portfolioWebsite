@@ -73,6 +73,53 @@ function About() {
           justifyContent: 'flex-start',
           alignItems: 'center'
         }}>
+          {/* Resume Button */}
+          <a
+            href="https://docs.google.com/document/d/127mCtFw3nbGfYZNwe0W_Xm1i6mVRkfvCOaPIQvfb8oE/edit?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              textDecoration: 'none',
+              padding: '4px',
+              borderRadius: '50%',
+              backgroundColor: 'transparent',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.opacity = '0.8';
+              e.currentTarget.style.transform = 'scale(1.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.opacity = '1';
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+          >
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              style={{ display: 'block' }}
+            >
+              <circle cx="12" cy="12" r="12" fill="#e5e5e5"/>
+              <g fill="#999999">
+                {/* Person silhouette - head (circle) */}
+                <circle cx="7" cy="9" r="1.8" fill="#999999"/>
+                {/* Person silhouette - body (rounded trapezoid/shoulders) */}
+                <path d="M 5.5 11 L 5.5 12.5 Q 5.5 13 6 13.2 Q 6.5 13.5 7 13.5 Q 7.5 13.5 8 13.2 Q 8.5 13 8.5 12.5 L 8.5 11.5 Q 8.5 11 8 10.8 Q 7.5 10.5 7 10.5 Q 6.5 10.5 6 10.8 Q 5.5 11 5.5 11.5 Z" fill="#999999"/>
+                {/* Two small rounded rectangles to the right of person */}
+                <rect x="10.5" y="7.8" width="7" height="0.8" rx="0.4" ry="0.4" fill="#999999"/>
+                <rect x="10.5" y="9.5" width="7" height="0.8" rx="0.4" ry="0.4" fill="#999999"/>
+                {/* Two longer rounded rectangles below */}
+                <rect x="10.5" y="12.5" width="7" height="1.1" rx="0.55" fill="#999999"/>
+                <rect x="10.5" y="14.2" width="7" height="1.1" rx="0.55" fill="#999999"/>
+              </g>
+            </svg>
+          </a>
+          
           {/* GitHub Button */}
           <a
             href="https://github.com/awang-777"
