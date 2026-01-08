@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import * as THREE from 'three';
+import { useScrollTransition } from '../hooks/useScrollTransition';
 
 const PROJECT_ROUTES = ['/projects/project1', '/projects/project2', '/projects/project3', '/projects/project4'];
 const PROJECT_COLORS = {
@@ -34,6 +35,23 @@ function Home() {
   const menuRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Shared menu item styles
+  const menuItemStyle = {
+    color: 'black',
+    padding: '12px 20px',
+    cursor: 'pointer',
+    fontSize: '16px',
+    transition: 'background-color 0.2s ease'
+  };
+
+  const handleMenuItemHover = (e) => {
+    e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+  };
+
+  const handleMenuItemLeave = (e) => {
+    e.target.style.backgroundColor = 'transparent';
+  };
 
   // closes menu when clicking outside
   useEffect(() => {
@@ -310,6 +328,13 @@ function Home() {
       }
     }
 
+    // Helper function to sync edgeLine rotation with shape
+    function syncEdgeLineRotation() {
+      edgeLine.rotation.x = shape.rotation.x;
+      edgeLine.rotation.y = shape.rotation.y;
+      edgeLine.rotation.z = shape.rotation.z;
+    }
+
     function animate() {
       if (isTransitioning) {
         const elapsed = Date.now() - transitionStartTime;
@@ -323,17 +348,13 @@ function Home() {
           shape.rotation.x = transitionStartRotation.x + (transitionTargetRotation.x - transitionStartRotation.x) * easedRotationProgress;
           shape.rotation.y = transitionStartRotation.y + (transitionTargetRotation.y - transitionStartRotation.y) * easedRotationProgress;
           shape.rotation.z = transitionStartRotation.z + (transitionTargetRotation.z - transitionStartRotation.z) * easedRotationProgress;
-          edgeLine.rotation.x = shape.rotation.x;
-          edgeLine.rotation.y = shape.rotation.y;
-          edgeLine.rotation.z = shape.rotation.z;
+          syncEdgeLineRotation();
         } else {
           // rotation complete, set to target
           shape.rotation.x = transitionTargetRotation.x;
           shape.rotation.y = transitionTargetRotation.y;
           shape.rotation.z = transitionTargetRotation.z;
-          edgeLine.rotation.x = shape.rotation.x;
-          edgeLine.rotation.y = shape.rotation.y;
-          edgeLine.rotation.z = shape.rotation.z;
+          syncEdgeLineRotation();
           
           // zoom phase (second second)
           const zoomElapsed = elapsed - ROTATION_PHASE_DURATION;
@@ -360,8 +381,8 @@ function Home() {
       } else {
         shape.rotation.x += 0.0005;
         shape.rotation.y += 0.0005;
-        edgeLine.rotation.x += 0.0005;
-        edgeLine.rotation.y += 0.0005;
+        edgeLine.rotation.x = shape.rotation.x;
+        edgeLine.rotation.y = shape.rotation.y;
       }
 
       const time = Date.now() * 0.001;
@@ -424,20 +445,14 @@ function Home() {
     }
   }, [location.pathname]);
 
-  // navigate to about on scroll up
-  useEffect(() => {
-    function handleWheel(event) {
-      if (event.deltaY < 0) {
-        navigate('/');
-      }
+  // scroll transition handler
+  useScrollTransition({
+    currentPath: '/home',
+    transitions: {
+      scrollDown: '/experiments',
+      scrollUp: '/'
     }
-
-    window.addEventListener('wheel', handleWheel);
-    
-    return () => {
-      window.removeEventListener('wheel', handleWheel);
-    };
-  }, [navigate]);
+  });
 
   return (
     <div style={{ width: '100%', height: '100vh', backgroundColor: 'white', position: 'relative' }}>
@@ -507,15 +522,9 @@ function Home() {
                 setIsMenuOpen(false);
                 navigate('/');
               }}
-              style={{
-                color: 'black',
-                padding: '12px 20px',
-                cursor: 'pointer',
-                fontSize: '16px',
-                transition: 'background-color 0.2s ease'
-              }}
-              onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'}
-              onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+              style={menuItemStyle}
+              onMouseEnter={handleMenuItemHover}
+              onMouseLeave={handleMenuItemLeave}
             >
               About
             </div>
@@ -524,43 +533,28 @@ function Home() {
                 setIsMenuOpen(false);
                 navigate('/projects');
               }}
-              style={{
-                color: 'black',
-                padding: '12px 20px',
-                cursor: 'pointer',
-                fontSize: '16px',
-                transition: 'background-color 0.2s ease'
-              }}
-              onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'}
-              onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+              style={menuItemStyle}
+              onMouseEnter={handleMenuItemHover}
+              onMouseLeave={handleMenuItemLeave}
             >
               Projects
             </div>
             <div 
-              onClick={() => setIsMenuOpen(false)}
-              style={{
-                color: 'black',
-                padding: '12px 20px',
-                cursor: 'pointer',
-                fontSize: '16px',
-                transition: 'background-color 0.2s ease'
+              onClick={() => {
+                setIsMenuOpen(false);
+                navigate('/experiments');
               }}
-              onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'}
-              onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+              style={menuItemStyle}
+              onMouseEnter={handleMenuItemHover}
+              onMouseLeave={handleMenuItemLeave}
             >
               Experiments
             </div>
             <div 
               onClick={() => setIsMenuOpen(false)}
-              style={{
-                color: 'black',
-                padding: '12px 20px',
-                cursor: 'pointer',
-                fontSize: '16px',
-                transition: 'background-color 0.2s ease'
-              }}
-              onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'}
-              onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+              style={menuItemStyle}
+              onMouseEnter={handleMenuItemHover}
+              onMouseLeave={handleMenuItemLeave}
             >
               Contact
             </div>
@@ -619,7 +613,7 @@ function Home() {
       {/* Project1 Image - bottom right corner */}
       {showProject1Image && (
         <img
-          src="/photos/blue.png"
+          src="/photosHome/blue.png"
           alt="Project 1"
           style={{
             position: 'absolute',
@@ -639,7 +633,7 @@ function Home() {
       {/* Project2 Image - bottom right corner */}
       {showProject2Image && (
         <img
-          src="/photos/NorthernLights.png"
+          src="/photosHome/NorthernLights.png"
           alt="Project 2"
           style={{
             position: 'absolute',

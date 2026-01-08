@@ -8,6 +8,7 @@ function Project1() {
   const navigate = useNavigate();
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
+  const [isVideoHovered, setIsVideoHovered] = useState(false);
   const mountRef = useRef(null);
   const animationFrameRef = useRef(null);
   const transitionStartTimeRef = useRef(null);
@@ -93,12 +94,10 @@ function Project1() {
           const zoomElapsed = elapsed - FADE_IN_DURATION;
           const zoomProgress = Math.min(zoomElapsed / ZOOM_DURATION, 1);
           const easedZoomProgress = 1 - Math.pow(1 - zoomProgress, 3); // Ease out cubic
-          
-          // Interpolate camera from z=0.1 to z=5
+
           camera.position.z = 0.1 + (5 - 0.1) * easedZoomProgress;
         }
 
-        // Navigate when transition completes
         if (elapsed >= TOTAL_DURATION) {
           navigate('/home');
         }
@@ -109,7 +108,6 @@ function Project1() {
 
     animate();
 
-    // Handle window resize
     function handleResize() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -182,68 +180,75 @@ function Project1() {
           back to home
         </button>
         <video
-          src="https://q8gn8lidy3ewsjwd.public.blob.vercel-storage.com/spaceTime.mp4"
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/spaceTime.mp4"
           autoPlay
           loop
           muted
           style={{
-            width: '900px',
+            width: '1200px',
             height: 'auto',
             position: 'absolute',
-            top: '50%',
+            top: '55%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
             marginTop: '-60px',
             borderRadius: '12px',
             opacity: fadeIn ? 1 : 0,
-            transition: 'opacity 1s ease-in'
+            transition: 'opacity 0.5s ease-in-out'
+          }}
+          onMouseEnter={(e) => {
+            if (fadeIn) {
+              e.target.style.opacity = '0.07';
+              setIsVideoHovered(true);
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (fadeIn) {
+              e.target.style.opacity = '1';
+              setIsVideoHovered(false);
+            }
           }}
         />
+        <div style={{ 
+          color: '#999999',
+          fontSize: '14px',
+          fontFamily: 'Courier New, monospace',
+          position: 'absolute',
+          top: '55%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          marginTop: '-60px',
+          width: '1000px',
+          maxWidth: '83%',
+          textAlign: 'center',
+          lineHeight: '1.6',
+          opacity: (fadeIn && isVideoHovered) ? 1 : 0,
+          transition: 'opacity 0.5s ease-in-out',
+          pointerEvents: 'none',
+          zIndex: 5
+        }}>
+          I was tasked with creating a TouchDesigner project that represented the concept of time. As a big fan of Interstellar, I approached this through the lens of time dilation - the idea that time is relative, not absolute. The visuals represent a gravity well that demonstrates how massive objects warp spacetime, causing time to move differently depending on your proximity to gravitational fields.
+          <br /><br />
+          It fascinates me that time isn't a steady metronome ticking uniformly across the universe. The fact that it stretches, compresses, and bends means what feels like a moment to one observer could be years to another.
+          <br /><br />
+          I used instancing to create swirling particle systems, SOPs to create distorted geometry, CHOPs to control parameters, and python code to control velocity and movement.
+          <br /><br />
+          Time is an illusion of consistency !! Here's to a reminder that our experience of time is as much about perception as it is about physics.
+        </div>
         <p style={{ 
           color: '#999999',
           fontSize: '22px',
           fontFamily: 'Courier New, monospace',
           position: 'absolute',
-          top: 'calc(50% - 360px)',
-          left: 'calc(50% - 450px)',
+          top: 'calc(55% - 450px)',
+          right: 'calc(50% - 600px)',
           margin: 0,
-          textAlign: 'left',
+          textAlign: 'right',
+          whiteSpace: 'nowrap',
           opacity: fadeIn ? 1 : 0,
-          transition: 'opacity 3s ease-in'
+          transition: 'opacity 1.5s ease-in'
         }}>
           01 SpaceTime
-        </p>
-        <p style={{ 
-          color: '#999999',
-          fontSize: '16px',
-          fontFamily: 'Courier New, monospace',
-          position: 'absolute',
-          top: 'calc(50% + 240px)',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          margin: 0,
-          textAlign: 'center',
-          whiteSpace: 'nowrap',
-          opacity: fadeIn ? 1 : 0,
-          transition: 'opacity 3s ease-in'
-        }}>
-          A representation of time dialtion. Particles closer to mass moves slower in rotation.
-        </p>
-        <p style={{ 
-          color: '#999999',
-          fontSize: '16px',
-          fontFamily: 'Courier New, monospace',
-          position: 'absolute',
-          top: 'calc(50% + 280px)',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          margin: 0,
-          textAlign: 'center',
-          whiteSpace: 'nowrap',
-          opacity: fadeIn ? 1 : 0,
-          transition: 'opacity 3s ease-in'
-        }}>
-          Made in TouchDesigner.
         </p>
         {/* Page Indicator */}
         <div style={{

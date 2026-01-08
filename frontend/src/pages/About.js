@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useScrollTransition } from '../hooks/useScrollTransition';
+
 
 function About() {
-  const navigate = useNavigate();
   const [showArrow, setShowArrow] = useState(false);
+  const fullText = "Welcome :)";
+  const [displayedText, setDisplayedText] = useState('');
 
-  useEffect(() => {
-    function handleWheel(event) {
-      if (event.deltaY > 0) {
-        navigate('/home');
-      }
+  useScrollTransition({
+    currentPath: '/',
+    transitions: {
+      scrollDown: '/home'
     }
-
-    window.addEventListener('wheel', handleWheel);
-    
-    return () => {
-      window.removeEventListener('wheel', handleWheel);
-    };
-  }, [navigate]);
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -26,6 +21,39 @@ function About() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  //typewriter 
+  useEffect(() => {
+    let currentIndex = 0;
+    let timeoutId;
+    let repeatTimeoutId;
+
+    const typeWriter = () => {
+      if (currentIndex < fullText.length) {
+        setDisplayedText(fullText.slice(0, currentIndex + 1));
+        currentIndex++;
+        timeoutId = setTimeout(typeWriter, 45); 
+      }
+      else {
+        repeatTimeoutId = setTimeout(() => {
+          currentIndex = 0;
+          setDisplayedText('');
+          typeWriter();
+        }, 5000);
+      }
+    };
+
+    typeWriter();
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      if (repeatTimeoutId) {
+        clearTimeout(repeatTimeoutId);
+      }
+    };
+  }, [fullText]);
 
   return (
     <div style={{ 
@@ -52,7 +80,8 @@ function About() {
           marginBottom: '30px',
           //fontWeight: 'bold'
         }}>
-          Welcome :)
+          {displayedText}
+          <span style={{ opacity: displayedText.length < fullText.length ? 1 : 0 }}>|</span>
         </div>
         <div style={{ marginBottom: '20px' }}>
           I'm a <span style={{ color: '#5A7D9A' }}>creative technologist</span> who finds enjoyment in expressing myself through art.
@@ -208,7 +237,7 @@ function About() {
           display: 'flex',
           alignItems: 'center',
           gap: '10px',
-          opacity: showArrow ? 1 : 0,
+          opacity: 1,
           transition: 'opacity 0.5s ease-in',
           cursor: 'pointer'
         }}>

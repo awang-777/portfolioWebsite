@@ -8,6 +8,7 @@ function Project2() {
   const navigate = useNavigate();
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
+  const [isVideoHovered, setIsVideoHovered] = useState(false);
   const mountRef = useRef(null);
   const animationFrameRef = useRef(null);
   const transitionStartTimeRef = useRef(null);
@@ -178,69 +179,94 @@ function Project2() {
           back to home
         </button>
         <video
-          src="https://q8gn8lidy3ewsjwd.public.blob.vercel-storage.com/NL.mp4"
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/NL.mp4" //cloudflare r2
           autoPlay
           loop
+          muted
           style={{
-            width: '900px',
+            width: '1100px',
             height: 'auto',
             position: 'absolute',
-            top: '50%',
+            top: '55%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
             marginTop: '-60px',
             borderRadius: '12px',
             opacity: fadeIn ? 1 : 0,
-            transition: 'opacity 1s ease-in'
+            transition: 'opacity 0.5s ease-in-out'
+          }}
+          onMouseEnter={(e) => {
+            if (fadeIn) {
+              e.target.style.opacity = '0.07';
+              setIsVideoHovered(true);
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (fadeIn) {
+              e.target.style.opacity = '1';
+              setIsVideoHovered(false);
+            }
           }}
         />
+        <img
+          src="/photos/northern.jpg"
+          alt="Northern Lights"
+          style={{
+            position: 'absolute',
+            top: '55%',
+            left: 'calc(50% + 580px)',
+            transform: 'translateY(-50%)',
+            marginTop: '-60px',
+            maxWidth: '250px',
+            maxHeight: '350px',
+            width: 'auto',
+            height: 'auto',
+            borderRadius: '12px',
+            opacity: (fadeIn && isVideoHovered) ? 1 : 0,
+            transition: 'opacity 0.5s ease-in-out',
+            pointerEvents: 'none',
+            zIndex: 4,
+            objectFit: 'contain'
+          }}
+        />
+        <div style={{ 
+          color: '#999999',
+          fontSize: '14px',
+          fontFamily: 'Courier New, monospace',
+          position: 'absolute',
+          top: '55%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          marginTop: '-60px',
+          width: '1000px',
+          maxWidth: '83%',
+          textAlign: 'center',
+          lineHeight: '1.6',
+          opacity: (fadeIn && isVideoHovered) ? 1 : 0,
+          transition: 'opacity 0.5s ease-in-out',
+          pointerEvents: 'none',
+          zIndex: 5
+        }}>
+          I still remember the first time I ever saw the Northern Lights. It was January 2025, and I had impulsively booked a flight to Iceland - round trip tickets were only $180! I would've been a fool not to take that opportunity. Being winter, I had extreme hopes of catching the aurora.
+          <br /><br />
+          For the first several days, I obsessively checked aurora apps, cloud coverage forecasts, and solar flare predictions… yet, the conditions were never right. I began to lose hope. But on my last day, as I arrived back in Reykjavik, my app alerted me: high aurora activity right where I was. The only problem? Light pollution. Not wanting to miss my chance, I frantically researched the darkest spot nearby, jumped in my rental car, and drove (quickly but safely) out of the city. And there they were ! Beautiful ribbons of green light dancing across the sky. It was beyond breathtaking. 
+          <br /><br />
+          Fast forward to recently: I woke up to news that the Northern Lights had been visible in Maryland the night before. I was crushed to have missed it so I decided to create my own auroral experience right here on my screen. Using TouchDesigner and the MediaPipe plugin, I built an interactive simulation where a central sphere represents Earth (or any planet), surrounded by dynamic waves that mimic a geomagnetic storm. My hands control the intensity of the aurora - bringing that ephemeral, untouchable phenomenon into something I can shape and hold.
+        </div>
         <p style={{ 
           color: '#999999',
           fontSize: '22px',
           fontFamily: 'Courier New, monospace',
           position: 'absolute',
-          top: 'calc(47% - 360px)',
-          left: 'calc(50% - 450px)',
+          top: 'calc(55% - 450px)',
+          right: 'calc(50% - 550px)',
           margin: 0,
-          textAlign: 'left',
-          opacity: fadeIn ? 1 : 0,
-          transition: 'opacity 3s ease-in'
-        }}>
-          02 Northern Lights
-        </p>
-        <p style={{ 
-          color: '#999999',
-          fontSize: '16px',
-          fontFamily: 'Courier New, monospace',
-          position: 'absolute',
-          top: 'calc(52% + 240px)',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          margin: 0,
-          textAlign: 'center',
-          lineHeight: '1.5',
-          opacity: fadeIn ? 1 : 0,
-          transition: 'opacity 3s ease-in'
-        }}>
-          One day I woke up to the news of missing a rare chance to see the northern lights in Maryland. 
-          <br />
-          I decided to bring it to life myself. 
-        </p>
-        <p style={{ 
-          color: '#999999',
-          fontSize: '16px',
-          fontFamily: 'Courier New, monospace',
-          position: 'absolute',
-          top: 'calc(57% + 280px)',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          margin: 0,
-          textAlign: 'center',
+          textAlign: 'right',
           whiteSpace: 'nowrap',
           opacity: fadeIn ? 1 : 0,
-          transition: 'opacity 3s ease-in'
+          transition: 'opacity 1.5s ease-in'
         }}>
-          Made in Touchdesigner with media pipe plugin for gestural interaction.
+          02 Northern Lights
         </p>
         {/* Page Indicator */}
         <div style={{
