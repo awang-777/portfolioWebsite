@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useScrollTransition } from '../hooks/useScrollTransition';
 
 function Experiments() {
-  const fullText = "You've made it to my experiments page! What you'll find here are some silly projects that are not quite complete... but still pretty fun. Hope you enjoy.";
+  const fullText = "You've made it to my experiments page! What you'll find here are some projects that are not quite complete... but still pretty fun. Hope you enjoy.";
   const [displayedText, setDisplayedText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFruitHovered, setIsFruitHovered] = useState(false);
@@ -161,6 +161,35 @@ function Experiments() {
             borderRadius: '10px'
           }}
         />
+      </div>
+
+      {/* Fruit Smash Description */}
+      <div style={{
+        position: 'absolute',
+        right: '80px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        zIndex: 15,
+        pointerEvents: 'none',
+        opacity: isFruitHovered ? 1 : 0,
+        transition: 'opacity 0.5s ease',
+        maxWidth: '400px',
+        padding: '0 35px'
+      }}>
+        <p style={{
+          fontSize: '14px',
+          color: '#333333',
+          fontFamily: 'Courier New, monospace',
+          lineHeight: '1.8',
+          margin: 0,
+          textAlign: 'left'
+        }}>
+          One of my favourite games as a kid was the classic Fruit Ninja so I decided to bring a more modern version to life. This is an interactive hand-tracking game built in TouchDesigner using the MediaPipe plugin. Players 'smash' procedurally generated fruits using the closed-fist movement captured in real-time. The goal is to blend digital gameplay with embodied interaction.
+          <br /><br />
+          The system incorporates difficulty scaling: starting with single fruits spawning every three seconds, then progressively increasing to multiple simultaneous targets with shortened intervals as players reach score thresholds. Each fruit generates at randomized screen coordinates with varied types.
+          <br /><br />
+          All visual assets were custom illustrated in Procreate and integrated as PNG sequences into the TouchDesigner environment. My eventual goal is to finalize this piece and have it be incorporated into a mundane space to cultivate play.
+        </p>
       </div>
 
       {/* VR.jpg */} 
