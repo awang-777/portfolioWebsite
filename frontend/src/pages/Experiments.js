@@ -184,7 +184,7 @@ function Experiments() {
           margin: 0,
           textAlign: 'left'
         }}>
-          One of my favourite games as a kid was the classic Fruit Ninja so I decided to bring a more modern version to life. This is an interactive hand-tracking game built in TouchDesigner using the MediaPipe plugin. Players 'smash' procedurally generated fruits using the closed-fist movement captured in real-time. The goal is to blend digital gameplay with embodied interaction.
+          One of my favourite games as a kid was the classic Fruit Ninja so I decided to bring a more modern version to life. This is an interactive hand-tracking game built in TouchDesigner using the MediaPipe plugin. Players 'smash' procedurally generated fruits using the closed-fist movement captured in real-time. The goal is to blend digital gameplay with interaction.
           <br /><br />
           The system incorporates difficulty scaling: starting with single fruits spawning every three seconds, then progressively increasing to multiple simultaneous targets with shortened intervals as players reach score thresholds. Each fruit generates at randomized screen coordinates with varied types.
           <br /><br />
