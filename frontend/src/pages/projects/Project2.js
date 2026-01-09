@@ -17,7 +17,7 @@ function Project2() {
     setFadeIn(true);
   }, []);
 
-  // Initialize Three.js scene for transition
+  // initializes 3.js scene for transition
   useEffect(() => {
     const mount = mountRef.current;
     if (!mount) return;
@@ -31,7 +31,7 @@ function Project2() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     
-    // Initially hide the overlay
+    // initially hides the overlay
     renderer.domElement.style.opacity = '0';
     renderer.domElement.style.pointerEvents = 'none';
     renderer.domElement.style.position = 'fixed';
@@ -41,14 +41,12 @@ function Project2() {
     
     mount.appendChild(renderer.domElement);
 
-    // Geometry (same as Home.js)
     const radius = 2.8;
     const geometry = new THREE.IcosahedronGeometry(radius);
     geometry.toNonIndexed();
 
     const originalColor = new THREE.Color(0xfafafa);
     
-    // Initialize colors
     const positionCount = geometry.attributes.position.count;
     const colors = new Float32Array(positionCount * 3);
     for (let i = 0; i < positionCount; i++) {
@@ -63,7 +61,6 @@ function Project2() {
     const shape = new THREE.Mesh(geometry, material);
     scene.add(shape);
 
-    // Lighting (same as Home.js)
     scene.add(new THREE.AmbientLight(0xffffff, 1.0));
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
     directionalLight.position.set(5, 5, 1);
@@ -249,7 +246,7 @@ function Project2() {
         }}>
           I still remember the first time I ever saw the Northern Lights. It was January 2025, and I had impulsively booked a flight to Iceland - round trip tickets were only $180! I would've been a fool not to take that opportunity. Being winter, I had extreme hopes of catching the aurora.
           <br /><br />
-          For the first several days, I obsessively checked aurora apps, cloud coverage forecasts, and solar flare predictions… yet, the conditions were never right. I began to lose hope. But on my last day, as I arrived back in Reykjavik, my app alerted me: high aurora activity right where I was. The only problem? Light pollution. Not wanting to miss my chance, I frantically researched the darkest spot nearby, jumped in my rental car, and drove (quickly but safely) out of the city. And there they were ! Beautiful ribbons of green light dancing across the sky. It was beyond breathtaking. 
+          For the first several days, I obsessively checked aurora apps, cloud coverage forecasts, and solar flare predictions… yet, the conditions were never right. I began to lose hope. But on my last day, as I arrived back in Reykjavik, my app alerted me: high aurora activity right where I was. The only problem? Light pollution. Not wanting to miss my chance, I frantically researched the darkest spot nearby, jumped in my rental car, and sped (within the legal limit) out of the city. And there they were ! Beautiful ribbons of green light dancing across the sky. It was beyond breathtaking. 
           <br /><br />
           Fast forward to recently: I woke up to news that the Northern Lights had been visible in Maryland the night before. I was crushed to have missed it so I decided to create my own auroral experience right here on my screen. Using TouchDesigner and the MediaPipe plugin, I built an interactive simulation where a central sphere represents Earth (or any planet), surrounded by dynamic waves that mimic a geomagnetic storm. My hands control the intensity of the aurora - bringing that ephemeral, untouchable phenomenon into something I can shape and hold.
         </div>
