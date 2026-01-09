@@ -337,8 +337,7 @@ function Experiments() {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                {/* Rio vid - preloaded but hidden until hover */}
-                {isCowboyImage && (
+                {isCowboyImage && isRioHovered && (
                   <video
                     ref={rioVideoRef}
                     src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/rio.mp4"
@@ -347,20 +346,16 @@ function Experiments() {
                       width: '100%',
                       height: '100%',
                       objectFit: 'contain',
-                      zIndex: 1,
-                      opacity: isRioHovered ? 1 : 0,
-                      transition: 'opacity 0.3s ease',
-                      pointerEvents: 'none'
+                      zIndex: 1
                     }}
                     loop
                     muted
                     playsInline
-                    preload="auto"
                   />
                 )}
                 
-                {/* Fruit vid - preloaded but hidden until hover */}
-                {isFruitImage && (
+                
+                {isFruitImage && isFruitHovered && (
                   <video
                     ref={fruitVideoRef}
                     src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/fruitsmash.mp4"
@@ -369,15 +364,16 @@ function Experiments() {
                       width: '100%',
                       height: '100%',
                       objectFit: 'contain',
-                      zIndex: 1,
-                      opacity: isFruitHovered ? 1 : 0,
-                      transition: 'opacity 0.3s ease',
-                      pointerEvents: 'none'
+                      zIndex: 1
                     }}
                     loop
                     muted
                     playsInline
-                    preload="auto"
+                    onCanPlay={() => {
+                      if (fruitVideoRef.current && isFruitHovered) {
+                        fruitVideoRef.current.play();
+                      }
+                    }}
                   />
                 )}
                 
