@@ -209,7 +209,7 @@ function Project2() {
           }}
         />
         <img
-          src="/photos/northern.jpg"
+          src="/photosHome/northern.jpg"
           alt="Northern Lights"
           style={{
             position: 'absolute',

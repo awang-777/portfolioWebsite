@@ -234,15 +234,15 @@ function Home() {
           const hoverColorObj = getHoverColorForFace(faceIndex, true);
           setFaceColor(faceIndex, hoverColorObj);
           
-          // Set project text and use darker color for text/hamburger
+          // sets project text and use darker color for text/hamburger
           const projectIndex = faceToProjectMap.get(faceIndex) ?? (faceIndex % PROJECT_ROUTES.length);
           const route = PROJECT_ROUTES[projectIndex];
           setHoverColor(PROJECT_TEXT_COLORS[route]);
           setHoveredProjectText(PROJECT_TITLES[route]);
           
-          // Show blue.png when hovering over Project1
+          // shows blue.png when hovering over Project1
           setShowProject1Image(route === '/projects/project1');
-          // Show NorthernLights.png when hovering over Project2
+          // shows NorthernLights.png when hovering over Project2
           setShowProject2Image(route === '/projects/project2');
         }
 
@@ -375,8 +375,8 @@ function Home() {
           navigate(transitionTargetRoute);
           isTransitioning = false;
           transitionTargetRoute = null;
-          setTextOpacity(1); // reset opacity
-          edgeLine2.visible = true; // show edgeLine2 again
+          setTextOpacity(1); 
+          edgeLine2.visible = true; 
         }
       } else {
         shape.rotation.x += 0.0005;

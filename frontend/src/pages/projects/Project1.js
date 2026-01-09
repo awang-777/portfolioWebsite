@@ -81,7 +81,6 @@ function Project1() {
         const ZOOM_DURATION = 2500;
         const TOTAL_DURATION = FADE_IN_DURATION + ZOOM_DURATION;
 
-        // Fade in the Three.js overlay
         if (elapsed < FADE_IN_DURATION) {
           const fadeProgress = elapsed / FADE_IN_DURATION;
           renderer.domElement.style.opacity = fadeProgress.toString();
@@ -89,7 +88,6 @@ function Project1() {
           renderer.domElement.style.opacity = '1';
         }
 
-        // Zoom out camera
         if (elapsed >= FADE_IN_DURATION) {
           const zoomElapsed = elapsed - FADE_IN_DURATION;
           const zoomProgress = Math.min(zoomElapsed / ZOOM_DURATION, 1);
@@ -115,7 +113,7 @@ function Project1() {
     }
     window.addEventListener('resize', handleResize);
 
-    // Cleanup
+
     return () => {
       window.removeEventListener('resize', handleResize);
       if (animationFrameRef.current) {
