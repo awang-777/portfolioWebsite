@@ -76,6 +76,14 @@ function About() {
         textAlign: 'left'
       }}>
         <div style={{ 
+          fontSize: '12px', 
+          color: '#9999999', 
+          marginBottom: '14px',
+          fontFamily: 'Courier New, monospace'
+        }}>
+          Please open on chrome for best experience
+        </div>
+        <div style={{ 
           fontSize: '24px', 
           marginBottom: '30px',
           //fontWeight: 'bold'
