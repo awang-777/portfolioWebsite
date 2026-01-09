@@ -39,7 +39,7 @@ function Experiments() {
       if (currentIndex < fullText.length) {
         setDisplayedText(fullText.slice(0, currentIndex + 1));
         currentIndex++;
-        timeoutId = setTimeout(typeWriter, 30); // can adjust speed here
+        timeoutId = setTimeout(typeWriter, 30); // speed 
       }
     };
 
@@ -52,7 +52,7 @@ function Experiments() {
     };
   }, [fullText]);
 
-  // Handle fruit video play/pause
+  // FRUIT VID PLAY/PAUSE
   useEffect(() => {
     if (isFruitHovered && fruitVideoRef.current) {
       fruitVideoRef.current.play().catch(() => {});
@@ -62,7 +62,7 @@ function Experiments() {
     }
   }, [isFruitHovered]);
 
-  // Handle rio video play/pause
+  //RIO VID PLAY/PAUSE
   useEffect(() => {
     if (isRioHovered && rioVideoRef.current) {
       rioVideoRef.current.play().catch(() => {});
@@ -72,7 +72,7 @@ function Experiments() {
     }
   }, [isRioHovered]);
 
-  // auto rotation - pauses when any carousel item is hovered
+  // AUTO ROTATION - PAUSES WHEN ANY CAROUSEL ITEM IS HOVERED
   useEffect(() => {
     if (isFruitHovered || isRioHovered) {
       return;
@@ -188,6 +188,41 @@ function Experiments() {
         />
       </div>
 
+      {/* VR Game Description Text - appears on right when hovering over cowboy image */}
+      <div style={{
+        position: 'absolute',
+        right: '80px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        zIndex: 15,
+        pointerEvents: 'none',
+        opacity: isRioHovered ? 1 : 0,
+        transition: 'opacity 0.5s ease',
+        maxWidth: '500px',
+        padding: '0 30px'
+      }}>
+        <p style={{
+          fontSize: '14px',
+          color: '#333333',
+          fontFamily: 'Courier New, monospace',
+          lineHeight: '1.8',
+          margin: 0,
+          textAlign: 'left'
+        }}>
+          Western-themed VR shootout game created in Unity. This was a collaboration between myself and two other students.
+          <br /><br />
+          My contributions:
+          <br />
+          • implemented core systems including VR hardware setup (Oculus/macOS compatibility)
+          <br />
+          • character integration (mesh selection and Mixamo rigging)
+          <br />
+          • C# scripting for movement mechanics, shooting systems, game state logic, round management, and ballistics.
+          <br /><br />
+          Project is on my github. 
+        </p>
+      </div>
+
       {/* Page Indicator */}
       <div style={{
         position: 'absolute',
@@ -289,6 +324,7 @@ function Experiments() {
                     playsInline
                   />
                 )}
+                
                 
                 {isFruitImage && isFruitHovered && (
                   <video
