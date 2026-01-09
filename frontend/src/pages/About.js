@@ -107,6 +107,7 @@ function About() {
             href="https://docs.google.com/document/d/127mCtFw3nbGfYZNwe0W_Xm1i6mVRkfvCOaPIQvfb8oE/edit?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
+            title="Resume"
             style={{
               textDecoration: 'none',
               padding: '4px',
@@ -148,12 +149,13 @@ function About() {
               </g>
             </svg>
           </a>
-          
+                    
           {/* GitHub Button */}
           <a
             href="https://github.com/awang-777"
             target="_blank"
             rel="noopener noreferrer"
+            title="GitHub"
             style={{
               textDecoration: 'none',
               padding: '4px',
@@ -190,6 +192,7 @@ function About() {
             href="https://instagram.com/m3ii.22"
             target="_blank"
             rel="noopener noreferrer"
+            title="Instagram"
             style={{
               textDecoration: 'none',
               padding: '4px',
