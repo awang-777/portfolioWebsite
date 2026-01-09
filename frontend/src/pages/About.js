@@ -227,6 +227,46 @@ function About() {
               </g>
             </svg>
           </a>
+          
+          {/* OpenProcessing Button */}
+          <a
+            href="https://openprocessing.org/user/558993#sketches"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="OpenProcessing"
+            style={{
+              textDecoration: 'none',
+              padding: '4px',
+              borderRadius: '50%',
+              backgroundColor: 'transparent',
+              transition: 'all 0.3s ease',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.opacity = '0.8';
+              e.currentTarget.style.transform = 'scale(1.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.opacity = '1';
+              e.currentTarget.style.transform = 'scale(1)';
+            }}
+          >
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              style={{ display: 'block' }}
+            >
+              <circle cx="12" cy="12" r="12" fill="#e5e5e5"/>
+              <g fill="#999999">
+                <ellipse cx="10" cy="12" rx="7" ry="8" fill="#999999" opacity="0.5"/>
+                <ellipse cx="14" cy="12" rx="7" ry="8" fill="#333333" opacity="0.3"/>
+              </g>
+            </svg>
+          </a>
         </div>
       </div>
       
