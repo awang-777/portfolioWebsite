@@ -115,7 +115,7 @@ function Experiments() {
         </p>
       </div>
 
-      {/* fruitTD.png and hand1.png - appear on left when hovering over fruit image */}
+      {/* fruitTD.png and hand1.png - appear when hover */}
       <div style={{
         position: 'absolute',
         left: '50px',
@@ -163,7 +163,7 @@ function Experiments() {
         />
       </div>
 
-      {/* Fruit Smash Description */}
+      {/* FRUIT Smash Description */}
       <div style={{
         position: 'absolute',
         right: '80px',
@@ -217,7 +217,7 @@ function Experiments() {
         />
       </div>
 
-      {/* VR Game Description Text - appears on right when hovering over cowboy image */}
+      {/* VR Game Description Text */}
       <div style={{
         position: 'absolute',
         right: '80px',
@@ -337,7 +337,8 @@ function Experiments() {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
               >
-                {isCowboyImage && isRioHovered && (
+                {/* Rio vid - preloaded but hidden until hover */}
+                {isCowboyImage && (
                   <video
                     ref={rioVideoRef}
                     src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/rio.mp4"
@@ -346,16 +347,20 @@ function Experiments() {
                       width: '100%',
                       height: '100%',
                       objectFit: 'contain',
-                      zIndex: 1
+                      zIndex: 1,
+                      opacity: isRioHovered ? 1 : 0,
+                      transition: 'opacity 0.3s ease',
+                      pointerEvents: 'none'
                     }}
                     loop
                     muted
                     playsInline
+                    preload="auto"
                   />
                 )}
                 
-                
-                {isFruitImage && isFruitHovered && (
+                {/* Fruit vid - preloaded but hidden until hover */}
+                {isFruitImage && (
                   <video
                     ref={fruitVideoRef}
                     src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/fruitsmash.mp4"
@@ -364,16 +369,15 @@ function Experiments() {
                       width: '100%',
                       height: '100%',
                       objectFit: 'contain',
-                      zIndex: 1
+                      zIndex: 1,
+                      opacity: isFruitHovered ? 1 : 0,
+                      transition: 'opacity 0.3s ease',
+                      pointerEvents: 'none'
                     }}
                     loop
                     muted
                     playsInline
-                    onCanPlay={() => {
-                      if (fruitVideoRef.current && isFruitHovered) {
-                        fruitVideoRef.current.play();
-                      }
-                    }}
+                    preload="auto"
                   />
                 )}
                 
@@ -396,7 +400,7 @@ function Experiments() {
         </div>
       </div>
 
-      {/* Slide Bar */}
+      {/* slide bar */}
       <div style={{
         position: 'absolute',
         bottom: '50px',
