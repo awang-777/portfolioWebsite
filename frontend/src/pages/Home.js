@@ -1,683 +1,168 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
-import { useScrollTransition } from '../hooks/useScrollTransition';
-
-const PROJECT_ROUTES = ['/projects/project1', '/projects/project2', '/projects/project3', '/projects/project4'];
-const PROJECT_COLORS = {
-  '/projects/project1': '#d8e0ea',
-  '/projects/project2': '#e0dce4', 
-  '/projects/project3': '#f0e8e8',
-  '/projects/project4': '#e8edea',
-};
-const PROJECT_TEXT_COLORS = {
-  '/projects/project1': '#6b7a8a',
-  '/projects/project2': '#7a6b85', 
-  '/projects/project3': '#8a7a7a',
-  '/projects/project4': '#7a8a7f',
-};
-const PROJECT_TITLES = {
-  '/projects/project1': '01 SpaceTime',
-  '/projects/project2': '02 Northern Lights',
-  '/projects/project3': '03',
-  '/projects/project4': '04',
-};
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 
 function Home() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [textOpacity, setTextOpacity] = useState(1);
-  const [fadeInOpacity, setFadeInOpacity] = useState(0);
-  const [hoverColor, setHoverColor] = useState('#333333');
-  const [hoveredProjectText, setHoveredProjectText] = useState(null);
-  const [showProject1Image, setShowProject1Image] = useState(false);
-  const [showProject2Image, setShowProject2Image] = useState(false);
   const mountRef = useRef(null);
-  const menuRef = useRef(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
-
-  // Shared menu item styles
-  const menuItemStyle = {
-    color: 'black',
-    padding: '12px 20px',
-    cursor: 'pointer',
-    fontSize: '16px',
-    transition: 'background-color 0.2s ease'
-  };
-
-  const handleMenuItemHover = (e) => {
-    e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-  };
-
-  const handleMenuItemLeave = (e) => {
-    e.target.style.backgroundColor = 'transparent';
-  };
-
-  // closes menu when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsMenuOpen(false);
-      }
-    }
-
-    if (isMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isMenuOpen]);
 
   useEffect(() => {
     const mount = mountRef.current;
-    if (!mount) return;
 
+    // my scene
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff);
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    scene.background = new THREE.Color(0xF2F0EF);
+
+    // the camera pos
+    const camera = new THREE.PerspectiveCamera(75, mount.clientWidth / mount.clientHeight, 0.1, 1000);
+    camera.position.z = 17;
+
+    // renderer
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setClearColor(0xffffff);
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(mount.clientWidth, mount.clientHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping; // lowers exposure 
+    renderer.toneMappingExposure = 0.7; // lower to make darker 
     mount.appendChild(renderer.domElement);
 
-    const radius = 2.8;
-    const geometry = new THREE.IcosahedronGeometry(radius);
-    geometry.toNonIndexed();
+    // lighting (the more lighting the better the iridescence :D)
+    scene.add(new THREE.AmbientLight(0xffffff, 0.05));
+    const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.4);
+    dirLight1.position.set(15, 2, 3);
+    scene.add(dirLight1);
+    const dirLight2 = new THREE.DirectionalLight(0xaaddff, 1.0);
+    dirLight2.position.set(-12, -2, -8);
+    scene.add(dirLight2);
+    const dirLight3 = new THREE.DirectionalLight(0xffaadd, 1.0);
+    dirLight3.position.set(2, -10, 3);
+    scene.add(dirLight3);
 
-    // EDGE LINES
-    const edges = new THREE.EdgesGeometry(geometry);
-    const edgeMaterial = new THREE.LineBasicMaterial({ color: 'gray' });
-    const edgeLine = new THREE.LineSegments(edges, edgeMaterial);
-    scene.add(edgeLine);
+    // environment map so iridescence has something to reflect
+    const pmremGenerator = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmremGenerator.fromScene(new RoomEnvironment()).texture;
+    pmremGenerator.dispose();
 
-    // EDGE LINES
-    const edges2 = new THREE.EdgesGeometry(geometry);
-    const edgeMaterial2 = new THREE.LineBasicMaterial({ color: 'gray' });
-    const edgeLine2 = new THREE.LineSegments(edges2, edgeMaterial2);
-    scene.add(edgeLine2);
+    // iridescent effect
+    const iridescentMaterial = new THREE.MeshPhysicalMaterial({
+      color: 0xe8e8ec,
+      metalness: 0.0,
+      roughness: 0.15,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.05,
+      iridescence: 1.0,
+      iridescenceIOR: 1.5,
+      iridescenceThicknessRange: [0, 2000]
+    });
 
-    const originalColor = new THREE.Color(0xfafafa);
-    
-    // initialize colors
-    const positionCount = geometry.attributes.position.count;
-    const colors = new Float32Array(positionCount * 3);
-    for (let i = 0; i < positionCount; i++) {
-      colors[i * 3] = originalColor.r;
-      colors[i * 3 + 1] = originalColor.g;
-      colors[i * 3 + 2] = originalColor.b;
-    }
 
-    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    // model
+    const loader = new GLTFLoader();
+    let model;
+    loader.load(
+      '/website.glb',
+      (gltf) => {
+        model = gltf.scene;
 
-    const material = new THREE.MeshPhongMaterial({ color: "#fafafa", vertexColors: true });
-    const shape = new THREE.Mesh(geometry, material);
-    scene.add(shape);
+        // centering the model
+        const box = new THREE.Box3().setFromObject(model);
+        const center = box.getCenter(new THREE.Vector3());
+        model.position.sub(center);
 
-    // lighting
-    scene.add(new THREE.AmbientLight(0xffffff, 1.0));
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
-    directionalLight.position.set(5, 5, 1);
-    scene.add(directionalLight);
-    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.0);
-    directionalLight2.position.set(-5, -5, 1);
-    scene.add(directionalLight2);
-
-    camera.position.z = 5;
-
-    // interaction setup
-    const raycaster = new THREE.Raycaster();
-    const mouse = new THREE.Vector2();
-    
-    let hoveredFaceIndex = null;
-    let fadeBackTimer = null;
-    let isFadingBack = false;
-    let fadingFaceIndex = null;
-    let fadeStartTime = 0;
-    let colorCounter = 0;
-    const faceToProjectMap = new Map();
-    
-    const FADE_BACK_DELAY = 300;
-    const FADE_DURATION = 500;
-    
-    // transitions state
-    let isTransitioning = false;
-    let transitionStartTime = 0;
-    let transitionTargetRotation = { x: 0, y: 0, z: 0 };
-    let transitionStartRotation = { x: 0, y: 0, z: 0 };
-    let transitionTargetRoute = null;
-    const TRANSITION_DURATION = 2500;
-    const ROTATION_PHASE_DURATION = 1000; 
-    const ZOOM_PHASE_DURATION = 6700; 
-    const TEXT_FADE_DURATION = 300; 
-    
-    // zoom state
-    let transitionStartCameraZ = 5;
-    let transitionTargetCameraZ = 0.1;
-
-    // helper: Calculate mouse coordinates
-    function getMouseCoords(event) {
-      const rect = renderer.domElement.getBoundingClientRect();
-      return {
-        x: ((event.clientX - rect.left) / rect.width) * 2 - 1,
-        y: -((event.clientY - rect.top) / rect.height) * 2 + 1
-      };
-    }
-
-    // helper: Get project index for a face
-    function getProjectIndexForFace(faceIndex, shouldIncrement = false) {
-      // if on a project page, use that project
-      if (location.pathname !== '/' && PROJECT_COLORS[location.pathname]) {
-        return PROJECT_ROUTES.indexOf(location.pathname);
-      }
-      
-      // otherwise, cycle through all colors before repeating
-      const projectIndex = colorCounter % PROJECT_ROUTES.length;
-      if (shouldIncrement) {
-        colorCounter = (colorCounter + 1) % PROJECT_ROUTES.length;
-      }
-      return projectIndex;
-    }
-
-    // helper: Get color for a face
-    function getHoverColorForFace(faceIndex, shouldIncrement = false) {
-      const projectIndex = getProjectIndexForFace(faceIndex, shouldIncrement);
-      faceToProjectMap.set(faceIndex, projectIndex);
-      
-      const route = PROJECT_ROUTES[projectIndex];
-      const colorHex = PROJECT_COLORS[route];
-      return new THREE.Color(colorHex);
-    }
-
-    function setFaceColor(faceIndex, color) {
-      const colorAttribute = geometry.attributes.color;
-      const baseIndex = faceIndex * 3;
-      colorAttribute.setXYZ(baseIndex, color.r, color.g, color.b);
-      colorAttribute.setXYZ(baseIndex + 1, color.r, color.g, color.b);
-      colorAttribute.setXYZ(baseIndex + 2, color.r, color.g, color.b);
-      colorAttribute.needsUpdate = true;
-    }
-
-    function restoreFaceColor(faceIndex) {
-      setFaceColor(faceIndex, originalColor);
-    }
-
-    function onMouseMove(event) {
-      if (isTransitioning) return;
-      
-      const coords = getMouseCoords(event);
-      mouse.set(coords.x, coords.y);
-      raycaster.setFromCamera(mouse, camera);
-      const intersects = raycaster.intersectObject(shape);
-
-      if (intersects.length > 0) {
-        const faceIndex = intersects[0].faceIndex;
-
-        if (fadeBackTimer) {
-          clearTimeout(fadeBackTimer);
-          fadeBackTimer = null;
-        }
-        isFadingBack = false;
-        
-        if (fadingFaceIndex !== null && fadingFaceIndex !== faceIndex) {
-          restoreFaceColor(fadingFaceIndex);
-          fadingFaceIndex = null;
-        }
-
-        if (hoveredFaceIndex !== faceIndex) {
-          if (hoveredFaceIndex !== null) {
-            restoreFaceColor(hoveredFaceIndex);
+        model.traverse((child) => { //applying the iridescent material 
+          if (child.isMesh) {
+            child.material = iridescentMaterial;
           }
-          hoveredFaceIndex = faceIndex;
-          const hoverColorObj = getHoverColorForFace(faceIndex, true);
-          setFaceColor(faceIndex, hoverColorObj);
-          
-          // sets project text and use darker color for text/hamburger
-          const projectIndex = faceToProjectMap.get(faceIndex) ?? (faceIndex % PROJECT_ROUTES.length);
-          const route = PROJECT_ROUTES[projectIndex];
-          setHoverColor(PROJECT_TEXT_COLORS[route]);
-          setHoveredProjectText(PROJECT_TITLES[route]);
-          
-          // shows blue.png when hovering over Project1
-          setShowProject1Image(route === '/projects/project1');
-          // shows NorthernLights.png when hovering over Project2
-          setShowProject2Image(route === '/projects/project2');
-        }
+        });
 
-        renderer.domElement.style.cursor = 'pointer';
-      } else {
-        if (hoveredFaceIndex !== null) {
-          fadingFaceIndex = hoveredFaceIndex;
-          hoveredFaceIndex = null;
-          setHoverColor('#333333');
-          setHoveredProjectText(null);
-          setShowProject1Image(false);
-          setShowProject2Image(false);
-          fadeBackTimer = setTimeout(() => {
-            isFadingBack = true;
-            fadeStartTime = Date.now();
-          }, FADE_BACK_DELAY);
-        }
-        renderer.domElement.style.cursor = 'default';
-      }
-    }
+        scene.add(model);
+      },
+      undefined,
+      (error) => console.error('Error loading model:', error)
+    );
 
-    function onMouseClick(event) {
-      if (isTransitioning) return;
-      
-      const coords = getMouseCoords(event);
-      mouse.set(coords.x, coords.y);
-      raycaster.setFromCamera(mouse, camera);
-      const intersects = raycaster.intersectObject(shape);
-
-      if (intersects.length > 0) {
-        const intersection = intersects[0];
-        const faceIndex = intersection.faceIndex;
-        const projectIndex = faceToProjectMap.get(faceIndex) ?? (faceIndex % PROJECT_ROUTES.length);
-        
-        // get face normal in world space
-        const faceNormal = intersection.face.normal.clone();
-        faceNormal.transformDirection(shape.matrixWorld);
-        faceNormal.normalize();
-        
-        const targetDirection = new THREE.Vector3(0, 0, 1);
-        
-        // calculates rotation needed to align face normal with camera
-        const alignQuaternion = new THREE.Quaternion().setFromUnitVectors(
-          faceNormal,
-          targetDirection
-        );
-        
-        // Get current rotation as quaternion
-        const currentQuaternion = new THREE.Quaternion().setFromEuler(shape.rotation);
-        
-        // Apply alignment rotation on top of current rotation
-        // multiply order: apply currentQuaternion first, then alignQuaternion
-        const finalQuaternion = alignQuaternion.multiply(currentQuaternion);
-        
-        // convert to Euler angles
-        const euler = new THREE.Euler().setFromQuaternion(finalQuaternion);
-        
-        // start transition
-        isTransitioning = true;
-        transitionStartTime = Date.now();
-        setTextOpacity(1);
-        setHoverColor('#333333');
-        setHoveredProjectText(null);
-        setShowProject1Image(false);
-        setShowProject2Image(false);
-        transitionStartRotation = {
-          x: shape.rotation.x,
-          y: shape.rotation.y,
-          z: shape.rotation.z
-        };
-        transitionTargetRotation = {
-          x: euler.x,
-          y: euler.y,
-          z: euler.z
-        };
-        transitionTargetRoute = PROJECT_ROUTES[projectIndex];
-        
-        // hide edgeLine2 during transition
-        edgeLine2.visible = false;
-        
-        // store camera start position for zoom
-        transitionStartCameraZ = camera.position.z;
-      }
-    }
-
-    // Helper function to sync edgeLine rotation with shape
-    function syncEdgeLineRotation() {
-      edgeLine.rotation.x = shape.rotation.x;
-      edgeLine.rotation.y = shape.rotation.y;
-      edgeLine.rotation.z = shape.rotation.z;
-    }
-
+    // animating (roation)
     function animate() {
-      if (isTransitioning) {
-        const elapsed = Date.now() - transitionStartTime;
-        
-        // rotation phase (first second)
-        if (elapsed < ROTATION_PHASE_DURATION) {
-          const rotationProgress = Math.min(elapsed / ROTATION_PHASE_DURATION, 1);
-          const easedRotationProgress = 1 - Math.pow(1 - rotationProgress, 3); // Ease out cubic
-          
-          // interpolate rotation
-          shape.rotation.x = transitionStartRotation.x + (transitionTargetRotation.x - transitionStartRotation.x) * easedRotationProgress;
-          shape.rotation.y = transitionStartRotation.y + (transitionTargetRotation.y - transitionStartRotation.y) * easedRotationProgress;
-          shape.rotation.z = transitionStartRotation.z + (transitionTargetRotation.z - transitionStartRotation.z) * easedRotationProgress;
-          syncEdgeLineRotation();
-        } else {
-          // rotation complete, set to target
-          shape.rotation.x = transitionTargetRotation.x;
-          shape.rotation.y = transitionTargetRotation.y;
-          shape.rotation.z = transitionTargetRotation.z;
-          syncEdgeLineRotation();
-          
-          // zoom phase (second second)
-          const zoomElapsed = elapsed - ROTATION_PHASE_DURATION;
-          const zoomProgress = Math.min(zoomElapsed / ZOOM_PHASE_DURATION, 1);
-          const easedZoomProgress = 1 - Math.pow(1 - zoomProgress, 3); // Ease out cubic
-          
-          // interpolate camera zoom
-          camera.position.z = transitionStartCameraZ + (transitionTargetCameraZ - transitionStartCameraZ) * easedZoomProgress;
-          
-          // fade out text quickly at start of zoom phase and then slow down
-          const textFadeProgress = Math.min(zoomElapsed / TEXT_FADE_DURATION, 1);
-          const easedTextFadeProgress = 1 - Math.pow(1 - textFadeProgress, 3); 
-          setTextOpacity(Math.max(0, 1 - easedTextFadeProgress));
-        }
-        
-        // navigate when transition completes
-        if (elapsed >= TRANSITION_DURATION && transitionTargetRoute) {
-          navigate(transitionTargetRoute);
-          isTransitioning = false;
-          transitionTargetRoute = null;
-          setTextOpacity(1); 
-          edgeLine2.visible = true; 
-        }
-      } else {
-        shape.rotation.x += 0.0005;
-        shape.rotation.y += 0.0005;
-        edgeLine.rotation.x = shape.rotation.x;
-        edgeLine.rotation.y = shape.rotation.y;
+      if (model) {
+        model.rotation.y += 0.0005;
       }
-
-      const time = Date.now() * 0.001;
-      const pulseScale = 1 + Math.sin(time * Math.PI / 3) * 0.03;
-      shape.scale.set(pulseScale, pulseScale, pulseScale);
-
-      if (isFadingBack && fadingFaceIndex !== null) {
-        const elapsed = Date.now() - fadeStartTime;
-        const progress = Math.min(elapsed / FADE_DURATION, 1);
-        const easedProgress = 1 - Math.pow(1 - progress, 3);
-        const hoverColor = getHoverColorForFace(fadingFaceIndex);
-        const currentColor = new THREE.Color().lerpColors(hoverColor, originalColor, easedProgress);
-        setFaceColor(fadingFaceIndex, currentColor);
-
-        if (progress >= 1) {
-          isFadingBack = false;
-          fadingFaceIndex = null;
-        }
-      }
-
       renderer.render(scene, camera);
     }
-
     renderer.setAnimationLoop(animate);
 
-    window.addEventListener('mousemove', onMouseMove);
-    renderer.domElement.addEventListener('click', onMouseClick);
-    
-    // handle window resize
+    // resize handler - this means that no matter the screen size, the model will be properly displayed and not stretched or squished
     function handleResize() {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.aspect = mount.clientWidth / mount.clientHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(mount.clientWidth, mount.clientHeight);
     }
     window.addEventListener('resize', handleResize);
 
-    // cleanup function
     return () => {
-      window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', handleResize);
-      renderer.domElement.removeEventListener('click', onMouseClick);
       renderer.setAnimationLoop(null);
-      if (mount && renderer.domElement) {
-        mount.removeChild(renderer.domElement);
-      }
+      mount.removeChild(renderer.domElement);
       renderer.dispose();
-      geometry.dispose();
-      material.dispose();
-      if (fadeBackTimer) clearTimeout(fadeBackTimer);
     };
-  }, [navigate, location.pathname]);
-
-  // fade-in animation when navigating to home page
-  useEffect(() => {
-    if (location.pathname === '/home') {
-      setFadeInOpacity(0);
-      setTimeout(() => {
-        setFadeInOpacity(1);
-      }, 50);
-    }
-  }, [location.pathname]);
-
-  // scroll transition handler
-  useScrollTransition({
-    currentPath: '/home',
-    transitions: {
-      scrollDown: '/experiments',
-      scrollUp: '/'
-    }
-  });
+  }, []);
 
   return (
-    <div style={{ width: '100%', height: '100vh', backgroundColor: 'white', position: 'relative' }}>
-      <div 
-        ref={mountRef} 
-        style={{ width: '100%', height: '100%' }}
-      />
-      
+    <div style={{ width: '100%', height: '100vh', position: 'relative' }}>
+      <div ref={mountRef} style={{ width: '100%', height: '100%' }} />
+      <div style={{
+        position: 'absolute',
+        top: '32px',
+        left: '32px',
+        fontFamily: 'Moralana, serif',
+        fontSize: '20px',
+        lineHeight: '2',
+        color: '#3a3a3a',
+        letterSpacing: '0.05em',
+      }}>
+        Amanda Wang
+        <div style={{ fontSize: '11px', letterSpacing: '0.15em', fontFamily: 'Georgia, serif', lineHeight: '2', color: '#5a5a5a' }}>
+          Multimedia Artist
+        </div>
+        <div style={{ fontSize: '11px', letterSpacing: '0.15em', fontFamily: 'Georgia, serif', lineHeight: '2', color: '#5a5a5a' }}>
+          Creative Technologist
+        </div>
+      </div>
+
       {/* Hamburger Menu */}
-      <div 
-        ref={menuRef}
-        style={{ 
-          position: 'absolute', 
-          top: '30px', 
-          right: '30px',
-          zIndex: 20,
-          cursor: 'pointer',
-          opacity: textOpacity * fadeInOpacity,
-          transition: 'opacity 0.5s ease-in'
-        }}
-      >
-        {/* Hamburger Icon */}
-        <div 
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '5px',
-            padding: '10px',
-            cursor: 'pointer'
-          }}
+      <div style={{ position: 'absolute', bottom: '32px', right: '32px' }}>
+        <div
+          onClick={() => setMenuOpen(!menuOpen)}
+          style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '5px' }}
         >
-          <div style={{
-            width: '30px',
-            height: '3px',
-            backgroundColor: hoverColor,
-            transition: 'all 0.3s ease'
-          }} />
-          <div style={{
-            width: '30px',
-            height: '3px',
-            backgroundColor: hoverColor,
-            transition: 'all 0.3s ease'
-          }} />
-          <div style={{
-            width: '30px',
-            height: '3px',
-            backgroundColor: hoverColor,
-            transition: 'all 0.3s ease'
-          }} />
+          <div style={{ width: '24px', height: '2px', backgroundColor: '#3a3a3a' }} />
+          <div style={{ width: '24px', height: '2px', backgroundColor: '#3a3a3a' }} />
+          <div style={{ width: '24px', height: '2px', backgroundColor: '#3a3a3a' }} />
         </div>
 
-        {/* Dropdown Menu */}
-        {isMenuOpen && (
+        {menuOpen && (
           <div style={{
             position: 'absolute',
-            top: '50px',
+            bottom: '36px',
             right: '0',
-            //backgroundColor: 'rgba(0, 0, 0, 0.9)',
-            //border: '1px solid #333333',
-            padding: '10px 0',
-            minWidth: '150px',
-            fontFamily: 'Courier New, monospace'
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '30px',
+            fontFamily: 'Georgia, serif',
+            fontSize: '16px',
+            letterSpacing: '0.1em',
+            color: '#3a3a3a',
+            textAlign: 'right',
           }}>
-            <div 
-              onClick={() => {
-                setIsMenuOpen(false);
-                navigate('/');
-              }}
-              style={menuItemStyle}
-              onMouseEnter={handleMenuItemHover}
-              onMouseLeave={handleMenuItemLeave}
-            >
-              About
-            </div>
-            <div 
-              onClick={() => {
-                setIsMenuOpen(false);
-                navigate('/projects');
-              }}
-              style={menuItemStyle}
-              onMouseEnter={handleMenuItemHover}
-              onMouseLeave={handleMenuItemLeave}
-            >
-              Projects
-            </div>
-            <div 
-              onClick={() => {
-                setIsMenuOpen(false);
-                navigate('/experiments');
-              }}
-              style={menuItemStyle}
-              onMouseEnter={handleMenuItemHover}
-              onMouseLeave={handleMenuItemLeave}
-            >
-              Experiments
-            </div>
-            <div 
-              onClick={() => setIsMenuOpen(false)}
-              style={menuItemStyle}
-              onMouseEnter={handleMenuItemHover}
-              onMouseLeave={handleMenuItemLeave}
-            >
-              Contact
-            </div>
+            <div style={{ cursor: 'pointer' }} onClick={() => navigate('/projects')}>Projects</div>
+            <div style={{ cursor: 'pointer' }} onClick={() => navigate('/about')}>About</div>
+            <div style={{ cursor: 'pointer' }} onClick={() => navigate('/contact')}>Contact</div>
           </div>
         )}
       </div>
-
-      <div style={{ 
-        position: 'absolute', 
-        top: '6%', 
-        left: '12%', 
-        transform: 'translate(-50%, -50%)',
-        color: hoverColor,
-        fontSize: '16px',
-        fontFamily: 'Courier New, monospace',
-        zIndex: 10,
-        pointerEvents: 'none',
-        opacity: textOpacity * fadeInOpacity,
-        transition: 'opacity 0.5s ease-in, color 0.3s ease-out'
-      }}>
-        Amanda Wang
-      </div>
-      {hoveredProjectText && (
-        <div style={{ 
-          position: 'absolute', 
-          top: 'calc(94% - 30px)', 
-          left: '88%', 
-          transform: 'translate(-50%, -50%)',
-          color: hoverColor,
-          fontSize: '18px',
-          fontFamily: 'Courier New, monospace',
-          zIndex: 10,
-          pointerEvents: 'none',
-          opacity: textOpacity * fadeInOpacity,
-          transition: 'opacity 0.5s ease-in, color 0.3s ease-out'
-        }}>
-          {hoveredProjectText}
-        </div>
-      )}
-      <div style={{ 
-        position: 'absolute', 
-        top: '94%', 
-        left: '88%', 
-        transform: 'translate(-50%, -50%)',
-        color: hoverColor,
-        fontSize: '16px',
-        fontFamily: 'Courier New, monospace',
-        zIndex: 10,
-        pointerEvents: 'none',
-        opacity: textOpacity * fadeInOpacity,
-        transition: 'opacity 0.5s ease-in, color 0.3s ease-out'
-      }}>
-        Creative Technologist
-      </div>
-
-      {/* Project1 Image - bottom right corner */}
-      {showProject1Image && (
-        <img
-          src="/photosHome/blue.png"
-          alt="Project 1"
-          style={{
-            position: 'absolute',
-            bottom: '140px',
-            right: '80px',
-            width: '250px',
-            height: 'auto',
-            zIndex: 10,
-            pointerEvents: 'none',
-            opacity: textOpacity * fadeInOpacity,
-            transition: 'opacity 0.3s ease-in',
-            borderRadius: '12px'
-          }}
-        />
-      )}
-
-      {/* Project2 Image - bottom right corner */}
-      {showProject2Image && (
-        <img
-          src="/photosHome/NorthernLights.png"
-          alt="Project 2"
-          style={{
-            position: 'absolute',
-            bottom: '140px',
-            right: '80px',
-            width: '250px',
-            height: 'auto',
-            zIndex: 10,
-            pointerEvents: 'none',
-            opacity: textOpacity * fadeInOpacity,
-            transition: 'opacity 0.3s ease-in',
-            borderRadius: '12px'
-          }}
-        />
-      )}
-
-      {/* Page Indicator */}
-      <div style={{
-        position: 'absolute',
-        right: '30px',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '20px',
-        zIndex: 10,
-        pointerEvents: 'none',
-        opacity: textOpacity * fadeInOpacity,
-        //transition: 'opacity 0.5s ease-in'
-      }}>
-        {[0, 1, 2, 3].map((index) => (
-          <div
-            key={index}
-            style={{
-              width: '8px',
-              height: '8px',
-              borderRadius: '50%',
-              backgroundColor: index === 1 ? '#666666' : '#cccccc',
-              //transition: 'background-color 0.3s ease'
-            }}
-          />
-        ))}
-      </div>
     </div>
+
   );
 }
 
