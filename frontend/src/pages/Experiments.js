@@ -20,7 +20,7 @@ function Experiments() {
     },
     {
       id: 2,
-      image: '/photosExperiments/fruit3.png',
+      image: '/photosExperiments/strawberrySmash.png',
     },
   ];
 
@@ -298,7 +298,7 @@ function Experiments() {
           transition: 'transform 0.5s ease-in-out'
         }}>
           {carouselItems.map((item, index) => {
-            const isFruitImage = item.image === '/photosExperiments/fruit3.png';
+            const isFruitImage = item.image === '/photosExperiments/strawberrySmash.png';
             const isCowboyImage = item.image === '/photosExperiments/cowboy.png';
             
             const handleMouseEnter = () => {
