@@ -183,7 +183,7 @@ function Home() {
   }, []);
 
   return (
-    <div style={{ width: '100%', height: '100vh', position: 'relative' }}>
+    <div style={{ width: '100%', height: '100dvh', position: 'relative' }}>
       <div ref={mountRef} style={{ width: '100%', height: '100%' }} />
       <div style={{
         position: 'absolute',
@@ -205,7 +205,7 @@ function Home() {
       </div>
 
       {/* Hamburger Menu */}
-      <div style={{ position: 'absolute', bottom: 'clamp(16px, 3vw, 32px)', right: 'clamp(16px, 3vw, 32px)' }}>
+      <div style={{ position: 'absolute', bottom: 'max(clamp(16px, 3vw, 32px), env(safe-area-inset-bottom, 16px))', right: 'clamp(16px, 3vw, 32px)' }}>
         <div
           onClick={() => setMenuOpen(!menuOpen)}
           style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '5px', padding: '8px' }}
