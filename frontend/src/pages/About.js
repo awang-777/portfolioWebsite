@@ -1,6 +1,6 @@
 function About() {
   return (
-    <div style={{ width: '100%', height: '100dvh', backgroundColor: '#f2f0ef', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '48px 32px' }}>
+    <div style={{ width: '100%', height: '100dvh', backgroundColor: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '48px 32px' }}>
       <div style={{ maxWidth: '560px' }}>
         <p style={{ fontFamily: 'Moralana, serif', fontSize: '18px', color: '#3a3a3a', marginBottom: '24px', letterSpacing: '0.05em' }}>
           Familiar enough to feel real. Strange enough to feel like a dream. 

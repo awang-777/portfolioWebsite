@@ -25,7 +25,7 @@ function Home() {
 
     // my scene
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xF2F0EF);
+    scene.background = new THREE.Color(0x000000);
 
     // the camera pos
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -37,7 +37,7 @@ function Home() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.toneMapping = THREE.ACESFilmicToneMapping; // lowers exposure
-    renderer.toneMappingExposure = 0.7; // lower to make darker
+    renderer.toneMappingExposure = 0.55; // lower to make darker
     mount.appendChild(renderer.domElement);
 
     // lighting (the more lighting the better the iridescence :D)
@@ -59,7 +59,7 @@ function Home() {
 
     // iridescent effect
     const iridescentMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xe8e8ec,
+      color: 0x888890,
       metalness: 0.0,
       roughness: 0.15,
       clearcoat: 1.0,
@@ -192,15 +192,14 @@ function Home() {
         fontFamily: 'Moralana, serif',
         fontSize: 'clamp(15px, 2.5vw, 20px)',
         lineHeight: '2',
-        color: '#3a3a3a',
+        color: '#ffffff',
         letterSpacing: '0.05em',
       }}>
-        Amanda Wang
-        <div style={{ fontSize: 'clamp(9px, 1.5vw, 11px)', letterSpacing: '0.15em', fontFamily: 'Georgia, serif', lineHeight: '2', color: '#5a5a5a' }}>
-          Multimedia Artist
-        </div>
-        <div style={{ fontSize: 'clamp(9px, 1.5vw, 11px)', letterSpacing: '0.15em', fontFamily: 'Georgia, serif', lineHeight: '2', color: '#5a5a5a' }}>
-          Creative Technologist
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 'clamp(8px, 1.5vw, 16px)', flexWrap: 'wrap' }}>
+          <span>Amanda Wang</span>
+          <span style={{ fontSize: 'clamp(9px, 1.5vw, 11px)', letterSpacing: '0.15em', fontFamily: 'Georgia, serif', color: '#cccccc' }}>
+            Creative Technologist | Multimedia Artist
+          </span>
         </div>
       </div>
 
@@ -210,9 +209,9 @@ function Home() {
           onClick={() => setMenuOpen(!menuOpen)}
           style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '5px', padding: '8px' }}
         >
-          <div style={{ width: '24px', height: '2px', backgroundColor: '#3a3a3a' }} />
-          <div style={{ width: '24px', height: '2px', backgroundColor: '#3a3a3a' }} />
-          <div style={{ width: '24px', height: '2px', backgroundColor: '#3a3a3a' }} />
+          <div style={{ width: '24px', height: '2px', backgroundColor: '#ffffff' }} />
+          <div style={{ width: '24px', height: '2px', backgroundColor: '#ffffff' }} />
+          <div style={{ width: '24px', height: '2px', backgroundColor: '#ffffff' }} />
         </div>
 
         {menuOpen && (
@@ -226,7 +225,7 @@ function Home() {
             fontFamily: 'Georgia, serif',
             fontSize: 'clamp(14px, 2vw, 16px)',
             letterSpacing: '0.1em',
-            color: '#3a3a3a',
+            color: '#ffffff',
             textAlign: 'right',
           }}>
             <div style={{ cursor: 'pointer', padding: '4px 0' }} onClick={() => navigate('/projects')} onMouseEnter={() => hoveredRef.current = 'projects'} onMouseLeave={() => hoveredRef.current = null}>Projects</div>
