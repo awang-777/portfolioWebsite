@@ -183,7 +183,7 @@ function Home() {
   }, []);
 
   return (
-    <div style={{ width: '100%', height: '100dvh', position: 'relative' }}>
+    <div style={{ width: '100%', height: '100dvh', position: 'relative', overflow: 'hidden' }}>
       <div ref={mountRef} style={{ width: '100%', height: '100%' }} />
       <div style={{
         position: 'absolute',
