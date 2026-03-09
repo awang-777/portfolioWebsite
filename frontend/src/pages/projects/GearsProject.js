@@ -22,7 +22,7 @@ function GearsProject() {
         <div className="project-photo">
           <img
             src="/photos/gear1.png"
-            alt="Augment photo 1"
+            alt="Augment gear exoskeleton still 1"
             className="project-photo"
           />
         </div>
