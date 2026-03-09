@@ -1,0 +1,70 @@
+.contact-page {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.contact-mount {
+  width: 100%;
+  height: 100%;
+}
+
+.contact-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #5a5a5a;
+  padding: 0 8px;
+}
+
+.contact-divider {
+  width: 1px;
+  align-self: stretch;
+  background-color: #c8c8c2;
+}
+
+.contact-text {
+  font-family: 'Georgia', serif;
+  color: #3a3a3a;
+  text-align: left;
+  line-height: 2;
+  font-size: clamp(12px, 1.8vw, 15px);
+  letter-spacing: 0.05em;
+  max-width: 480px;
+  padding: 0 24px;
+}
+
+.contact-text p {
+  margin: 0;
+}
+
+.contact-p {
+  margin-top: 1.2em;
+  color: #5a5a5a;
+}
+
+.contact-email {
+  margin-top: 1.2em;
+  letter-spacing: 0.1em;
+}
+
+.contact-signature {
+  margin-top: 0.4em;
+  color: #5a5a5a;
+}

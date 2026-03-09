@@ -3,8 +3,9 @@ import Home from './pages/Home';
 import Projects from './pages/Projects';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import TapeProject from './pages/TapeProject';
-import GearsProject from './pages/GearsProject';
+
+import TapeProject from './pages/projects/TapeProject';
+import GearsProject from './pages/projects/GearsProject';
 
 function App() {
   return (

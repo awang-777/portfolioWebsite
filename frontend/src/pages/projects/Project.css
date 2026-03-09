@@ -1,0 +1,82 @@
+.project-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: clamp(24px, 4vw, 48px) clamp(24px, 4vw, 48px);
+  box-sizing: border-box;
+}
+
+.project-page--centered {
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.project-info {
+  max-width: 800px;
+  text-align: left;
+}
+
+.project-title {
+  font-family: 'Moralana', serif;
+  font-size: 18px;
+  color: #3a3a3a;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+.project-meta {
+  font-family: 'Georgia', serif;
+  font-size: 11px;
+  color: #999999;
+  letter-spacing: 0.12em;
+  margin-bottom: 28px;
+}
+
+.project-description {
+  font-family: 'Georgia', serif;
+  font-size: 13px;
+  line-height: 2;
+  color: #5a5a5a;
+  letter-spacing: 0.05em;
+  margin-bottom: 32px;
+}
+
+.gallery {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.project-video {
+  display: block;
+  height: 440px;
+}
+
+.project-photo {
+  height: 440px;
+}
+
+.project-video--tape {
+  width: 100%;
+  max-width: 960px;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .project-video {
+    width: 100%;
+    height: auto;
+  }
+  
+  .project-photo {
+    width: 100%;
+    height: auto;
+  }
+}

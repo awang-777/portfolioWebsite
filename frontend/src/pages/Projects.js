@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import './Projects.css';
 
 const categories = ['All', 'Generative', 'Interactive', '3D'];
 
@@ -13,35 +14,14 @@ function Projects() {
   const [active, setActive] = useState('All');
 
   return (
-    <div style={{
-      width: '100%',
-      minHeight: '100vh',
-      backgroundColor: '#ffffff',
-      border: '1px solid #d0d0cc',
-      boxSizing: 'border-box',
-    }}>
+    <div className="projects-page">
       {/* Category bar */}
-      <div style={{
-        display: 'flex',
-        gap: 'clamp(16px, 3vw, 32px)',
-        padding: 'clamp(14px, 2vw, 20px) clamp(16px, 3vw, 28px)',
-        borderBottom: '1px solid #d0d0cc',
-        fontFamily: 'Georgia, serif',
-        fontSize: 'clamp(11px, 1.4vw, 13px)',
-        letterSpacing: '0.1em',
-        flexWrap: 'wrap',
-      }}>
+      <div className="projects-category-bar">
         {categories.map((cat) => (
           <span
             key={cat}
             onClick={() => setActive(cat)}
-            style={{
-              cursor: 'pointer',
-              color: active === cat ? '#1a1a1a' : '#999999',
-              borderBottom: active === cat ? '1px solid #1a1a1a' : '1px solid transparent',
-              paddingBottom: '2px',
-              transition: 'color 0.2s ease',
-            }}
+            className={`category-item${active === cat ? ' active' : ''}`}
           >
             {cat}
           </span>
@@ -49,50 +29,19 @@ function Projects() {
       </div>
 
       {/* Grid */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(1, 1fr)',
-        gap: '0',
-      }}
-        className="projects-grid"
-      >
+      <div className="projects-grid">
         {projects.map((p) => (
           <div
             key={p.path}
             onClick={() => navigate(p.path)}
-            style={{
-              aspectRatio: '16 / 9',
-              overflow: 'hidden',
-              cursor: 'pointer',
-              backgroundColor: '#e8e8e4',
-              borderBottom: '1px solid #d0d0cc',
-            }}
+            className="project-card"
             onMouseEnter={e => e.currentTarget.querySelector('img').style.opacity = '0.8'}
             onMouseLeave={e => e.currentTarget.querySelector('img').style.opacity = '1'}
           >
-            <img
-              src={p.src}
-              alt={p.alt}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                display: 'block',
-                transition: 'opacity 0.25s ease',
-              }}
-            />
+            <img src={p.src} alt={p.alt} />
           </div>
         ))}
       </div>
-
-      <style>{`
-        @media (min-width: 768px) {
-          .projects-grid { grid-template-columns: repeat(2, 1fr) !important; }
-        }
-        @media (min-width: 1024px) {
-          .projects-grid { grid-template-columns: repeat(3, 1fr) !important; }
-        }
-      `}</style>
     </div>
   );
 }

@@ -3,14 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
+import './Home.css';
 
-function getLayout(aspect) { 
+function getLayout(aspect) {
   if (aspect < 0.6) {
-    return { cameraZ: 28, sphereY: -12, sphereSpacing: 3.5 }; //phone 
+    return { cameraZ: 28, sphereY: -12, sphereSpacing: 3.5 }; //phone
   } else if (aspect < 1.0) {
     return { cameraZ: 22, sphereY: -10, sphereSpacing: 4.5 }; // tablet
   } else {
-    return { cameraZ: 17, sphereY: -8, sphereSpacing: 5 }; // desktop 
+    return { cameraZ: 17, sphereY: -8, sphereSpacing: 5 }; // desktop
   }
 }
 
@@ -68,7 +69,6 @@ function Home() {
       iridescenceIOR: 1.5,
       iridescenceThicknessRange: [0, 2000]
     });
-
 
     // models
     const loader = new GLTFLoader();
@@ -183,59 +183,32 @@ function Home() {
   }, []);
 
   return (
-    <div style={{ width: '100%', height: '100dvh', position: 'relative', overflow: 'hidden' }}>
-      <div ref={mountRef} style={{ width: '100%', height: '100%' }} />
-      <div style={{
-        position: 'absolute',
-        top: 'clamp(16px, 3vw, 32px)',
-        left: 'clamp(16px, 3vw, 32px)',
-        fontFamily: 'Moralana, serif',
-        fontSize: 'clamp(15px, 2.5vw, 20px)',
-        lineHeight: '2',
-        color: '#ffffff',
-        letterSpacing: '0.05em',
-      }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 'clamp(8px, 1.5vw, 16px)', flexWrap: 'wrap' }}>
+    <div className="home-page">
+      <div ref={mountRef} className="home-mount" />
+      <div className="home-title">
+        <div className="home-title-row">
           <span>Amanda Wang</span>
-          <span style={{ fontSize: 'clamp(9px, 1.5vw, 11px)', letterSpacing: '0.15em', fontFamily: 'Georgia, serif', color: '#cccccc' }}>
-            Creative Technologist | Multimedia Artist
-          </span>
+          <span className="home-subtitle">Creative Technologist | Multimedia Artist</span>
         </div>
       </div>
 
       {/* Hamburger Menu */}
-      <div style={{ position: 'absolute', bottom: 'max(clamp(16px, 3vw, 32px), env(safe-area-inset-bottom, 16px))', right: 'clamp(16px, 3vw, 32px)' }}>
-        <div
-          onClick={() => setMenuOpen(!menuOpen)}
-          style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '5px', padding: '8px' }}
-        >
-          <div style={{ width: '24px', height: '2px', backgroundColor: '#ffffff' }} />
-          <div style={{ width: '24px', height: '2px', backgroundColor: '#ffffff' }} />
-          <div style={{ width: '24px', height: '2px', backgroundColor: '#ffffff' }} />
+      <div className="home-menu">
+        <div className="home-hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+          <div className="home-bar" />
+          <div className="home-bar" />
+          <div className="home-bar" />
         </div>
 
         {menuOpen && (
-          <div style={{
-            position: 'absolute',
-            bottom: '44px',
-            right: '0',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 'clamp(20px, 3vw, 30px)',
-            fontFamily: 'Georgia, serif',
-            fontSize: 'clamp(14px, 2vw, 16px)',
-            letterSpacing: '0.1em',
-            color: '#ffffff',
-            textAlign: 'right',
-          }}>
-            <div style={{ cursor: 'pointer', padding: '4px 0' }} onClick={() => navigate('/projects')} onMouseEnter={() => hoveredRef.current = 'projects'} onMouseLeave={() => hoveredRef.current = null}>Projects</div>
-            <div style={{ cursor: 'pointer', padding: '4px 0' }} onClick={() => navigate('/about')} onMouseEnter={() => hoveredRef.current = 'about'} onMouseLeave={() => hoveredRef.current = null}>About</div>
-            <div style={{ cursor: 'pointer', padding: '4px 0' }} onClick={() => navigate('/contact')} onMouseEnter={() => hoveredRef.current = 'contact'} onMouseLeave={() => hoveredRef.current = null}>Contact</div>
+          <div className="home-nav">
+            <div className="home-nav-item" onClick={() => navigate('/projects')} onMouseEnter={() => hoveredRef.current = 'projects'} onMouseLeave={() => hoveredRef.current = null}>Projects</div>
+            <div className="home-nav-item" onClick={() => navigate('/about')} onMouseEnter={() => hoveredRef.current = 'about'} onMouseLeave={() => hoveredRef.current = null}>About</div>
+            <div className="home-nav-item" onClick={() => navigate('/contact')} onMouseEnter={() => hoveredRef.current = 'contact'} onMouseLeave={() => hoveredRef.current = null}>Contact</div>
           </div>
         )}
       </div>
     </div>
-
   );
 }
 
