@@ -7,6 +7,7 @@ const categories = ['All', 'Generative', 'Interactive', '3D'];
 const projects = [
   { src: '/photos/tape.png', alt: 'Tape', path: '/projects/tape' },
   { src: '/photos/gears.png', alt: 'Gears', path: '/projects/gears' },
+  { src: '/photos/dragonfly1.png', alt: 'Dragonfly', path: '/projects/dragonfly' },
 ];
 
 function Projects() {

@@ -6,6 +6,7 @@ import Contact from './pages/Contact';
 
 import TapeProject from './pages/projects/TapeProject';
 import GearsProject from './pages/projects/GearsProject';
+import DragonflyProject from './pages/projects/DragonflyProject';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/projects/tape" element={<TapeProject />} />
         <Route path="/projects/gears" element={<GearsProject />} />
+        <Route path="/projects/dragonfly" element={<DragonflyProject />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
