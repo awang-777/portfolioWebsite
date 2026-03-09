@@ -5,9 +5,9 @@ import './Projects.css';
 const categories = ['All', 'Generative', 'Interactive', '3D'];
 
 const projects = [
-  { src: '/photos/dragonfly1.png', alt: 'Dragonfly', path: '/projects/dragonfly' },
-  { src: '/photos/tape.png', alt: 'Tape', path: '/projects/tape' },
-  { src: '/photos/gears.png', alt: 'Gears', path: '/projects/gears' },
+  { src: '/photos/gears.png', alt: 'Gears', path: '/projects/gears', category: 'Interactive' },
+  { src: '/photos/tape.png', alt: 'Tape', path: '/projects/tape', category: '3D' },
+  { src: '/photos/dragonfly1.png', alt: 'Dragonfly', path: '/projects/dragonfly', category: 'Interactive' },
 ];
 
 function Projects() {
@@ -31,7 +31,7 @@ function Projects() {
 
       {/* Grid */}
       <div className="projects-grid">
-        {projects.map((p) => (
+        {projects.filter(p => active === 'All' || p.category === active).map((p) => (
           <div
             key={p.path}
             onClick={() => navigate(p.path)}
