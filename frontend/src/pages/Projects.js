@@ -8,6 +8,7 @@ const projects = [
   { src: '/photos/gears.png', alt: 'Gears', path: '/projects/gears', category: 'Interactive' },
   { src: '/photos/tape.png', alt: 'Tape', path: '/projects/tape', category: '3D' },
   { src: '/photos/dragonfly1.png', alt: 'Dragonfly', path: '/projects/dragonfly', category: 'Interactive' },
+  { src: '/photos/castle.jpg', alt: 'Castle', path: '/projects/castle', category: '3D' },
 ];
 
 function Projects() {

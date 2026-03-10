@@ -7,6 +7,7 @@ import Contact from './pages/Contact';
 import TapeProject from './pages/projects/TapeProject';
 import GearsProject from './pages/projects/GearsProject';
 import DragonflyProject from './pages/projects/DragonflyProject';
+import CastleProject from './pages/projects/CastleProject';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/projects/dragonfly" element={<DragonflyProject />} />
         <Route path="/projects/tape" element={<TapeProject />} />
         <Route path="/projects/gears" element={<GearsProject />} />
+        <Route path="/projects/castle" element={<CastleProject />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
