@@ -3,6 +3,7 @@ import './About.css';
 function About() {
   return (
     <div className="about-page">
+      <div className="about-body-wrapper">
       <div className="about-content">
         <p className="about-heading">
           Familiar enough to feel real. Strange enough to feel like a dream.
@@ -16,6 +17,7 @@ function About() {
         <p className="about-body">
           {/* Through the subconscious, the natural world, and the body itself, the line between digital and physical dissolves until something true emerges: dreamy, organic, and alive. */}
         </p>
+      </div>
       </div>
     </div>
   );

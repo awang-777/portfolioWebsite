@@ -1,0 +1,39 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: transparent;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: clamp(14px, 2vw, 20px) clamp(16px, 3vw, 32px);
+}
+
+.navbar-title {
+  font-family: 'Moralana', serif;
+  font-size: clamp(15px, 2.5vw, 20px);
+  color: #999999;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.navbar-links {
+  display: flex;
+  gap: clamp(16px, 2.5vw, 32px);
+  font-family: 'Georgia', serif;
+  font-size: clamp(11px, 1.2vw, 13px);
+  letter-spacing: 0.1em;
+  color: #aaaaaa;
+}
+
+.navbar-link {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.navbar-link:hover {
+  color: #999999;
+}
