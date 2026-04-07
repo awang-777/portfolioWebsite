@@ -13,7 +13,7 @@ function CastleProject() {
 
       <div className="gallery">
         <div className="project-photo">
-          <img src="/photos/1.jpg" alt="Somewhere I've Never Been still 1" className="project-photo" />
+          <img src="/photos/templeinthesky.jpg" alt="Somewhere I've Never Been still 1" className="project-photo" />
         </div>
         <div className="project-photo">
           <img src="/photos/2.jpg" alt="Somewhere I've Never Been still 2" className="project-photo" />

@@ -5,7 +5,7 @@ import './Projects.css';
 // ── Config ──────────────────────────────────────────────────────────────────
 
 const HIGHLIGHT_PROJECTS = [
-  { src: '/photos/eeg.jpg', alt: 'EEG', title: 'EEG', path: '/projects/eeg' },
+  { src: '/photos/eeg.jpg', alt: 'EEG', title: 'The Mind Has No Straight Lines', path: '/projects/eeg' },
 ];
 
 const SECTION_CATEGORIES = [
@@ -19,9 +19,13 @@ const SECTION_CATEGORIES = [
   {
     label: '3D Enviornments and Objects',
     projects: [
-      { src: '/photos/castle.jpg', alt: 'Castle', path: '/projects/castle' },
+      { src: '/photos/templeinthesky.jpg', alt: 'Castle', path: '/projects/castle' },
       { src: '/photos/tape.png',   alt: 'Tape',   path: '/projects/tape' },
     ],
+  },
+  {
+    label: 'Live Visuals & Performance',
+    projects: [],
   },
 ];
 

@@ -5,13 +5,14 @@
   box-sizing: border-box;
 }
 
-/* ── Highlight section ──────────────────────────────────────────────────── */
+/* ── highlight section ──────────────────────────────────────────────────── */
 
 .projects-highlight {
-  background-color: #1a1a1a;
+  background-color: #0d0d0d;
   position: relative;
   padding: clamp(100px, 12vw, 140px) clamp(8px, 1.5vw, 24px) clamp(40px, 5vw, 60px);
   padding-left: clamp(24px, 5vw, 56px);
+  padding-right: clamp(40px, 5vw, 80px);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -53,12 +54,12 @@
 }
 
 .highlight-title {
-  font-family: 'Georgia', serif;
-  font-size: clamp(22px, 4vw, 52px);
-  font-weight: 400;
+  font-family: 'Moralana', serif;
+  font-size: 18px;
+  font-weight: 100;
   color: #ffffff;
-  letter-spacing: 0.08em;
-  margin: 0;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
 }
 
 .highlight-desc {
@@ -70,7 +71,7 @@
   margin: 0;
 }
 
-/* Dot indicators */
+/* dot indicators */
 .highlight-dots {
   grid-column: 1;
   grid-row: 2;
@@ -126,16 +127,16 @@
 .section-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: clamp(10px, 2vw, 20px);
+  gap: clamp(4px, 0.8vw, 8px);
 }
 
 @media (min-width: 768px) {
   .section-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* ── Project card ───────────────────────────────────────────────────────── */
+/* ── project card ───────────────────────────────────────────────────────── */
 
 .project-card {
   aspect-ratio: 16 / 9;
