@@ -19,7 +19,7 @@ const SECTION_CATEGORIES = [
   {
     label: '3D Enviornments and Objects',
     projects: [
-      { src: '/photos/templeinthesky.jpg', alt: 'Castle', path: '/projects/castle' },
+      { src: '/photos/templeinthesky.JPG', alt: 'Castle', path: '/projects/castle' },
       { src: '/photos/tape.png',   alt: 'Tape',   path: '/projects/tape' },
     ],
   },

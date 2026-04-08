@@ -97,6 +97,29 @@
   transform: scale(1.2);
 }
 
+@media (max-width: 600px) {
+  .highlight-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .highlight-image {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .highlight-info {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .highlight-dots {
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: center;
+  }
+}
+
 /* ── Category sections ──────────────────────────────────────────────────── */
 
 .projects-section {
