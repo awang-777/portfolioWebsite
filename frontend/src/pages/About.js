@@ -4,7 +4,7 @@ function About() {
   return (
     <div className="about-page">
       <div className="about-body-wrapper">
-        <img src="/photos/amanda_headshot.JPG" alt="Amanda Wang" className="about-headshot" />
+        <img src="/photos/headshot.jpg" alt="Amanda Wang" className="about-headshot" />
         <div className="about-divider" />
         <div className="about-content">
         <p className="about-heading">
