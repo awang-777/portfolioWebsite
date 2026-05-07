@@ -16,7 +16,7 @@
   font-family: 'Moralana', serif;
   font-size: clamp(15px, 2.5vw, 20px);
   line-height: 2;
-  color: #ffffff;
+  color: #3a3a3a;
   letter-spacing: 0.05em;
 }
 
@@ -31,7 +31,7 @@
   font-size: clamp(9px, 1.5vw, 11px);
   letter-spacing: 0.15em;
   font-family: 'Georgia', serif;
-  color: #cccccc;
+  color: #5a5a5a;
 }
 
 .home-menu {
@@ -51,7 +51,7 @@
 .home-bar {
   width: 24px;
   height: 2px;
-  background-color: #ffffff;
+  background-color: #3a3a3a;
 }
 
 .home-nav {
@@ -64,7 +64,7 @@
   font-family: 'Georgia', serif;
   font-size: clamp(14px, 2vw, 16px);
   letter-spacing: 0.1em;
-  color: #ffffff;
+  color: #3a3a3a;
   text-align: right;
 }
 

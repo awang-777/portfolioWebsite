@@ -7,11 +7,11 @@ import './Home.css';
 
 function getLayout(aspect) {
   if (aspect < 0.6) {
-    return { cameraZ: 28, sphereY: -12, sphereSpacing: 3.5 }; //phone
+    return { cameraZ: 28 };
   } else if (aspect < 1.0) {
-    return { cameraZ: 22, sphereY: -10, sphereSpacing: 4.5 }; // tablet
+    return { cameraZ: 22 };
   } else {
-    return { cameraZ: 17, sphereY: -8, sphereSpacing: 5 }; // desktop
+    return { cameraZ: 17 };
   }
 }
 
@@ -19,14 +19,13 @@ function Home() {
   const mountRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const hoveredRef = useRef(null);
 
   useEffect(() => {
     const mount = mountRef.current;
 
     // my scene
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
+    scene.background = new THREE.Color(0xFFFFFF);
 
     // the camera pos
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -81,9 +80,12 @@ function Home() {
       '/website.glb',
       (gltf) => {
         model = gltf.scene;
+        model.scale.setScalar(1.1);
         const box = new THREE.Box3().setFromObject(model);
         const center = box.getCenter(new THREE.Vector3());
         model.position.sub(center);
+        model.position.y -= 1.8;
+        model.position.x -= 1;
         model.traverse((child) => {
           if (child.isMesh) child.material = iridescentMaterial;
         });
@@ -93,67 +95,9 @@ function Home() {
       (error) => console.error('Error loading model:', error)
     );
 
-    // spheres
-    const sphereGeo = new THREE.SphereGeometry(0.5, 64, 64);
-    const makeSphereMat = () => new THREE.MeshPhysicalMaterial({
-      color: 0xffffff,
-      metalness: 0.0,
-      roughness: 0.0,
-      transmission: 1.0,
-      thickness: 2.0,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.0,
-      iridescence: 1.0,
-      iridescenceIOR: 1.5,
-      iridescenceThicknessRange: [0, 2000],
-      emissive: new THREE.Color(0xffffff),
-      emissiveIntensity: 0,
-    });
-
-    const matLeft = makeSphereMat();
-    const matMiddle = makeSphereMat();
-    const matRight = makeSphereMat();
-
-    const sphereLeft = new THREE.Mesh(sphereGeo, matLeft);
-    const sphereMiddle = new THREE.Mesh(sphereGeo, matMiddle);
-    const sphereRight = new THREE.Mesh(sphereGeo, matRight);
-
-    const { sphereY, sphereSpacing } = initialLayout;
-    sphereLeft.position.set(-sphereSpacing, sphereY, 0);
-    sphereMiddle.position.set(0, sphereY, 0);
-    sphereRight.position.set(sphereSpacing, sphereY, 0);
-    scene.add(sphereLeft);
-    scene.add(sphereMiddle);
-    scene.add(sphereRight);
-
-    // warm glow lights for the spheres - on hover, the respective sphere glows !!
-    const glowColor = 0xffffff;
-    const glowLeft = new THREE.PointLight(glowColor, 0, 8);
-    glowLeft.position.set(-sphereSpacing, sphereY, 1);
-    scene.add(glowLeft);
-
-    const glowMiddle = new THREE.PointLight(glowColor, 0, 8);
-    glowMiddle.position.set(0, sphereY, 1);
-    scene.add(glowMiddle);
-
-    const glowRight = new THREE.PointLight(glowColor, 0, 8);
-    glowRight.position.set(sphereSpacing, sphereY, 1);
-    scene.add(glowRight);
-
-    // animating (rotation) + light hover
+    // animating (rotation)
     function animate() {
       if (model) model.rotation.y += 0.0005;
-
-      const h = hoveredRef.current;
-
-      matLeft.emissiveIntensity = h === 'projects' ? 2.0 : 0;
-      matMiddle.emissiveIntensity = h === 'about' ? 2.0 : 0;
-      matRight.emissiveIntensity = h === 'contact' ? 2.0 : 0;
-
-      glowLeft.intensity = h === 'projects' ? 10 : 0;
-      glowMiddle.intensity = h === 'about' ? 10 : 0;
-      glowRight.intensity = h === 'contact' ? 10 : 0;
-
       renderer.render(scene, camera);
     }
     renderer.setAnimationLoop(animate);
@@ -167,13 +111,6 @@ function Home() {
 
       const layout = getLayout(aspect);
       camera.position.z = layout.cameraZ;
-
-      sphereLeft.position.set(-layout.sphereSpacing, layout.sphereY, 0);
-      sphereMiddle.position.set(0, layout.sphereY, 0);
-      sphereRight.position.set(layout.sphereSpacing, layout.sphereY, 0);
-      glowLeft.position.set(-layout.sphereSpacing, layout.sphereY, 1);
-      glowMiddle.position.set(0, layout.sphereY, 1);
-      glowRight.position.set(layout.sphereSpacing, layout.sphereY, 1);
     }
     window.addEventListener('resize', handleResize);
 
@@ -205,9 +142,9 @@ function Home() {
 
         {menuOpen && (
           <div className="home-nav">
-            <div className="home-nav-item" onClick={() => navigate('/projects')} onMouseEnter={() => hoveredRef.current = 'projects'} onMouseLeave={() => hoveredRef.current = null}>Projects</div>
-            <div className="home-nav-item" onClick={() => navigate('/about')} onMouseEnter={() => hoveredRef.current = 'about'} onMouseLeave={() => hoveredRef.current = null}>About</div>
-            <div className="home-nav-item" onClick={() => navigate('/contact')} onMouseEnter={() => hoveredRef.current = 'contact'} onMouseLeave={() => hoveredRef.current = null}>Contact</div>
+            <div className="home-nav-item" onClick={() => navigate('/projects')}>Projects</div>
+            <div className="home-nav-item" onClick={() => navigate('/about')}>About</div>
+            <div className="home-nav-item" onClick={() => navigate('/contact')}>Contact</div>
           </div>
         )}
       </div>
