@@ -39,14 +39,17 @@ function Contact() {
     pmremGenerator.dispose();
 
     const iridescentMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xe8e8ec,
-      metalness: 0.0,
-      roughness: 0.15,
+      color: 0xe0e0e8,
+      metalness: 0.9,
+      roughness: 0.05,
       clearcoat: 1.0,
-      clearcoatRoughness: 0.05,
-      iridescence: 1.0,
+      clearcoatRoughness: 0.02,
+      iridescence: 0.3,
       iridescenceIOR: 1.5,
-      iridescenceThicknessRange: [0, 2000],
+      iridescenceThicknessRange: [0, 800],
+      sheen: 0.5,
+      sheenColor: new THREE.Color(0xdde8ff),
+      sheenRoughness: 0.4,
     });
 
     let model;

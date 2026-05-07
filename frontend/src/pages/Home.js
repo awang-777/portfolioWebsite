@@ -60,14 +60,17 @@ function Home() {
 
     // iridescent effect
     const iridescentMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0x888890,
-      metalness: 0.0,
-      roughness: 0.15,
+      color: 0xe0e0e8,
+      metalness: 0.9,
+      roughness: 0.05,
       clearcoat: 1.0,
-      clearcoatRoughness: 0.05,
-      iridescence: 1.0,
+      clearcoatRoughness: 0.02,
+      iridescence: 0.3,
       iridescenceIOR: 1.5,
-      iridescenceThicknessRange: [0, 2000]
+      iridescenceThicknessRange: [0, 800],
+      sheen: 0.5,
+      sheenColor: new THREE.Color(0xdde8ff),
+      sheenRoughness: 0.4,
     });
 
     // models
@@ -103,7 +106,7 @@ function Home() {
       iridescence: 1.0,
       iridescenceIOR: 1.5,
       iridescenceThicknessRange: [0, 2000],
-      emissive: new THREE.Color(0xffcc88),
+      emissive: new THREE.Color(0xffffff),
       emissiveIntensity: 0,
     });
 
@@ -124,7 +127,7 @@ function Home() {
     scene.add(sphereRight);
 
     // warm glow lights for the spheres - on hover, the respective sphere glows !!
-    const glowColor = 0xffcc88;
+    const glowColor = 0xffffff;
     const glowLeft = new THREE.PointLight(glowColor, 0, 8);
     glowLeft.position.set(-sphereSpacing, sphereY, 1);
     scene.add(glowLeft);
