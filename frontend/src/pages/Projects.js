@@ -5,22 +5,22 @@ import './Projects.css';
 // ── Config ──────────────────────────────────────────────────────────────────
 
 const HIGHLIGHT_PROJECTS = [
-  { src: '/photos/eeg.jpg', alt: 'EEG', title: 'The Mind Has No Straight Lines', path: '/projects/eeg' },
+  { video: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/eeg.mp4', alt: 'EEG', title: 'The Mind Has No Straight Lines', path: '/projects/eeg' },
 ];
 
 const SECTION_CATEGORIES = [
-  {
-    label: 'Body as Interface',
-    projects: [
-      { src: '/photos/gears.png',      alt: 'Gears',     path: '/projects/gears' },
-      { src: '/photos/dragonfly1.png', alt: 'Dragonfly', path: '/projects/dragonfly' },
-    ],
-  },
   {
     label: '3D Enviornments and Objects',
     projects: [
       { src: '/photos/templeinthesky.JPG', alt: 'Castle', path: '/projects/castle' },
       { src: '/photos/tape.png',   alt: 'Tape',   path: '/projects/tape' },
+    ],
+  },
+  {
+    label: 'Body as Interface',
+    projects: [
+      { src: '/photos/gears.png',      alt: 'Gears',     path: '/projects/gears' },
+      { src: '/photos/dragonfly1.png', alt: 'Dragonfly', path: '/projects/dragonfly' },
     ],
   },
   {
@@ -43,12 +43,26 @@ function Projects() {
       {/* highlight section */}
       <div className="projects-highlight">
         <div className="highlight-content">
-          <img
-            src={current.src}
-            alt={current.alt}
-            className="highlight-image"
-            onClick={() => navigate(current.path)}
-          />
+          {current.video ? (
+            <video
+              key={current.video}
+              src={current.video}
+              className="highlight-image"
+              onClick={() => navigate(current.path)}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+            />
+          ) : (
+            <img
+              src={current.src}
+              alt={current.alt}
+              className="highlight-image"
+              onClick={() => navigate(current.path)}
+            />
+          )}
           <div className="highlight-info">
             <h2 className="highlight-title">{current.title}</h2>
             <p className="highlight-desc">An EEG-data driven Touchdesigner installation that lets you abstractly visualize your brain waves when listening to your favorite song/music.</p>
