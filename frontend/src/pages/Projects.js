@@ -5,13 +5,14 @@ import './Projects.css';
 // ── Config ──────────────────────────────────────────────────────────────────
 
 const HIGHLIGHT_PROJECTS = [
-  { video: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/eeg.mp4', alt: 'EEG', title: 'The Mind Has No Straight Lines', path: '/projects/eeg' },
+  { src: '/photos/christina.png', alt: 'EEG', title: 'The Mind Has No Straight Lines', path: '/projects/eeg' },
 ];
 
 const SECTION_CATEGORIES = [
   {
     label: '3D Enviornments and Objects',
     projects: [
+      { src: '/photos/surrealLandscape.jpg', alt: 'Surreal Landscape', path: '/projects/surreal-landscape' },
       { src: '/photos/templeinthesky.JPG', alt: 'Castle', path: '/projects/castle' },
       { src: '/photos/tape.png',   alt: 'Tape',   path: '/projects/tape' },
     ],

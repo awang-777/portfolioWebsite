@@ -10,6 +10,7 @@ import GearsProject from './pages/projects/GearsProject';
 import DragonflyProject from './pages/projects/DragonflyProject';
 import CastleProject from './pages/projects/CastleProject';
 import EEGProject from './pages/projects/EEGProject';
+import SurrealLandscapeProject from './pages/projects/SurrealLandscapeProject';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/projects/gears" element={<GearsProject />} />
           <Route path="/projects/castle" element={<CastleProject />} />
           <Route path="/projects/eeg" element={<EEGProject />} />
+          <Route path="/projects/surreal-landscape" element={<SurrealLandscapeProject />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
         </Route>
