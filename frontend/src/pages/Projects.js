@@ -19,10 +19,7 @@ const SECTION_CATEGORIES = [
   },
   {
     label: 'Body as Interface',
-    projects: [
-      { src: '/photos/gears.png',      alt: 'Gears',     path: '/projects/gears' },
-      { src: '/photos/dragonfly1.png', alt: 'Dragonfly', path: '/projects/dragonfly' },
-    ],
+    projects: [],
   },
   {
     label: 'Live Visuals & Performance',
