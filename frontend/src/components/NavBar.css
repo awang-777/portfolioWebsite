@@ -51,3 +51,9 @@
 .navbar-link:hover {
   color: #999999;
 }
+
+@media (max-width: 600px) {
+  .navbar-subtitle {
+    display: none;
+  }
+}
