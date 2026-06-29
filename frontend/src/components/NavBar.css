@@ -11,13 +11,27 @@
   padding: clamp(14px, 2vw, 20px) clamp(16px, 3vw, 32px);
 }
 
+.navbar-brand {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(8px, 1.5vw, 16px);
+  cursor: pointer;
+}
+
 .navbar-title {
   font-family: 'Moralana', serif;
   font-size: clamp(15px, 2.5vw, 20px);
-  color: #999999;
+  color: #3a3a3a;
   letter-spacing: 0.05em;
   cursor: pointer;
   text-decoration: none;
+}
+
+.navbar-subtitle {
+  font-size: clamp(9px, 1.2vw, 11px);
+  letter-spacing: 0.15em;
+  font-family: 'Georgia', serif;
+  color: #aaaaaa;
 }
 
 .navbar-links {

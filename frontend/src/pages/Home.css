@@ -2,73 +2,71 @@
   width: 100%;
   height: 100dvh;
   position: relative;
+  display: flex;
+  flex-direction: row;
+  background-color: #ffffff;
 }
 
 .home-mount {
+  width: 35%;
+  height: 100%;
+  flex-shrink: 0;
+}
+
+.home-projects {
+  width: 65%;
+  height: 100dvh;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-content: start;
+  padding: clamp(16px, 3vw, 40px);
+  padding-top: clamp(60px, 8vw, 100px);
+  gap: clamp(8px, 1.2vw, 16px);
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.home-project-card {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #e8e8e4;
+  border-radius: 4px;
+}
+
+.home-project-card img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.25s ease;
 }
 
-.home-title {
-  position: absolute;
-  top: clamp(16px, 3vw, 32px);
-  left: clamp(16px, 3vw, 32px);
-  font-family: 'Moralana', serif;
-  font-size: clamp(15px, 2.5vw, 20px);
-  line-height: 2;
-  color: #3a3a3a;
-  letter-spacing: 0.05em;
+.home-project-card:hover img {
+  opacity: 0.8;
 }
 
-.home-title-row {
-  display: flex;
-  align-items: baseline;
-  gap: clamp(8px, 1.5vw, 16px);
-  flex-wrap: wrap;
-}
 
-.home-subtitle {
-  font-size: clamp(9px, 1.5vw, 11px);
-  letter-spacing: 0.15em;
-  font-family: 'Georgia', serif;
-  color: #5a5a5a;
-}
+@media (max-width: 600px) {
+  .home-page {
+    flex-direction: column;
+    height: auto;
+    min-height: 100dvh;
+  }
 
-.home-menu {
-  position: absolute;
-  bottom: max(clamp(16px, 3vw, 32px), env(safe-area-inset-bottom, 16px));
-  right: clamp(16px, 3vw, 32px);
-}
+  .home-mount {
+    width: 100%;
+    height: 50dvh;
+    flex-shrink: 0;
+  }
 
-.home-hamburger {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding: 8px;
-}
-
-.home-bar {
-  width: 24px;
-  height: 2px;
-  background-color: #3a3a3a;
-}
-
-.home-nav {
-  position: absolute;
-  bottom: 44px;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(20px, 3vw, 30px);
-  font-family: 'Georgia', serif;
-  font-size: clamp(14px, 2vw, 16px);
-  letter-spacing: 0.1em;
-  color: #3a3a3a;
-  text-align: right;
-}
-
-.home-nav-item {
-  cursor: pointer;
-  padding: 4px 0;
+  .home-projects {
+    width: 100%;
+    height: auto;
+    grid-template-columns: 1fr 1fr;
+    padding: 12px;
+    gap: 8px;
+  }
 }
