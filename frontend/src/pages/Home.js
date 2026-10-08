@@ -8,8 +8,7 @@ import './Home.css';
 const PROJECTS = [
   { src: '/photos/christina.png', alt: 'EEG', path: '/projects/eeg' },
   { src: '/photos/surrealLandscape.jpg', alt: 'Surreal Landscape', path: '/projects/surreal-landscape' },
-  { src: '/photos/templeinthesky.JPG', alt: 'Castle', path: '/projects/castle' },
-  { src: '/photos/tape.png', alt: 'Tape', path: '/projects/tape' },
+  { src: '/photos/hoang.webp', alt: 'Hoang', path: '/projects/hoang' },
 ];
 
 function getLayout(aspect) {

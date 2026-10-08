@@ -11,13 +11,24 @@ function EEGProject() {
         </p>
         <p className="project-description">
           An EEG-data driven TouchDesigner installation that lets you abstractly visualize your brain waves when listening to your favorite song.
-          Presented at the IMD 2026 capstone showcase at the University of Maryland, this work translates brain activity into generative form. Participants enter a room alone, fitted with an Emotiv EPOC X — a 14-channel wireless EEG headset — where the system samples alpha, beta, and theta wave power every three seconds and routes the values into TouchDesigner via OSC. These values then drive the parameters of strange attractors rendered in real time. The main visuals are built from Thomas and Lorenz attractors; the intro sequence uses a De Jong attractor. The isolation is intentional: it gives participants the intimate space to sit with their own thoughts.
+          Presented at the IMD 2026 capstone showcase at the University of Maryland, this work translates brain activity into generative form. Participants enter a room alone, fitted with an Emotiv EPOC X — a 14-channel wireless EEG headset — where the system samples alpha, beta, and theta wave power every three seconds and routes the values into TouchDesigner via OSC. These values then drive the parameters of strange attractors rendered in real time. The main visuals are built from Thomas and Lorenz attractors; the intro sequence uses a De Jong attractor. 
         </p>
       </div>
 
       <div className="gallery">
+        <video
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/EEGInterview.mp4"
+          controls
+          className="project-video"
+        />
         <div className="project-photo">
           <img src="/photos/eeg.jpg" alt="The Mind Has No Straight Lines" className="project-photo" />
+        </div>
+        <div className="project-photo">
+          <img src="/photos/EEG.webp" alt="The Mind Has No Straight Lines" className="project-photo" />
+        </div>
+        <div className="project-photo">
+          <img src="/photos/EEG2.webp" alt="The Mind Has No Straight Lines" className="project-photo" />
         </div>
       </div>
 

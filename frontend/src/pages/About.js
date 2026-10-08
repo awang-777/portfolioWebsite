@@ -8,7 +8,8 @@ function About() {
         <div className="about-divider" />
         <div className="about-content">
         <p className="about-body">
-          Amanda Wang is a multimedia artist interested in the space between the subconscious and the natural world. She works in 3D, real-time environments, and interactive systems — building surreal worlds you can step into. She studies Immersive Media Design and Sustainability Studies at the University of Maryland.
+          Amanda Wang is a new media artist and creative technologist based in Baltimore, Maryland. She holds a BA in Immersive Media Design with a minor in Sustainability Studies from the University of Maryland. She creates 3D and motion work in Blender, real-time generative systems in TouchDesigner, and immersive interactive installations. She also produces visuals for artists, musicians, and live events.
+Her personal work often draws inspiration from the natural world. More of her sketches and experiments can be found on Instagram at @m3ii.22.
         </p>
       </div>
       </div>
