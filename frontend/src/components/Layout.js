@@ -1,11 +1,11 @@
-import { Outlet } from 'react-router-dom';
 import NavBar from './NavBar';
+import PageLoader from './PageLoader';
 
 function Layout() {
   return (
     <>
       <NavBar />
-      <Outlet />
+      <PageLoader />
     </>
   );
 }

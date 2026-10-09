@@ -24,12 +24,22 @@ function EEGProject() {
         <div className="project-photo">
           <img src="/photos/eeg.jpg" alt="The Mind Has No Straight Lines" className="project-photo" />
         </div>
-        <div className="project-photo">
-          <img src="/photos/EEG.webp" alt="The Mind Has No Straight Lines" className="project-photo" />
-        </div>
-        <div className="project-photo">
-          <img src="/photos/EEG2.webp" alt="The Mind Has No Straight Lines" className="project-photo" />
-        </div>
+        <video
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/EEG.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="project-video"
+        />
+        <video
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/EEG2.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="project-video"
+        />
       </div>
 
     </div>

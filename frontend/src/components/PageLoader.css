@@ -1,0 +1,22 @@
+.page-loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-loader-bar-track {
+  width: 200px;
+  height: 2px;
+  background-color: #e8e8e4;
+  overflow: hidden;
+}
+
+.page-loader-bar-fill {
+  height: 100%;
+  background-color: #3a3a3a;
+  transition: width 0.2s ease;
+}

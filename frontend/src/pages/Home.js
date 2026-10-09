@@ -8,7 +8,7 @@ import './Home.css';
 const PROJECTS = [
   { src: '/photos/christina.png', alt: 'EEG', path: '/projects/eeg' },
   { src: '/photos/surrealLandscape.jpg', alt: 'Surreal Landscape', path: '/projects/surreal-landscape' },
-  { src: '/photos/hoang.webp', alt: 'Hoang', path: '/projects/hoang' },
+  { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/hoang.mp4', alt: 'Hoang', path: '/projects/hoang' },
 ];
 
 function getLayout(aspect) {
@@ -27,8 +27,8 @@ function Home() {
 
   useEffect(() => {
     const mount = mountRef.current;
-    const w = mount.clientWidth;
-    const h = mount.clientHeight;
+    const w = mount.clientWidth || mount.parentElement.clientWidth * 0.35;
+    const h = mount.clientHeight || window.innerHeight;
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xFFFFFF);
@@ -102,9 +102,8 @@ function Home() {
     }
     renderer.setAnimationLoop(animate);
 
-    function handleResize() {
-      const mw = mount.clientWidth;
-      const mh = mount.clientHeight;
+    function handleResize(mw, mh) {
+      if (!mw || !mh) return;
       const aspect = mw / mh;
       camera.aspect = aspect;
       camera.updateProjectionMatrix();
@@ -112,10 +111,16 @@ function Home() {
       const layout = getLayout(aspect);
       camera.position.z = layout.cameraZ;
     }
-    window.addEventListener('resize', handleResize);
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      const { width, height } = entry.contentRect;
+      handleResize(width, height);
+    });
+    resizeObserver.observe(mount);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      resizeObserver.disconnect();
       renderer.setAnimationLoop(null);
       mount.removeChild(renderer.domElement);
       renderer.dispose();
@@ -129,7 +134,11 @@ function Home() {
       <div className="home-projects">
         {PROJECTS.map((p) => (
           <div key={p.path} className="home-project-card" onClick={() => navigate(p.path)}>
-            <img src={p.src} alt={p.alt} />
+            {p.src.endsWith('.mp4') ? (
+              <video src={p.src} autoPlay loop muted playsInline />
+            ) : (
+              <img src={p.src} alt={p.alt} />
+            )}
           </div>
         ))}
       </div>

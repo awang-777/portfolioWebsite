@@ -13,13 +13,21 @@ function Hoang() {
 
       <div className="gallery">
         <video
-          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/HoangIntense2.mp4"
-          controls
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/hoang.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
           className="project-video"
         />
-        <div className="project-photo">
-          <img src="/photos/hoang.webp" alt="Hoang" className="project-photo" />
-        </div>
+        <video
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/HoangIntense2.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="project-video"
+        />
       </div>
 
     </div>
