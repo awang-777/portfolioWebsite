@@ -19,9 +19,16 @@ const PROJECTS = [
 const CAMERA_Z_AT_SQUARE = 9;
 const MAX_CAMERA_Z = 20;
 
+// On phones the mount spans the full screen width instead of 35%, so the
+// model would fill the screen; pull the camera back further there. Keep the
+// query in sync with the mobile breakpoint in Home.css.
+const MOBILE_QUERY = '(max-width: 600px)';
+const MOBILE_CAMERA_Z_FACTOR = 1.6;
+
 function getLayout(aspect) {
-  const cameraZ = CAMERA_Z_AT_SQUARE / Math.min(1, aspect);
-  return { cameraZ: Math.min(MAX_CAMERA_Z, cameraZ) };
+  const cameraZ = Math.min(MAX_CAMERA_Z, CAMERA_Z_AT_SQUARE / Math.min(1, aspect));
+  const isMobile = window.matchMedia(MOBILE_QUERY).matches;
+  return { cameraZ: isMobile ? cameraZ * MOBILE_CAMERA_Z_FACTOR : cameraZ };
 }
 
 function Home() {
