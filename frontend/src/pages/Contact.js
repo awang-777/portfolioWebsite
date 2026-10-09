@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
+import { registerPending } from '../components/loadingRegistry';
 import './Contact.css';
 
 function Contact() {
@@ -54,6 +55,10 @@ function Contact() {
 
     let model;
     const loader = new GLTFLoader();
+
+    const glbPending = registerPending();
+    const resolveGlb = glbPending.resolve;
+
     loader.load(
       '/website2.glb',
       (gltf) => {
@@ -66,9 +71,23 @@ function Contact() {
           if (child.isMesh) child.material = iridescentMaterial;
         });
         scene.add(model);
+        renderer.compile(scene, camera);
+        renderer.render(scene, camera);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            resolveGlb();
+          });
+        });
       },
-      undefined,
-      (error) => console.error('Error loading model:', error)
+      (event) => {
+        if (event.lengthComputable && event.total > 0) {
+          glbPending.setProgress(event.loaded / event.total);
+        }
+      },
+      (error) => {
+        console.error('Error loading model:', error);
+        resolveGlb();
+      }
     );
 
     function animate() {
@@ -85,6 +104,7 @@ function Contact() {
     window.addEventListener('resize', handleResize);
 
     return () => {
+      resolveGlb();
       window.removeEventListener('resize', handleResize);
       renderer.setAnimationLoop(null);
       mount.removeChild(renderer.domElement);

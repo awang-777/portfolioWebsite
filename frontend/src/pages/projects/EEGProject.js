@@ -33,7 +33,7 @@ function EEGProject() {
           className="project-video"
         />
         <video
-          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/EEG2.mp4"
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/EEG3.mp4"
           autoPlay
           loop
           muted

@@ -21,7 +21,7 @@ function Hoang() {
           className="project-video"
         />
         <video
-          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/HoangIntense2.mp4"
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/HoangIntense.mp4"
           autoPlay
           loop
           muted

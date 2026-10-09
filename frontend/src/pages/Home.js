@@ -3,22 +3,25 @@ import { useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
+import { registerPending } from '../components/loadingRegistry';
 import './Home.css';
 
 const PROJECTS = [
-  { src: '/photos/christina.png', alt: 'EEG', path: '/projects/eeg' },
-  { src: '/photos/surrealLandscape.jpg', alt: 'Surreal Landscape', path: '/projects/surreal-landscape' },
-  { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/hoang.mp4', alt: 'Hoang', path: '/projects/hoang' },
+  { src: '/photos/christina.png', alt: 'EEG', path: '/projects/eeg', tag: 'interactive installation' },
+  { src: '/photos/surrealLandscape.jpg', alt: 'Surreal Landscape', path: '/projects/surreal-landscape', tag: '3d environment' },
+  { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/hoang.mp4', alt: 'Hoang', path: '/projects/hoang', tag: 'live event' },
 ];
 
+// Pull the camera back smoothly as the mount gets narrower so the model
+// keeps the same apparent width. Stepped thresholds made the size jump when
+// the aspect landed on different sides of a cutoff — e.g. Safari's taller
+// viewport pushing the 35%-wide mount below 0.6 and shrinking the model.
+const CAMERA_Z_AT_SQUARE = 9;
+const MAX_CAMERA_Z = 20;
+
 function getLayout(aspect) {
-  if (aspect < 0.6) {
-    return { cameraZ: 20 };
-  } else if (aspect < 1.0) {
-    return { cameraZ: 15 };
-  } else {
-    return { cameraZ: 11 };
-  }
+  const cameraZ = CAMERA_Z_AT_SQUARE / Math.min(1, aspect);
+  return { cameraZ: Math.min(MAX_CAMERA_Z, cameraZ) };
 }
 
 function Home() {
@@ -38,7 +41,7 @@ function Home() {
     camera.position.z = initialLayout.cameraZ;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(w, h);
+    renderer.setSize(w, h, false);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 0.7;
@@ -76,6 +79,9 @@ function Home() {
     const loader = new GLTFLoader();
     let model;
 
+    const glbPending = registerPending();
+    const resolveGlb = glbPending.resolve;
+
     loader.load(
       '/website2.glb',
       (gltf) => {
@@ -91,9 +97,29 @@ function Home() {
           if (child.isMesh) child.material = iridescentMaterial;
         });
         scene.add(model);
+        // Force the first real draw (not just shader compile) to happen now,
+        // while the page is still hidden behind the loader — then wait two
+        // animation frames so the browser has actually painted it and any
+        // driver-side deferred work has settled. Otherwise that first heavy
+        // render happens right as the overlay lifts, blocking the main
+        // thread and turning the opacity fade into an abrupt pop.
+        renderer.compile(scene, camera);
+        renderer.render(scene, camera);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            resolveGlb();
+          });
+        });
       },
-      undefined,
-      (error) => console.error('Error loading model:', error)
+      (event) => {
+        if (event.lengthComputable && event.total > 0) {
+          glbPending.setProgress(event.loaded / event.total);
+        }
+      },
+      (error) => {
+        console.error('Error loading model:', error);
+        resolveGlb();
+      }
     );
 
     function animate() {
@@ -107,7 +133,7 @@ function Home() {
       const aspect = mw / mh;
       camera.aspect = aspect;
       camera.updateProjectionMatrix();
-      renderer.setSize(mw, mh);
+      renderer.setSize(mw, mh, false);
       const layout = getLayout(aspect);
       camera.position.z = layout.cameraZ;
     }
@@ -120,6 +146,7 @@ function Home() {
     resizeObserver.observe(mount);
 
     return () => {
+      resolveGlb();
       resizeObserver.disconnect();
       renderer.setAnimationLoop(null);
       mount.removeChild(renderer.domElement);
@@ -139,6 +166,7 @@ function Home() {
             ) : (
               <img src={p.src} alt={p.alt} />
             )}
+            {p.tag && <span className="home-project-tag">{p.tag}</span>}
           </div>
         ))}
       </div>
