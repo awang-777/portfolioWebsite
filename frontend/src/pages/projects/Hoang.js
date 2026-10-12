@@ -5,7 +5,7 @@ function Hoang() {
     <div className="project-page">
       <div className="project-info">
         <p className="project-title">Hoang — Second Chance Tour</p>
-        <p className="project-meta">Tour Visuals · 2026 · TouchDesigner </p>
+        <p className="project-meta">Tour Visuals · 2026 · TouchDesigner · Adobe After Effects</p>
         <p className="project-description">
           A series of rendered loops created for producer Hoang's 2026 Second Chance Tour, designed for playback during live sets.
         </p>

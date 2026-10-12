@@ -11,7 +11,7 @@ function TapeProject() {
           The footage was captured on a trip to my mother's hometown in China. The initial feeling I got from this particular spot was something I wanted to communicate visually. The tall modern buildings against an untouched shoreline feels almost as if two realities are sharing the same frame that they were never meant to. The generative forms layered over the video pushes that tension further through the contrast between the entity's fluid vs restless movement. 
         </p>
       </div>
-      <div className="gallery" style={{ flexDirection: 'column', alignItems: 'center', gap: '32px' }}>
+      <div className="gallery" style={{ flexDirection: 'column', alignItems: 'center' }}>
         <video
           src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/tapee.mp4"
           controls

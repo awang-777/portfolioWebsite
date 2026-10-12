@@ -9,6 +9,8 @@ import DragonflyProject from './pages/projects/DragonflyProject';
 import EEGProject from './pages/projects/EEGProject';
 import SurrealLandscapeProject from './pages/projects/SurrealLandscapeProject';
 import Hoang from './pages/projects/Hoang';
+import MocapFinal from './pages/projects/mocapFinal';
+import Fox from './pages/projects/fox';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/projects/eeg" element={<EEGProject />} />
           <Route path="/projects/surreal-landscape" element={<SurrealLandscapeProject />} />
           <Route path="/projects/hoang" element={<Hoang />} />
+          <Route path="/projects/mocap" element={<MocapFinal />} />
+          <Route path="/projects/fox" element={<Fox />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
         </Route>
