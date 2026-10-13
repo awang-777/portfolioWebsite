@@ -8,10 +8,10 @@ import './Home.css';
 
 const PROJECTS = [
   { src: '/photos/christina.png', alt: 'EEG', path: '/projects/eeg', tag: 'interactive installation' },
-  { src: '/photos/surrealLandscape.jpg', alt: 'Surreal Landscape', path: '/projects/surreal-landscape', tag: '3d environment' },
   { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/hoang.mp4', alt: 'Hoang', path: '/projects/hoang', tag: 'tour visuals' },
+  { src: '/photos/surrealLandscape.jpg', alt: 'Surreal Landscape', path: '/projects/surreal-landscape', tag: '3d environment' },
   { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/mocapCover.mp4', alt: 'Motion Capture', path: '/projects/mocap', tag: 'motion capture' },
-  { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/foxCover.mp4', alt: 'Fox', path: '/projects/fox', tag: '3d environment' },
+  { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/foxCover.mp4', alt: 'Fox', path: '/projects/fox', tag: '3d interactive environment' },
 ];
 
 // Pull the camera back smoothly as the mount gets narrower so the model
