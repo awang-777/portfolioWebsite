@@ -30,19 +30,19 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #5a5a5a;
+  color: var(--text);
   padding: 0 8px;
 }
 
 .contact-divider {
   width: 1px;
   align-self: stretch;
-  background-color: #c8c8c2;
+  background-color: var(--line);
 }
 
 .contact-text {
   font-family: 'Georgia', serif;
-  color: #3a3a3a;
+  color: var(--text);
   text-align: left;
   line-height: 2;
   font-size: clamp(12px, 1.8vw, 15px);
@@ -57,7 +57,7 @@
 
 .contact-p {
   margin-top: 1.2em;
-  color: #5a5a5a;
+  color: var(--text);
 }
 
 .contact-email {
@@ -67,5 +67,5 @@
 
 .contact-signature {
   margin-top: 0.4em;
-  color: #5a5a5a;
+  color: var(--text);
 }

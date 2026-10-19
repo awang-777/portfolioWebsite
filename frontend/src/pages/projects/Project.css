@@ -9,7 +9,7 @@
 .project-page {
   width: 100%;
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: var(--bg);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -32,7 +32,7 @@
 .project-title {
   font-family: 'Moralana', serif;
   font-size: 18px;
-  color: #3a3a3a;
+  color: var(--text);
   margin-bottom: 8px;
   letter-spacing: 0.05em;
 }
@@ -40,7 +40,7 @@
 .project-meta {
   font-family: 'Georgia', serif;
   font-size: 11px;
-  color: #999999;
+  color: var(--text-muted);
   letter-spacing: 0.12em;
   margin-bottom: 28px;
 }
@@ -49,7 +49,7 @@
   font-family: 'Georgia', serif;
   font-size: 13px;
   line-height: 2;
-  color: #5a5a5a;
+  color: var(--text);
   letter-spacing: 0.05em;
   margin-bottom: 32px;
 }
@@ -61,7 +61,7 @@
 }
 
 .project-link:hover {
-  color: #3a3a3a;
+  color: var(--text-muted);
 }
 
 .project-credits p {
@@ -118,6 +118,28 @@
   border-radius: var(--media-radius);
 }
 
+/* 9:16 portrait videos and photos kept in a single row at every screen size. Each is
+   at most the usual media height and shrinks to share the row instead of
+   wrapping */
+.project-row {
+  display: flex;
+  justify-content: center;
+  gap: var(--media-gap);
+  width: 100%;
+}
+
+.project-row > .project-video,
+.project-row > .project-photo {
+  /* Sized as a quarter of the row (capped at the usual media height) so
+     rows with fewer items match the size of a full row of four */
+  flex: 0 1 min(calc(var(--media-height) * 9 / 16), calc((100% - 3 * var(--media-gap)) / 4));
+  min-width: 0;
+  width: auto;
+  height: auto;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+}
+
 /* Photo or video with a caption underneath that matches the media's width;
    contain stops the caption's text length from widening the figure */
 .project-figure {
@@ -137,6 +159,18 @@
 
 .project-caption p:last-child {
   margin-bottom: 0;
+}
+
+/* Zooms the photo slightly inside its frame to crop thin white edges
+   baked into the source image */
+.project-photo--zoom {
+  overflow: hidden;
+  border-radius: var(--media-radius);
+}
+
+.project-photo--zoom img {
+  display: block;
+  transform: scale(1.02);
 }
 
 .project-video--tape {
@@ -187,5 +221,25 @@
 
   .project-figure {
     width: 100%;
+  }
+
+  /* Tall videos would be huge at full width, so cap them at the usual media height */
+  .project-video.project-video--portrait {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: var(--media-height);
+  }
+}
+/* Phones: a row of four portrait videos would be too small, so wrap into 2 x 2 */
+@media (max-width: 768px) {
+  .project-row {
+    flex-wrap: wrap;
+  }
+
+  .project-row > .project-video,
+  .project-row > .project-photo {
+    flex-basis: calc(50% - var(--media-gap) / 2);
+    max-width: calc(var(--media-height) * 9 / 16);
   }
 }

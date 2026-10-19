@@ -18,20 +18,43 @@
   cursor: pointer;
 }
 
+/* Iridescent metallic name: a chrome gradient clipped to the letters. Light and
+   dark bands mimic reflections, with soft pink, lilac, blue and mint tints for the
+   oil-slick shimmer; the wide background lets the colours slide across on hover */
 .navbar-title {
   font-family: 'Moralana', serif;
   font-size: clamp(15px, 2.5vw, 20px);
-  color: #3a3a3a;
   letter-spacing: 0.05em;
   cursor: pointer;
   text-decoration: none;
+  color: var(--text); /* fallback where background-clip: text is unsupported */
+  background-image: linear-gradient(
+    105deg,
+    #8a8a8a 0%,
+    #f4f4f4 18%,
+    #9c9c9c 32%,
+    #ffffff 46%,
+    #7a7a7a 60%,
+    #dcdcdc 78%,
+    #8a8a8a 100%
+  );
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 1.2s ease;
+}
+
+.navbar-brand:hover .navbar-title {
+  background-position: 100% 50%;
 }
 
 .navbar-subtitle {
   font-size: clamp(9px, 1.2vw, 11px);
   letter-spacing: 0.15em;
   font-family: 'Georgia', serif;
-  color: #aaaaaa;
+  color: var(--text-muted);
 }
 
 .navbar-links {
@@ -40,7 +63,7 @@
   font-family: 'Georgia', serif;
   font-size: clamp(11px, 1.2vw, 13px);
   letter-spacing: 0.1em;
-  color: #aaaaaa;
+  color: var(--text-muted);
 }
 
 .navbar-link {
@@ -49,7 +72,7 @@
 }
 
 .navbar-link:hover {
-  color: #999999;
+  color: var(--text);
 }
 
 @media (max-width: 600px) {

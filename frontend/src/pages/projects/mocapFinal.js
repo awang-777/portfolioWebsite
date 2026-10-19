@@ -7,7 +7,7 @@ function MocapFinal() {
         <p className="project-title">Insomnia</p>
         <p className="project-meta">Motion Capture · 2026 · Blender </p>
         <p className="project-description">
-          An atmospheric short animation about restlessness and the struggle to fall asleep - created as part of my Immersive Media Design coursework at the University of Maryland. My aim was to make a mundane moment feel cinematic through environment, lighting, sound, and wordless storytelling. The scene was modeled by hand in Blender, with select environment assets from Blenderkit, and kept minimal so the focus stays on the character. Final compositing done in After Effects. Motion data was recorded using both marker-based Vicon and markerless Captury systems.
+          An atmospheric short animation created as part of my Immersive Media Design coursework at the University of Maryland. My aim was to focus on environment, lighting, sound, and wordless storytelling. Final compositing done in After Effects. Motion data was recorded using both marker-based Vicon and markerless Captury systems.
           <br />
           Due to copyright issues, audio is unavailable. Please{' '}
           <a

@@ -8,10 +8,11 @@ import './Home.css';
 
 const PROJECTS = [
   { src: '/photos/christina.png', alt: 'EEG', path: '/projects/eeg', tag: 'interactive installation' },
-  { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/hoang.mp4', alt: 'Hoang', path: '/projects/hoang', tag: 'tour visuals' },
-  { src: '/photos/surrealLandscape.jpg', alt: 'Surreal Landscape', path: '/projects/surreal-landscape', tag: '3d environment' },
-  { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/mocapCover.mp4', alt: 'Motion Capture', path: '/projects/mocap', tag: 'motion capture' },
+  { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/hoang.mp4', alt: 'Hoang', path: '/projects/hoang', tag: 'tour visuals ┃ SABAI x HOANG', size: 'featured' },
+  { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/f2fCover.mp4', alt: 'F2F Sang', path: '/projects/f2f-sang', tag: 'show visuals ┃ SANG', size: 'tall' },
+  { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/newCover.mp4', alt: 'Surreal Landscape', path: '/projects/surreal-landscape', tag: '3d environment' },
   { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/foxCover.mp4', alt: 'Fox', path: '/projects/fox', tag: '3d interactive environment' },
+  { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/mocapCover.mp4', alt: 'Motion Capture', path: '/projects/mocap', tag: 'motion capture' },
 ];
 
 // Pull the camera back smoothly as the mount gets narrower so the model
@@ -43,7 +44,10 @@ function Home() {
     const h = mount.clientHeight || window.innerHeight;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xFFFFFF);
+    // Match the page background colour set in index.css
+    scene.background = new THREE.Color(
+      getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()
+    );
 
     const camera = new THREE.PerspectiveCamera(75, w / h, 0.1, 1000);
     const initialLayout = getLayout(w / h);
@@ -169,11 +173,20 @@ function Home() {
 
       <div className="home-projects">
         {PROJECTS.map((p) => (
-          <div key={p.path} className="home-project-card" onClick={() => navigate(p.path)}>
+          <div
+            key={p.path}
+            // size: 'featured' (2 x 2) or 'tall' (1 wide x 2 tall); layout lives in Home.css
+            className={`home-project-card${p.size ? ` home-project-card--${p.size}` : ''}`}
+            onClick={() => navigate(p.path)}>
             {p.src.endsWith('.mp4') ? (
               <video src={p.src} autoPlay loop muted playsInline />
             ) : (
-              <img src={p.src} alt={p.alt} />
+              <img
+                src={p.src}
+                alt={p.alt}
+                // Optional zoom to crop thin white edges baked into a source image
+                style={p.scale ? { transform: `scale(${p.scale})` } : undefined}
+              />
             )}
             {p.tag && <span className="home-project-tag">{p.tag}</span>}
           </div>

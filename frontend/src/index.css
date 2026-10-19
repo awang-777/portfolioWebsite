@@ -3,6 +3,15 @@
   src: url('./fonts/MoralanaDEMO.otf') format('opentype');
 }
 
+/* Site-wide colour palette — change these to retheme every page */
+:root {
+  --bg: #000000;            /* page background */
+  --surface: #1a1a1a;       /* placeholders behind loading media, loader track */
+  --line: #444444;          /* dividers */
+  --text: #ffffff;          /* titles and body text */
+  --text-muted: #a0a0a0;    /* secondary text: subtitles, project details, nav links */
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -12,7 +21,8 @@
 html, body {
   width: 100%;
   height: 100%;
-  background-color: #f5f5f0;
+  background-color: var(--bg);
+  color: var(--text);
   overscroll-behavior: none;
 }
 

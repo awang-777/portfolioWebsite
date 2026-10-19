@@ -12,7 +12,10 @@ function Contact() {
     const mount = mountRef.current;
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xFFFFFF);
+    // Match the page background colour set in index.css
+    scene.background = new THREE.Color(
+      getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()
+    );
 
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 9;

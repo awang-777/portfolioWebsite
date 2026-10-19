@@ -5,8 +5,8 @@ function SurrealLandscapeProject() {
     <div className="project-page">
       <div className="project-info">
         <p className="project-title">Surreal Landscape</p>
-        <p className="project-meta">Collaborative 3D environment · Blender · Group of 3 · 2026</p>
-        <p className="project-description">A surreal banquet inspired by Alice in Wonderland and Midsommar.</p>
+        <p className="project-meta">Collaborative 3D environment · Blender · 2026</p>
+        <p className="project-description">A surreal banquet inspired by Alice in Wonderland and Midsommar. Created as part of my Immersive Media Design coursework at the University of Maryland.</p>
         <div className="project-description project-credits">
           <p><strong>Amanda Wang</strong>: 3D Modeling, Texturing &amp; Animation<br />
           Suspended butterfly, underwater fish, and select table elements including floral arrangements and desserts</p>
@@ -23,7 +23,7 @@ function SurrealLandscapeProject() {
           controls
           className="project-video"
         />
-        <div className="project-photo">
+        <div className="project-photo project-photo--zoom">
           <img src="/photos/surrealLandscape.jpg" alt="Surreal Landscape" className="project-photo" />
         </div>
         <div className="project-photo">

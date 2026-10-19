@@ -52,7 +52,7 @@ function EEGProject() {
             className="project-video"
           />
           <figcaption className="project-description project-caption">
-            <p>The Lorenz attractor is a set of equations originally developed to model atmospheric convection. I chose it for its distinctive butterfly-like structure: two looping wings that form as points spiral around each other.</p>
+            <p>The Lorenz attractor is a set of equations originally developed to model atmospheric convection. I chose it for its distinctive butterfly-like structure: two looping wings that form as points spiral around each other. The equation is as follows: </p>
             <p>dx/dt = σ(y − x)<br />
             dy/dt = x(ρ − z) − y<br />
             dz/dt = xy − βz</p>
@@ -69,7 +69,7 @@ function EEGProject() {
             className="project-video"
           />
           <figcaption className="project-description project-caption">
-            <p>The Thomas attractor is a cyclically symmetric system of equations proposed by biologist René Thomas. I chose it for its spiraling structure, which reminds me of galaxies colliding.</p>
+            <p>The Thomas attractor is a cyclically symmetric system of equations by biologist René Thomas. I chose it for its spiraling structure, which reminds me of galaxies colliding.</p>
             <p>dx/dt = sin(y) − bx<br />
             dy/dt = sin(z) − by<br />
             dz/dt = sin(x) − bz</p>

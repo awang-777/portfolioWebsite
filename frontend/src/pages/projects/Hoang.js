@@ -4,10 +4,21 @@ function Hoang() {
   return (
     <div className="project-page">
       <div className="project-info">
-        <p className="project-title">Hoang — Second Chance Tour</p>
+        <p className="project-title">SABAI x HOANG — Second Chance Tour</p>
         <p className="project-meta">Tour Visuals · 2026 · TouchDesigner · Adobe After Effects</p>
         <p className="project-description">
-          A series of rendered loops created for producer Hoang's 2026 Second Chance Tour, designed for playback during live sets.
+          A series of rendered loops created for producer{' '}
+          <a
+            href="https://www.instagram.com/iamhoangmusic/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="project-link"
+          >
+            Hoang
+          </a>
+          's 2026 Second Chance Tour, designed for playback during live sets.
+          <br />
+          Commissioned by the artist's visual director.
         </p>
       </div>
 
@@ -27,6 +38,14 @@ function Hoang() {
           muted
           playsInline
           className="project-video"
+        />
+        <video
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/hoangRave.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="project-video project-video--portrait"
         />
       </div>
 

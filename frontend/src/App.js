@@ -11,6 +11,7 @@ import SurrealLandscapeProject from './pages/projects/SurrealLandscapeProject';
 import Hoang from './pages/projects/Hoang';
 import MocapFinal from './pages/projects/mocapFinal';
 import Fox from './pages/projects/fox';
+import F2fSang from './pages/projects/f2fSang';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/projects/hoang" element={<Hoang />} />
           <Route path="/projects/mocap" element={<MocapFinal />} />
           <Route path="/projects/fox" element={<Fox />} />
+          <Route path="/projects/f2f-sang" element={<F2fSang />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
         </Route>
