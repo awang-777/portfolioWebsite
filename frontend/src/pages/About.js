@@ -13,7 +13,7 @@ Her personal work often draws inspiration from the natural world. More of her sk
         </p>
         <p className="about-body">
           <a
-            href="/AmandaWangResume.pdf"
+            href="/Resume.pdf?v=2"
             target="_blank"
             rel="noopener noreferrer"
             className="about-link"
