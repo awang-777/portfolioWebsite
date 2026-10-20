@@ -24,38 +24,40 @@ function Fox() {
           playsInline
           className="project-video project-video--wide"
         />
-        <video
-          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/fox.mp4?v=2"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="project-video project-video--wide"
-        />
-        <video
-          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/foxHouse.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="project-video project-video--wide"
-        />
-        <video
-          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/lotusFlower.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="project-video project-video--wide"
-        />
-        <video
-          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/fish.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="project-video project-video--wide"
-        />
+        <div className="project-grid-2x2">
+          <video
+            src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/fox.mp4?v=2"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="project-video"
+          />
+          <video
+            src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/foxHouse.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="project-video"
+          />
+          <video
+            src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/lotusFlower.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="project-video"
+          />
+          <video
+            src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/fish.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="project-video"
+          />
+        </div>
       </div>
 
     </div>

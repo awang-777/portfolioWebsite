@@ -140,6 +140,22 @@
   object-fit: cover;
 }
 
+/* 2 x 2 block of smaller 16:9 videos, as wide as one full-size 16:9 video so
+   its edges line up with the media above */
+.project-grid-2x2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px; /* tighter than --media-gap so the four read as one block */
+  width: min(100%, calc(var(--media-height) * 16 / 9));
+}
+
+.project-grid-2x2 > .project-video {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
 /* Photo or video with a caption underneath that matches the media's width;
    contain stops the caption's text length from widening the figure */
 .project-figure {

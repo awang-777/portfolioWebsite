@@ -28,13 +28,15 @@
   /* Cards size themselves from this element's width (cqw units below) */
   container-type: inline-size;
   --cols: 3;
-  --gap: clamp(3px, 0.5vw, 6px);
+  --gap: clamp(3px, 0.5vw, 6px);                /* between columns */
+  --row-gap: clamp(5px, 0.7vw, 10px);         /* between rows */
   grid-template-columns: repeat(var(--cols), 1fr);
   align-content: start;
   grid-auto-flow: dense; /* backfill the left column beside the featured card */
   padding: clamp(12px, 1.8vw, 24px);
   padding-top: clamp(60px, 8vw, 100px);
-  gap: var(--gap);
+  column-gap: var(--gap);
+  row-gap: var(--row-gap);
   box-sizing: border-box;
   background-color: var(--bg);
 }
@@ -63,7 +65,7 @@
 }
 
 /* Every card gets an explicit height: one row = a 3:2 card at column width.
-   Cards spanning two rows are exactly two rows plus the gap between them, so
+   Cards spanning two rows are exactly two rows plus the row gap between them, so
    rows that only contain spanning cards still get the right height and
    nothing overlaps */
 .home-project-card {
@@ -81,13 +83,13 @@
 .home-project-card--featured {
   grid-column: 2 / span 2;
   grid-row: span 2;
-  height: calc(2 * var(--row) + var(--gap));
+  height: calc(2 * var(--row) + var(--row-gap));
 }
 
 /* One column wide, two rows tall */
 .home-project-card--tall {
   grid-row: span 2;
-  height: calc(2 * var(--row) + var(--gap));
+  height: calc(2 * var(--row) + var(--row-gap));
 }
 
 .home-project-card img,
@@ -144,12 +146,19 @@
     flex-shrink: 0;
   }
 
+  /* The whole page scrolls on phones, so the grid shouldn't be its own scroll
+     area; a nested one can catch the swipe and stop short of the bottom */
   .home-projects {
     width: 100%;
     height: auto;
+    overflow-y: visible;
     --cols: 2;
     --gap: 4px;
+    --row-gap: 6px;
     padding: 12px;
+    /* index.html uses viewport-fit=cover, so the page runs under the iPhone home
+       indicator; pad the bottom by that area so the last row isn't hidden */
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
   }
 
   /* Only two columns here, so the featured card runs full width instead */

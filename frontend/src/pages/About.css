@@ -53,6 +53,19 @@
   margin-bottom: 24px;
 }
 
+.about-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.about-link:hover {
+  color: var(--text-muted);
+}
+
 .about-body:last-child {
   margin-bottom: 0;
 }

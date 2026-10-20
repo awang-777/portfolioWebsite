@@ -59,9 +59,6 @@ function MocapFinal() {
             Example of captured data (.fbx) before rigging to character
           </figcaption>
         </figure>
-        <div className="project-photo">
-          <img src="/photos/mocapScene.jpg" alt="Insomnia scene" className="project-photo project-video--wide" />
-        </div>
       </div>
 
     </div>

@@ -7,7 +7,7 @@ import { registerPending } from '../components/loadingRegistry';
 import './Home.css';
 
 const PROJECTS = [
-  { src: '/photos/christina.png', alt: 'EEG', path: '/projects/eeg', tag: 'interactive installation' },
+  { src: '/photos/christina.png', alt: 'EEG', path: '/projects/eeg', tag: 'bio-data interactive installation' },
   { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/hoang.mp4', alt: 'Hoang', path: '/projects/hoang', tag: 'tour visuals ┃ SABAI x HOANG', size: 'featured' },
   { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/f2fCover.mp4', alt: 'F2F Sang', path: '/projects/f2f-sang', tag: 'show visuals ┃ SANG', size: 'tall' },
   { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/newCover.mp4', alt: 'Surreal Landscape', path: '/projects/surreal-landscape', tag: '3d environment' },

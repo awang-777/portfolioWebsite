@@ -37,7 +37,9 @@ function EEGProject() {
           </figcaption>
         </figure>
         <figure className="project-figure">
-          <img src="/photos/eeg.jpg" alt="The Mind Has No Straight Lines" className="project-photo" />
+          <div className="project-photo project-photo--zoom">
+            <img src="/photos/eeg.jpg" alt="The Mind Has No Straight Lines" className="project-photo" />
+          </div>
           <figcaption className="project-description project-caption">
             Alpha, beta, and theta wave values are normalized for easier mapping in TouchDesigner (pictured on the right corner)
           </figcaption>
