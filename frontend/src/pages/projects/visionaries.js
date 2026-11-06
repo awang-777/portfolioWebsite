@@ -5,9 +5,9 @@ function Visionaries() {
     <div className="project-page">
       <div className="project-info">
         <p className="project-title">Visionaries</p>
-        <p className="project-meta">Interactive Installation · 2026 · TouchDesigner · Arduino</p>
+        <p className="project-meta">Interactive Experience · 2026 · TouchDesigner · Arduino</p>
         <p className="project-description">
-          Distance sensor interactive installation.
+          Distance sensor interactive experience.
         </p>
       </div>
 
