@@ -1,10 +1,11 @@
+import ProjectTitle from './ProjectTitle';
 import './Project.css';
 
 function SurrealLandscapeProject() {
   return (
     <div className="project-page">
       <div className="project-info">
-        <p className="project-title">Surreal Landscape</p>
+        <ProjectTitle>Surreal Landscape</ProjectTitle>
         <p className="project-meta">Collaborative 3D environment · Blender · 2026</p>
         <p className="project-description">
           A surreal banquet inspired by Alice in Wonderland and Midsommar. Created as part of my Immersive Media Design coursework at the University of Maryland.

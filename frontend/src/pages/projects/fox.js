@@ -1,10 +1,11 @@
+import ProjectTitle from './ProjectTitle';
 import './Project.css';
 
 function Fox() {
   return (
     <div className="project-page">
       <div className="project-info">
-        <p className="project-title">Interactive Environment</p>
+        <ProjectTitle>Interactive Environment</ProjectTitle>
         <p className="project-meta">Collaborative 3D environment · Blender · Autodesk Maya · Unity · Procreate · 2026</p>
         <p className="project-description">
           A collaborative first-person interactive environment built in Unity, where viewers can freely walk through and explore the scene using keyboard input. Created as part of my coursework at the University of Maryland. 3D assets were modeled and textured in Autodesk Maya and Blender, with 2D assets hand-painted in Procreate. The fox was rigged and animated in Blender, and player movement/game logic was scripted in C# within Unity.

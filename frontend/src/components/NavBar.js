@@ -5,7 +5,7 @@ function NavBar() {
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-name">
-        amanda wang <span className="navbar-face" aria-hidden="true">𓁹‿𓁹</span>
+        amanda wang <span className="navbar-face" aria-hidden="true">𓁹‿𓁹 ⊹</span>
       </Link>
       <div className="navbar-right">
         <ul className="navbar-links">

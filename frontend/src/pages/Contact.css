@@ -116,27 +116,6 @@
   color: var(--text-muted);
 }
 
-.contact-social {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 40px;
-  font-size: 13px;
-  color: var(--text);
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 2px;
-  transition: border-color 0.2s, color 0.2s;
-}
-
-.contact-social:hover {
-  color: var(--text-muted);
-  border-color: #aaaaaa;
-}
-
-.contact-star {
-  font-size: 9px;
-}
-
 @media (max-width: 600px) {
   .contact-section {
     grid-template-columns: 1fr;

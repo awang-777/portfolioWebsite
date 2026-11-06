@@ -1,10 +1,11 @@
+import ProjectTitle from './ProjectTitle';
 import './Project.css';
 
 function Hoang() {
   return (
     <div className="project-page">
       <div className="project-info">
-        <p className="project-title">SABAI x HOANG — Second Chance Tour</p>
+        <ProjectTitle>SABAI x HOANG — Second Chance Tour</ProjectTitle>
         <p className="project-meta">Tour Visuals · 2026 · TouchDesigner · Adobe After Effects</p>
         <p className="project-description">
           A series of rendered loops created for producer{' '}
@@ -24,16 +25,43 @@ function Hoang() {
 
       <div className="gallery">
         <video
-          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/hoang.mp4"
-          autoPlay
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/hoangRealFootage.mp4#t=0.1"
+          controls
+          preload="metadata"
+          playsInline
+          className="project-video project-video--wide"
+        />
+        <video
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/hoang.mp4?v=2#t=0.1"
+          controls
+          preload="metadata"
           loop
           muted
           playsInline
           className="project-video project-video--wide"
         />
         <video
-          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/HoangIntense.mp4"
-          autoPlay
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/HoangIntensePink.mp4#t=0.1"
+          controls
+          preload="metadata"
+          loop
+          muted
+          playsInline
+          className="project-video project-video--wide"
+        />
+        <video
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/HoangIntenseBlue.mp4#t=0.1"
+          controls
+          preload="metadata"
+          loop
+          muted
+          playsInline
+          className="project-video project-video--wide"
+        />
+        <video
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/HoangIntensePurple.mp4#t=0.1"
+          controls
+          preload="metadata"
           loop
           muted
           playsInline

@@ -6,7 +6,7 @@ import './Home.css';
 
 const PROJECTS = [
   { src: '/photos/hoang.png', title: 'sabai x hoang', path: '/projects/hoang', tag: 'tour visuals', year: 2026 },
-  { src: '/photos/visionaries.jpg', title: 'visionaries', path: '/projects/visionaries', tag: 'distance sensor interactive experience', year: 2026 },
+  { src: '/photos/visionaries.jpg', title: 'proximity', path: '/projects/visionaries', tag: 'distance sensor interactive experience', year: 2026 },
   { src: '/photos/eeg3.jpg', title: 'the mind has no straight lines', path: '/projects/eeg', tag: 'bio-data interactive experience', year: 2026 },
   { src: '/photos/surreal.jpg', title: 'surreal landscape', path: '/projects/surreal-landscape', tag: '3d environment', year: 2026 },
   { src: 'https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/mocapCover.mp4', title: 'insomnia', path: '/projects/mocap', tag: 'motion capture', year: 2026 },

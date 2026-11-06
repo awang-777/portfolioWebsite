@@ -1,10 +1,11 @@
+import ProjectTitle from './ProjectTitle';
 import './Project.css';
 
 function F2fSang() {
   return (
     <div className="project-page">
       <div className="project-info">
-        <p className="project-title">SANG — F2F Show </p>
+        <ProjectTitle>SANG — F2F Show</ProjectTitle>
         <p className="project-meta">Show Visuals · 2026 · TouchDesigner · Adobe After Effects · Blender</p>
         <p className="project-description">
           Rendered visuals for{' '}

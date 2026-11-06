@@ -121,17 +121,20 @@ function PageLoader() {
 
         media.forEach((el) => {
           const isVideo = el.tagName === 'VIDEO';
-          // For video, wait for canplaythrough (enough buffered to play
+          // For autoplaying video, wait for canplaythrough (enough buffered to play
           // without stalling) rather than loadeddata (just the first frame),
           // otherwise the overlay lifts before playback can actually run smoothly.
-          const isReady = isVideo ? el.readyState >= 4 : el.complete;
+          // Click-to-play video only needs its size and first frame; some browsers
+          // (iOS Safari) never buffer it further until it's played
+          const waitsToPlay = isVideo && !el.autoplay;
+          const isReady = !isVideo ? el.complete : el.readyState >= (waitsToPlay ? 1 : 4);
 
           if (isReady) {
             markLoaded();
             return;
           }
 
-          const eventName = isVideo ? 'canplaythrough' : 'load';
+          const eventName = !isVideo ? 'load' : waitsToPlay ? 'loadedmetadata' : 'canplaythrough';
           el.addEventListener(eventName, markLoaded, { once: true });
           el.addEventListener('error', markLoaded, { once: true });
 

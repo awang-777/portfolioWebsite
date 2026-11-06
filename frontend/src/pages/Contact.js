@@ -77,10 +77,6 @@ function Contact() {
             )}
           </div>
         </form>
-
-        <a href="https://www.instagram.com/m3ii.22" target="_blank" rel="noopener noreferrer" className="contact-social">
-          <span className="contact-star">✦</span> instagram
-        </a>
       </div>
     </section>
   );

@@ -15,6 +15,13 @@ function About() {
           <a href="/Resume.pdf?v=2" target="_blank" rel="noopener noreferrer" className="about-link">
             <span className="about-star">✦</span> resume
           </a>
+
+          <div className="about-social">
+            <a href="https://www.instagram.com/m3ii.22" target="_blank" rel="noopener noreferrer" className="about-link">
+              <span className="about-star">✦</span> instagram
+            </a>
+            <p className="about-caption">Sketches and visual experiments are shared on her Instagram.</p>
+          </div>
         </div>
       </div>
     </section>
