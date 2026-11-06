@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation, Outlet } from 'react-router-dom';
+import { useLocation, useNavigate, Outlet } from 'react-router-dom';
 import { getPendingState, subscribePending } from './loadingRegistry';
 import './PageLoader.css';
 
@@ -7,15 +7,27 @@ const MAX_WAIT_MS = 20000;
 const PRE_DELAY_MS = 500;
 const POST_DELAY_MS = 500;
 
+// Scrolling is handled below once each page is revealed; stop the browser from
+// jumping back to the old position on refresh before that
+if ('scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual';
+}
+
 function PageLoader() {
   const location = useLocation();
+  const navigate = useNavigate();
   const containerRef = useRef(null);
+  const isReload = useRef(
+    performance.getEntriesByType('navigation')[0]?.type === 'reload'
+  );
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     setLoading(true);
     setProgress(0);
+    // A new page starts at the top; 'instant' skips the smooth scrolling set in index.css
+    window.scrollTo({ top: 0, behavior: 'instant' });
 
     let cancelled = false;
     const cleanupFns = [];
@@ -143,6 +155,28 @@ function PageLoader() {
     };
   }, [location.pathname]);
 
+  // Nav links point at home page sections (/#about). Scroll once the page is
+  // revealed, so covers above the section have loaded and the position is final.
+  // location.key re-runs this when the same link is clicked twice.
+  useEffect(() => {
+    if (loading) return;
+    // A refresh starts at the top even if the address still ends in a section
+    // left over from clicking a nav link; drop that ending so it doesn't linger
+    if (isReload.current) {
+      isReload.current = false;
+      if (location.hash) {
+        navigate(location.pathname, { replace: true });
+        return;
+      }
+    }
+    const target = location.hash && document.getElementById(location.hash.slice(1));
+    if (target) {
+      target.scrollIntoView();
+    } else {
+      window.scrollTo({ top: 0 });
+    }
+  }, [loading, location.hash, location.key, location.pathname, navigate]);
+
   return (
     <>
       {loading && (
@@ -160,7 +194,8 @@ function PageLoader() {
           opacity: loading ? 0 : 1,
         }}
       >
-        <Outlet />
+        {/* Pages read `revealed` (useOutletContext) to hold animations until the loader lifts */}
+        <Outlet context={{ revealed: !loading }} />
       </div>
     </>
   );

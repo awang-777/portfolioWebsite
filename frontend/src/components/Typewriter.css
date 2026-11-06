@@ -1,0 +1,17 @@
+/* Not yet typed: takes up its space but can't be seen */
+.typewriter-rest {
+  color: transparent;
+}
+
+/* Thin bar with no width of its own. It stays a plain inline element: an
+   inline-block would let a line break at the cursor, briefly splitting the word
+   being typed across two lines and reflowing the balanced text */
+.typewriter-cursor {
+  margin-right: -1px;
+  border-left: 1px solid currentColor;
+  animation: typewriter-blink 1s steps(1) infinite;
+}
+
+@keyframes typewriter-blink {
+  50% { opacity: 0; }
+}

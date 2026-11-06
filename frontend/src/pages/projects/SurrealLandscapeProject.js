@@ -35,34 +35,6 @@ function SurrealLandscapeProject() {
         </div>
       </div>
 
-      <div className="project-feature">
-        <video
-          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/surrealVase.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="project-video project-video--wide"
-        />
-        <p className="project-description project-feature-text">
-          Abstract Vase — procedural sculptures built entirely in Blender geometry nodes, exploring organic composition through overgrown, detailed forms.
-        </p>
-      </div>
-
-      <div className="project-feature">
-        <video
-          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/surrealButterflyAnimation.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="project-video project-video--wide"
-        />
-        <p className="project-description project-feature-text project-feature-text--left">
-          A hand-sculpted base form, multiplied and shaped into mottled, leaf-like wings with Blender geometry nodes.
-        </p>
-      </div>
-
     </div>
   );
 }

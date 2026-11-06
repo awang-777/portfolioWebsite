@@ -1,15 +1,14 @@
-@font-face {
-  font-family: 'Moralana';
-  src: url('./fonts/MoralanaDEMO.otf') format('opentype');
-}
-
 /* Site-wide colour palette — change these to retheme every page */
 :root {
-  --bg: #000000;            /* page background */
-  --surface: #1a1a1a;       /* placeholders behind loading media, loader track */
-  --line: #444444;          /* dividers */
-  --text: #ffffff;          /* titles and body text */
-  --text-muted: #a0a0a0;    /* secondary text: subtitles, project details, nav links */
+  --bg: #fafaf8;            /* page background */
+  --surface: #e8e8e4;       /* placeholders behind loading media, loader track */
+  --line: #e0e0db;          /* underlines and dividers */
+  --text: #111110;          /* titles */
+  --text-body: #666666;     /* paragraphs */
+  --text-muted: #999999;    /* secondary text: subtitles, project details, nav links */
+  --gutter: 28px;           /* left/right page padding */
+  --section-gap: 96px;      /* space between sections on the home page */
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 * {
@@ -18,15 +17,33 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html, body {
   width: 100%;
-  height: 100%;
   background-color: var(--bg);
   color: var(--text);
   overscroll-behavior: none;
 }
 
-#root {
-  width: 100%;
-  height: 100%;
+body {
+  font-family: var(--font);
+  font-size: 12px;
+  line-height: 1.5;
+  text-transform: lowercase;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  :root {
+    --gutter: 16px;
+    --section-gap: 64px;
+  }
 }

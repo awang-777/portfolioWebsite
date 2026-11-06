@@ -4,79 +4,47 @@
   left: 0;
   right: 0;
   z-index: 100;
-  background-color: transparent;
   display: flex;
-  align-items: baseline;
   justify-content: space-between;
-  padding: clamp(14px, 2vw, 20px) clamp(16px, 3vw, 32px);
+  align-items: center;
+  padding: 18px var(--gutter);
+  background-color: var(--bg); /* covers scroll underneath */
 }
 
-.navbar-brand {
-  display: flex;
-  align-items: baseline;
-  gap: clamp(8px, 1.5vw, 16px);
-  cursor: pointer;
+.navbar-name {
+  font-size: 12px;
+  color: var(--text);
 }
 
-/* Iridescent metallic name: a chrome gradient clipped to the letters. Light and
-   dark bands mimic reflections, with soft pink, lilac, blue and mint tints for the
-   oil-slick shimmer; the wide background lets the colours slide across on hover */
-.navbar-title {
-  font-family: 'Moralana', serif;
-  font-size: clamp(15px, 2.5vw, 20px);
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  text-decoration: none;
-  color: var(--text); /* fallback where background-clip: text is unsupported */
-  background-image: linear-gradient(
-    105deg,
-    #8a8a8a 0%,
-    #f4f4f4 18%,
-    #9c9c9c 32%,
-    #ffffff 46%,
-    #7a7a7a 60%,
-    #dcdcdc 78%,
-    #8a8a8a 100%
-  );
-  background-size: 200% 100%;
-  background-position: 0% 50%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: background-position 1.2s ease;
-}
-
-.navbar-brand:hover .navbar-title {
-  background-position: 100% 50%;
-}
-
-.navbar-subtitle {
-  font-size: clamp(9px, 1.2vw, 11px);
-  letter-spacing: 0.15em;
-  font-family: 'Georgia', serif;
+.navbar-face {
+  margin-left: 4px;
   color: var(--text-muted);
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
 }
 
 .navbar-links {
   display: flex;
-  gap: clamp(16px, 2.5vw, 32px);
-  font-family: 'Georgia', serif;
-  font-size: clamp(11px, 1.2vw, 13px);
-  letter-spacing: 0.1em;
+  gap: 24px;
+  list-style: none;
+}
+
+.navbar-links a {
+  font-size: 11px;
   color: var(--text-muted);
+  transition: color 0.2s;
 }
 
-.navbar-link {
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.navbar-link:hover {
+.navbar-links a:hover {
   color: var(--text);
 }
 
 @media (max-width: 600px) {
-  .navbar-subtitle {
-    display: none;
+  .navbar-links {
+    gap: 16px;
   }
 }

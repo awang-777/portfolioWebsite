@@ -31,34 +31,6 @@ function MocapFinal() {
           playsInline
           className="project-video"
         />
-        <figure className="project-figure">
-          <video
-            src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/mocapTimelapse.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="project-video project-video--wide"
-          />
-          <figcaption className="project-description project-caption">
-            Behind the scenes: calibrating the cameras for markerless Captury by moving a patterned board through the space. Ensures system can map each camera's position before recording.
-            <br />
-            A special thank you to <strong>Maia Lee</strong> for being my motion capture performer.
-          </figcaption>
-        </figure>
-        <figure className="project-figure">
-          <video
-            src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/mocapWalk.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="project-video project-video--wide"
-          />
-          <figcaption className="project-description project-caption">
-            Example of captured data (.fbx) before rigging to character
-          </figcaption>
-        </figure>
       </div>
 
     </div>

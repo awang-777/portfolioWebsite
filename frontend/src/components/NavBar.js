@@ -1,17 +1,18 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './NavBar.css';
 
 function NavBar() {
-  const navigate = useNavigate();
   return (
     <nav className="navbar">
-      <div className="navbar-brand" onClick={() => navigate('/')}>
-        <span className="navbar-title">Amanda Wang</span>
-        <span className="navbar-subtitle">New Media Artist | Creative Technologist</span>
-      </div>
-      <div className="navbar-links">
-        <span className="navbar-link" onClick={() => navigate('/about')}>About</span>
-        <span className="navbar-link" onClick={() => navigate('/contact')}>Contact</span>
+      <Link to="/" className="navbar-name">
+        amanda wang <span className="navbar-face" aria-hidden="true">𓁹‿𓁹</span>
+      </Link>
+      <div className="navbar-right">
+        <ul className="navbar-links">
+          <li><Link to="/#work">work</Link></li>
+          <li><Link to="/#about">about</Link></li>
+          <li><Link to="/#contact">contact</Link></li>
+        </ul>
       </div>
     </nav>
   );

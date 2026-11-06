@@ -36,48 +36,25 @@ function EEGProject() {
             A special thank you to <strong>Seth Johnson</strong> for capturing and editing this look into my work
           </figcaption>
         </figure>
-        <figure className="project-figure">
-          <div className="project-photo project-photo--zoom">
-            <img src="/photos/eeg.jpg" alt="The Mind Has No Straight Lines" className="project-photo" />
-          </div>
-          <figcaption className="project-description project-caption">
-            Alpha, beta, and theta wave values are normalized for easier mapping in TouchDesigner (pictured on the right corner)
-          </figcaption>
-        </figure>
-        <figure className="project-figure">
-          <video
-            src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/EEG.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="project-video"
-          />
-          <figcaption className="project-description project-caption">
-            <p>The Lorenz attractor is a set of equations originally developed to model atmospheric convection. I chose it for its distinctive butterfly-like structure: two looping wings that form as points spiral around each other. The equation is as follows: </p>
-            <p>dx/dt = σ(y − x)<br />
-            dy/dt = x(ρ − z) − y<br />
-            dz/dt = xy − βz</p>
-            <p>I built the system in TouchDesigner using the POP family, with a feedback loop that feeds each point's position back through the equations every frame so the particles trace the attractor over time. Live EEG data updates every 3 seconds. The normalized alpha, beta, and theta waves (pictured above) are the values plugged into the equation.</p>
-          </figcaption>
-        </figure>
-        <figure className="project-figure">
-          <video
-            src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/EEG3.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="project-video"
-          />
-          <figcaption className="project-description project-caption">
-            <p>The Thomas attractor is a cyclically symmetric system of equations by biologist René Thomas. I chose it for its spiraling structure, which reminds me of galaxies colliding.</p>
-            <p>dx/dt = sin(y) − bx<br />
-            dy/dt = sin(z) − by<br />
-            dz/dt = sin(x) − bz</p>
-            <p>This system in TouchDesigner follows the same logic above.</p>
-          </figcaption>
-        </figure>
+        <div className="project-photo project-photo--zoom">
+          <img src="/photos/eeg.jpg" alt="The Mind Has No Straight Lines" className="project-photo" />
+        </div>
+        <video
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/EEG.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="project-video"
+        />
+        <video
+          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/EEG3.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="project-video"
+        />
       </div>
 
     </div>

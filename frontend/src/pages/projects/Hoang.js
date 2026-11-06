@@ -29,7 +29,7 @@ function Hoang() {
           loop
           muted
           playsInline
-          className="project-video"
+          className="project-video project-video--wide"
         />
         <video
           src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/HoangIntense.mp4"
@@ -37,15 +37,7 @@ function Hoang() {
           loop
           muted
           playsInline
-          className="project-video"
-        />
-        <video
-          src="https://pub-5068b0365d4041728402559c74ff3c00.r2.dev/hoangRave.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="project-video project-video--portrait"
+          className="project-video project-video--wide"
         />
       </div>
 

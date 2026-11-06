@@ -1,168 +1,96 @@
+/* Clears the fixed nav bar */
 .home-page {
-  width: 100%;
-  height: 100dvh;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  background-color: var(--bg);
+  padding-top: 49px;
 }
 
-.home-mount {
-  width: 35%;
-  height: 100%;
-  flex-shrink: 0;
-  overflow: hidden;
+/* One sentence across the top saying what the work is */
+.home-intro {
+  padding: 48px var(--gutter) var(--section-gap);
 }
 
-.home-mount canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
+.home-intro-text {
+  max-width: 32em;
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  text-wrap: balance; /* even line lengths, no lone word on the last line */
 }
 
+/* Small label above a section, shared with the about section */
+.home-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.home-work {
+  padding: 0 var(--gutter);
+}
+
+/* Even grid: every cover the same shape, caption always underneath */
 .home-projects {
-  width: 65%;
-  height: 100dvh;
-  overflow-y: auto;
   display: grid;
-  /* Cards size themselves from this element's width (cqw units below) */
-  container-type: inline-size;
-  --cols: 3;
-  --gap: clamp(3px, 0.5vw, 6px);                /* between columns */
-  --row-gap: clamp(5px, 0.7vw, 10px);         /* between rows */
-  grid-template-columns: repeat(var(--cols), 1fr);
-  align-content: start;
-  grid-auto-flow: dense; /* backfill the left column beside the featured card */
-  padding: clamp(12px, 1.8vw, 24px);
-  padding-top: clamp(60px, 8vw, 100px);
-  column-gap: var(--gap);
-  row-gap: var(--row-gap);
-  box-sizing: border-box;
-  background-color: var(--bg);
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px 12px;
 }
 
-/* Small, subtle scrollbar: a 4px dark grey thumb with no track.
-   Chrome and Safari use the ::-webkit-scrollbar rules; they ignore them if
-   scrollbar-width/scrollbar-color are set, so those are Firefox-only below */
-.home-projects::-webkit-scrollbar {
-  width: 4px;
-}
-
-.home-projects::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.home-projects::-webkit-scrollbar-thumb {
-  background-color: var(--line);
-  border-radius: 2px;
-}
-
-@supports (-moz-appearance: none) {
-  .home-projects {
-    scrollbar-width: thin;
-    scrollbar-color: var(--line) transparent;
-  }
-}
-
-/* Every card gets an explicit height: one row = a 3:2 card at column width.
-   Cards spanning two rows are exactly two rows plus the row gap between them, so
-   rows that only contain spanning cards still get the right height and
-   nothing overlaps */
 .home-project-card {
-  --row: calc((100cqw - (var(--cols) - 1) * var(--gap)) / var(--cols) * 2 / 3);
-  position: relative;
-  width: 100%;
-  height: var(--row);
+  display: block;
+}
+
+.home-project-media {
+  aspect-ratio: 3 / 2;
   overflow: hidden;
-  cursor: pointer;
   background-color: var(--surface);
-  border-radius: 4px;
 }
 
-/* 2 x 2 block on the right */
-.home-project-card--featured {
-  grid-column: 2 / span 2;
-  grid-row: span 2;
-  height: calc(2 * var(--row) + var(--row-gap));
-}
-
-/* One column wide, two rows tall */
-.home-project-card--tall {
-  grid-row: span 2;
-  height: calc(2 * var(--row) + var(--row-gap));
-}
-
-.home-project-card img,
-.home-project-card video {
+.home-project-media img,
+.home-project-media video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: opacity 0.35s ease, filter 0.35s ease;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Hovering one card dims all the others and turns them black and white. Limited to devices
-   with a real pointer so a tap on a phone doesn't leave cards stuck dimmed */
-@media (hover: hover) {
-  .home-projects:has(.home-project-card:hover) .home-project-card:not(:hover) img,
-  .home-projects:has(.home-project-card:hover) .home-project-card:not(:hover) video {
-    opacity: 0.3;
-    filter: grayscale(1);
+.home-project-card:hover .home-project-media img,
+.home-project-card:hover .home-project-media video {
+  transform: scale(1.03);
+}
+
+.home-project-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.home-project-title {
+  font-size: 12px;
+  color: var(--text);
+}
+
+.home-project-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .home-projects {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
-
-.home-project-tag {
-  position: absolute;
-  left: 8px;
-  bottom: 8px;
-  padding: 3px 8px;
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  color: #ffffff;
-  background-color: rgba(0, 0, 0, 0.55);
-  border-radius: 3px;
-  pointer-events: none;
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.home-project-card:hover .home-project-tag {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 
 @media (max-width: 600px) {
-  .home-page {
-    flex-direction: column;
-    height: auto;
-    min-height: 100dvh;
+  .home-intro {
+    padding-top: 32px;
   }
 
-  .home-mount {
-    width: 100%;
-    height: 50dvh;
-    flex-shrink: 0;
-  }
-
-  /* The whole page scrolls on phones, so the grid shouldn't be its own scroll
-     area; a nested one can catch the swipe and stop short of the bottom */
   .home-projects {
-    width: 100%;
-    height: auto;
-    overflow-y: visible;
-    --cols: 2;
-    --gap: 4px;
-    --row-gap: 6px;
-    padding: 12px;
-    /* index.html uses viewport-fit=cover, so the page runs under the iPhone home
-       indicator; pad the bottom by that area so the last row isn't hidden */
-    padding-bottom: calc(12px + env(safe-area-inset-bottom));
-  }
-
-  /* Only two columns here, so the featured card runs full width instead */
-  .home-project-card--featured {
-    grid-column: 1 / -1;
+    grid-template-columns: 1fr;
+    row-gap: 24px;
   }
 }

@@ -1,152 +1,88 @@
-import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
-import { registerPending } from '../components/loadingRegistry';
+import { useState } from 'react';
 import './Contact.css';
 
+// Messages are delivered by Formspree (formspree.io). Create a free form there and paste
+// its ID here (the part after /f/ in the form's endpoint, e.g. "xyzabcde")
+const FORMSPREE_ID = 'xwllzjkn';
+
+const EMAIL = 'amndaawang@gmail.com';
+
+// Rendered as a section of the home page
 function Contact() {
-  const mountRef = useRef(null);
+  // idle | sending | sent | error
+  const [status, setStatus] = useState('idle');
 
-  useEffect(() => {
-    const mount = mountRef.current;
-
-    const scene = new THREE.Scene();
-    // Match the page background colour set in index.css
-    scene.background = new THREE.Color(
-      getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()
-    );
-
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 9;
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 0.7;
-    mount.appendChild(renderer.domElement);
-
-    scene.add(new THREE.AmbientLight(0xffffff, 0.05));
-    const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.4);
-    dirLight1.position.set(15, 2, 3);
-    scene.add(dirLight1);
-    const dirLight2 = new THREE.DirectionalLight(0xaaddff, 1.0);
-    dirLight2.position.set(-12, -2, -8);
-    scene.add(dirLight2);
-    const dirLight3 = new THREE.DirectionalLight(0xffaadd, 1.0);
-    dirLight3.position.set(2, -10, 3);
-    scene.add(dirLight3);
-
-    const pmremGenerator = new THREE.PMREMGenerator(renderer);
-    scene.environment = pmremGenerator.fromScene(new RoomEnvironment()).texture;
-    pmremGenerator.dispose();
-
-    const iridescentMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0xe0e0e8,
-      metalness: 0.9,
-      roughness: 0.05,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.02,
-      iridescence: 0.3,
-      iridescenceIOR: 1.5,
-      iridescenceThicknessRange: [0, 800],
-      sheen: 0.5,
-      sheenColor: new THREE.Color(0xdde8ff),
-      sheenRoughness: 0.4,
-    });
-
-    let model;
-    const loader = new GLTFLoader();
-
-    const glbPending = registerPending();
-    const resolveGlb = glbPending.resolve;
-
-    loader.load(
-      '/website2.glb',
-      (gltf) => {
-        model = gltf.scene;
-        const box = new THREE.Box3().setFromObject(model);
-        const center = box.getCenter(new THREE.Vector3());
-        model.position.sub(center);
-        model.position.x -= 3.5;
-        model.traverse((child) => {
-          if (child.isMesh) child.material = iridescentMaterial;
-        });
-        scene.add(model);
-        renderer.compile(scene, camera);
-        renderer.render(scene, camera);
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            resolveGlb();
-          });
-        });
-      },
-      (event) => {
-        if (event.lengthComputable && event.total > 0) {
-          glbPending.setProgress(event.loaded / event.total);
-        }
-      },
-      (error) => {
-        console.error('Error loading model:', error);
-        resolveGlb();
-      }
-    );
-
-    function animate() {
-      if (model) model.rotation.y += 0.0005;
-      renderer.render(scene, camera);
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    if (!FORMSPREE_ID) {
+      setStatus('error');
+      return;
     }
-    renderer.setAnimationLoop(animate);
-
-    function handleResize() {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+    setStatus('sending');
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      if (!res.ok) throw new Error(`Formspree responded ${res.status}`);
+      form.reset();
+      setStatus('sent');
+    } catch (err) {
+      console.error('Contact form failed:', err);
+      setStatus('error');
     }
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      resolveGlb();
-      window.removeEventListener('resize', handleResize);
-      renderer.setAnimationLoop(null);
-      mount.removeChild(renderer.domElement);
-      renderer.dispose();
-    };
-  }, []);
+  }
 
   return (
-    <div className="contact-page">
-      <div ref={mountRef} className="contact-mount" />
-      <div className="contact-overlay">
-        <div className="contact-card">
-          <a
-            href="https://www.instagram.com/m3ii.22"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contact-link"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-              <circle cx="12" cy="12" r="4" />
-              <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
-            </svg>
-          </a>
+    <section id="contact" className="contact-section">
+      <p className="home-label">contact</p>
 
-          <div className="contact-divider" />
+      <div className="contact-body">
+        <p className="contact-intro">
+          For commissions, collaborations, or anything else, send a message below or email{' '}
+          <a href={`mailto:${EMAIL}`} className="contact-inline-link">{EMAIL}</a>.
+        </p>
 
-          <div className="contact-text">
-            <p>Hello :)</p>
-            <p className="contact-p">
-              For all inquiries regarding commissions, collaborative projects, partnerships, or anything else — please reach out using the email below.
-            </p>
-            <p className="contact-email">amndaawang@gmail.com</p>
-            <p className="contact-p">I look forward to hearing from you!</p>
-            <p className="contact-signature">Best,<br />Amanda</p>
+        <form className="contact-form" onSubmit={handleSubmit}>
+          {/* Hidden from people; bots that fill it in are dropped by Formspree */}
+          <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="contact-honeypot" />
+
+          <div className="contact-row">
+            <label className="contact-field">
+              <span>name</span>
+              <input type="text" name="name" required />
+            </label>
+            <label className="contact-field">
+              <span>email</span>
+              <input type="email" name="email" required />
+            </label>
           </div>
-        </div>
+
+          <label className="contact-field">
+            <span>message</span>
+            <textarea name="message" rows="4" required />
+          </label>
+
+          <div className="contact-footer">
+            <button type="submit" className="contact-submit" disabled={status === 'sending'}>
+              {status === 'sending' ? 'sending…' : 'send message →'}
+            </button>
+            {status === 'sent' && <p className="contact-status">thank you, i'll be in touch soon.</p>}
+            {status === 'error' && (
+              <p className="contact-status">
+                something went wrong. please email <a href={`mailto:${EMAIL}`}>{EMAIL}</a> instead.
+              </p>
+            )}
+          </div>
+        </form>
+
+        <a href="https://www.instagram.com/m3ii.22" target="_blank" rel="noopener noreferrer" className="contact-social">
+          <span className="contact-star">✦</span> instagram
+        </a>
       </div>
-    </div>
+    </section>
   );
 }
 
